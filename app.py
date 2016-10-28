@@ -1,14 +1,16 @@
 from flask import Flask, render_template, request
 from passlib.hash import sha256_crypt
+from random import randint
 
 import pymssql
-import Bill 
 app = Flask(__name__)
 
 conn = pymssql.connect(server='eats.database.windows.net', \
   user='th2520@eats',\
   password='123*&$eats',\
   database='AERIS')\
+
+user_email = "aw2802@barnard.edu"
 
 @app.route("/")
 def main():
@@ -37,6 +39,7 @@ def main():
 def login():
   email = request.form['email']
   password = request.form['password']
+
   cursor = conn.cursor()
   cursor.execute("SELECT password FROM Users WHERE Email=%s", email)
 
@@ -73,6 +76,36 @@ def signup():
     print "You already have an account! Login!"
   
   return render_template('index.html')
+
+# BILL PAGE
+@app.route('/bill', methods=['GET', 'POST'])
+def bill():
+  randomNum = (randint(0,1000))
+  cursor = conn.cursor()
+  cursor.execute("""
+    IF OBJECT_ID('Bill_Users', 'U') IS NOT NULL
+      DROP TABLE Bill_Users
+    CREATE TABLE Bill_Users (
+      billID INT NOT NULL,
+      Email varchar(255) NOT NULL,
+      PRIMARY KEY (billID, Email)
+    )
+    """)
+  cursor.close()
+
+  cursor1 = conn.cursor()
+  cursor1.execute("INSERT INTO Bill_Users VALUES (%d, %s)", (randomNum, user_email))
+  cursor1.close()
+
+  # Printing values in the table for testing purposes
+  cursor2 = conn.cursor()
+  cursor2.execute("SELECT * FROM Bill_Users")
+  data = cursor2.fetchall()
+  print data
+  
+  conn.commit()
+  
+  return render_template('bill.html')
 
 if __name__ == "__main__":
   app.run(debug = True)
