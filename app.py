@@ -81,18 +81,37 @@ def signup():
 @app.route('/bill', methods=['GET', 'POST'])
 def bill():
   randomNum = (randint(0,1000))
+
+  #checks if table is already created, if it is, table is dropped and new table created
+  # cursor = conn.cursor()
+  # cursor.execute("""
+  #   IF OBJECT_ID('Bill_Users', 'U') IS NOT NULL
+  #     DROP TABLE Bill_Users
+  #   CREATE TABLE Bill_Users (
+  #     billID INT NOT NULL,
+  #     Email varchar(255) NOT NULL,
+  #     PRIMARY KEY (billID, Email)
+  #   )
+  #   """)
+  # cursor.close()
+
+ # This creates the Item table
   cursor = conn.cursor()
   cursor.execute("""
-    IF OBJECT_ID('Bill_Users', 'U') IS NOT NULL
-      DROP TABLE Bill_Users
-    CREATE TABLE Bill_Users (
+    IF OBJECT_ID('Item', 'U') IS NOT NULL
+      DROP TABLE Item
+    CREATE TABLE Item(
+      Item_name varchar(255) NOT NULL,
+      Email varchar(255) NOT NULL, 
+      Quantity INT NOT NULL,
+      Price DECIMAL(10,2) NOT NULL,     
       billID INT NOT NULL,
-      Email varchar(255) NOT NULL,
-      PRIMARY KEY (billID, Email)
+      PRIMARY KEY (Item_name, Email)
     )
     """)
   cursor.close()
 
+  randomNum = (randint(0,1000))
   cursor1 = conn.cursor()
   cursor1.execute("INSERT INTO Bill_Users VALUES (%d, %s)", (randomNum, user_email))
   cursor1.close()
