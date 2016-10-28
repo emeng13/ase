@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from passlib.hash import sha256_crypt
 
 import pymssql
+import Bill 
 app = Flask(__name__)
 
 conn = pymssql.connect(server='eats.database.windows.net', \

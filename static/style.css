@@ -1,3 +1,26 @@
-h1{
-	color:blue;
+#logo{
+	height:100px;
 }
+
+input[type="submit"]{
+	background-color:#F55D5D;
+	border-radius: 15px;
+    min-width: 100px;
+    color: white;
+    border-style: none;
+}
+
+#home_pic{
+	left:0;
+}
+
+form.col-md-9{
+	margin-top:30px;
+}
+
+div.col-md-6{
+	background-color:#8BC4F2;
+	height:100%;
+}
+
+

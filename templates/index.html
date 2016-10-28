@@ -11,22 +11,37 @@
 
 </head>
 <body>
-  <div class="container">
-  <h1> AERIS </h1>
-  <form method="POST" action="/login">
-    Email: <input type="email" placeholder="Email" name="email" required>
-    Password: <input type="text" placeholder="Password" name="password" required>
-    <input type="submit" value="login">
-  </form>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="top-page col-lg-12">
 
-  <form method="POST" action="/signUp">
-    <h2> Create an account </h2>
-    <input type="text" placeholder="First Name" name="firstName" required>
-    <input type="text" placeholder="Last Name" name="lastName" required><br>
-    <input type="email" placeholder="Email" name="email" required><br>
-    <input type="text" placeholder="Password" name="password" required>
-    <input type="submit" value="Sign Up">
-  </form>
+        <!-- our logo -->
+        <img id="logo" class="col-md-3" src="static/img/logo.png"> 
+
+        <!-- login form -->
+        <form class="col-md-9" method="POST" action="/login">
+          Email: <input type="email" placeholder="Email" name="email" required>
+          Password: <input type="text" placeholder="Password" name="password" required>
+          <input type="submit" value="login">
+        </form>
+      </div>
+    </div>
+
+    <div class="row col-lg-12">
+
+      <img id="home_pic" class="col-md-6" src="static/img/phone.jpg">
+
+      <div class="col-md-6">
+        <form method="POST" action="/signUp">
+          <h2> Create an account </h2>
+          <input type="text" placeholder="First Name" name="firstName" required>
+          <input type="text" placeholder="Last Name" name="lastName" required><br>
+          <input type="email" placeholder="Email" name="email" required><br>
+          <input type="text" placeholder="Password" name="password" required>
+          <input type="submit" value="Sign Up">
+        </form>
+      </div>
+    </div>
 </div>
 
 </body>
