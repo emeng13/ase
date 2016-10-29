@@ -129,22 +129,17 @@ def bill():
 # DISPLAY BILL
 @app.route('/display_bill', methods=['GET', 'POST'])
 def display_bill():
-	cursor2.execute("SELECT * FROM Bill_Users")
-  	data = cursor2.fetchall()
-  	# display data in html
+  cursor2.execute("SELECT * FROM Bill_Users")
+  data = cursor2.fetchall()
+  # display data in html
 
-  	# add item
-  	cursor.execute("INSERT INTO Bill_Users VALUES (%s, %s, %d, %f)", (user_email, item_name, quantity, price))
-    conn.commit()
+  # add item
+  cursor.execute("INSERT INTO Bill_Users VALUES (%s, %s, %d, %f)", (user_email, item_name, quantity, price))
+  conn.commit()
 
-  	# remove item
-  	cursor.execute("DELETE FROM Bill_Users VALUES (%s, %s, %d, %f)", (user_email, item_name, quantity, price))
-    conn.commit()
-  	
-  	# edit item
-
-  	# split cost
-
+  # remove item
+  cursor.execute("DELETE FROM Bill_Users VALUES (%s, %s, %d, %f)", (user_email, item_name, quantity, price))
+  conn.commit()
 
 if __name__ == "__main__":
 	app.run(debug = True)
