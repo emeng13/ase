@@ -12,6 +12,73 @@ conn = pymssql.connect(server='eats.database.windows.net', \
 
 user_email = "aw2802@barnard.edu"
 
+class User(db.Model):
+  id = db.Column('item_id', db.Integer, primary_key=True) #idk
+  name = db.Column(db.String(100))
+  email = db.Column(db.String(50))
+  password = 
+  costs = 
+
+  def __init__(self, email, password):
+  	self.name = name
+  	self.email = email
+  	self.password = password
+  	self.costs = []
+
+  def add_item(name, price, quantity):
+    # create item using parameters and user email
+    # insert item into db
+
+  def remove_item(name, price, quantity):
+  	# find item in db and remove
+
+  def edit_item(name, price, quantity):
+  	# find item in db, extract item, modify, and insert into db
+
+  def add_top(tip):
+  	# set tip attribute in bill
+
+  def create_bill():
+  	# create new bill table
+
+
+class Bill(db.Model):
+  id = db.Column('item_id', db.Integer, primary_key=True) #idk
+  bill_id = 
+  items = 
+  tip = 
+  total_cost
+
+
+  def __init__(bill_id):
+  	self.bill_id = bill_id
+  	items = []
+  	tip = 0.0
+  	total_cost = 0
+
+  def split_cost():
+
+  #def validate_tip():
+
+class Item(db.Model):
+  id = db.Column('item_id', db.Integer, primary_key=True) #idk
+  name
+  cost
+  user
+  quantity
+  bill_id
+
+  def __init__(name, cost, user, quantity, bill_id):
+  	self.name = name
+  	self.cost = cost
+  	self.user = user
+  	self.quantity = quantity
+  	self.bill_id = bill_id
+
+  def validate_cost():
+
+
+
 @app.route("/")
 def main():
   cursor = conn.cursor()
@@ -140,6 +207,13 @@ def display_bill():
   # remove item
   cursor.execute("DELETE FROM Bill_Users VALUES (%s, %s, %d, %f)", (user_email, item_name, quantity, price))
   conn.commit()
+
+# ADD FRIEND
+@app.route('/add_friends', methods=['GET', 'POST'])
+def display_bill():
+  cursor2.execute("SELECT * FROM Bill_Users")
+  data = cursor2.fetchall()
+  # display data in html
 
 if __name__ == "__main__":
 	app.run(debug = True)
