@@ -74,11 +74,9 @@ def login():
 
   if cursor.rowcount == 0: # email doesn't exist in Users table
     print "Sign up first!"
-  elif cursor.rowcount > 1: # multiple emails exist in Users table
-    raise Exception("ERROR: DUPLICATE EMAILS IN DATABASE")
   else:
     data = cursor.fetchall()
-    conn.close()
+    cursor.close()
 
     if sha256_crypt.verify(password, data[0][0]): # login OK
       
@@ -87,7 +85,7 @@ def login():
     else: # login failed
       print "Incorrect password!"
   
-  conn.close()
+  cursor.close()
   return render_template('index.html')
 
 
@@ -111,7 +109,7 @@ def signup():
   else: # email already exists in Users table
     print "Account exists!"
   
-  conn.close()
+  cursor.close()
   return render_template('index.html')
 
 
