@@ -124,7 +124,7 @@ def login():
     if sha256_crypt.verify(password, data[0][0]):
       conn.commit()
       print "You are logged in!"
-      return render_template('bill.html')
+      return redirect('bill')
     else:
       print "wrong password!"
   conn.commit()
@@ -166,113 +166,50 @@ def bill():
   #   """)
   # cursor.close()
 
- # This creates the Item table
-  cursor = conn.cursor()
-  cursor.execute("""
-    IF OBJECT_ID('Item', 'U') IS NOT NULL
-      DROP TABLE Item
-    CREATE TABLE Item(
-      Item_name varchar(255) NOT NULL,
-      Email varchar(255) NOT NULL, 
-      Quantity INT NOT NULL,
-      Price DECIMAL(10,2) NOT NULL,     
-      billID INT NOT NULL,
-      PRIMARY KEY (Item_name, Email)
-    )
-    """)
-  cursor.close()
-
   global user_email
 
-  # Creating a new Bill Session
-  if form.validate_on_submit():
-    if 'Create a Bill Session' in request.form:
-      condition = True
-      while(condition):
-        randomNum = (randint(0,1000))
-        cursor1 = conn.cursor()
-        result = cursor1.execute("SELECT billID FROM Bill_Users WHERE billID = %d", randomNum)
-        if(result > 0):
-          condition = False
+  # Displays the Bill ID that the user is associated to
+  cursor2 = conn.cursor()
+  cursor2.execute("SELECT billID, Email FROM Bill_Users WHERE Email = %s", user_email)
+  data = cursor2.fetchall()
 
-      cursor2 = conn.cursor()
-      cursor2.execute("INSERT INTO Bill_Users VALUES (%d, %s)", (randomNum, user_email))
-      cursor2.close()
-      print 'Hello Anna'
-    conn.commit()
+  Userbill = [dict(BillID=row[0], Email=row[1]) for row in data]
+  
+  conn.commit()
 
-    return render_template('bill.html', Userbill = Userbill )
-
-  else:
-    # Displays the Bill ID that the user is associated to
-    cursor2 = conn.cursor()
-    cursor2.execute("SELECT billID, Email FROM Bill_Users WHERE Email = %s", user_email)
-    data = cursor2.fetchall()
-
-    Userbill = [dict(BillID=row[0], Email=row[1]) for row in data]
-    
-    conn.commit()
-
-    return render_template('bill.html', Userbill = Userbill )
+  return render_template('bill.html', Userbill = Userbill )
 
 # CREATE BILL
 @app.route('/create_bill', methods=['GET', 'POST'])
 def create_bill():
+  condition = False
+  while(condition == False):
+    randomNum = (randint(0,1000))
+    cursor1 = conn.cursor()
+    result = cursor1.execute("SELECT billID FROM Bill_Users WHERE billID = %d", randomNum)
+    if (randomNum != result):
+      print "hello1"
+      condition = True
+      cursor1.close()
 
-  cursor = conn.cursor()
-
-  # creates Bill_Users table
-  cursor.execute("""
-    IF OBJECT_ID('Bill_Users', 'U') IS NOT NULL
-      DROP TABLE Bill_Users
-    CREATE TABLE Bill_Users (
-      Email varchar(255) NOT NULL,
-      BillId INT NOT NULL,
-      PRIMARY KEY (Email, BillId)
-    )
-    """)
-  conn.commit()
-
-  billId = request.form['billId']
-  global CURRBILLID
-  CURRBILLID = billID
-
-  cursor.execute("INSERT INTO Bill_Users VALUES (%s, %d)", (CURRUSER, billId))
-  conn.commit()
-
-  print "Created bill %d" % CURRBILLID
-
- # creates Item table
-  cursor.execute("""
-    IF OBJECT_ID('Item', 'U') IS NOT NULL
-      DROP TABLE Item
-    CREATE TABLE Item(
-      Email varchar(255) NOT NULL, 
-      ItemName varchar(255) NOT NULL,
-      Quantity INT NOT NULL,
-      Price DECIMAL(10,2) NOT NULL,     
-      BillId INT NOT NULL,
-      PRIMARY KEY (Email, ItemName)
-      FOREIGN KEY (Email) REFERENCES Users(Email)
-      FOREIGN KEY (BillId) REFERENCES Bill_Users(BillId)
-    )
-    """)
-  cursor.close()
-
+  cursor2 = conn.cursor()
+  cursor2.execute("INSERT INTO Bill_Users VALUES (%d, %s)", (randomNum, user_email))
+  cursor2.close()
+  
   conn.commit()
   
-  return render_template('bill.html', id=CURRBILLID, list=)
+  return redirect('bill')
 
 
 # DISPLAY BILL
 @app.route('/display_bill', methods=['GET', 'POST'])
 def display_bill():
   if request.method == 'GET':
+    global bill_id
     bill_id = request.form['billId']
     
     global user_email
     # set current session bill
-    global bill_id
     bill_id = billId
 
     # retrieve all items associated with email and bill
