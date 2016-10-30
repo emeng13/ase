@@ -106,8 +106,6 @@ def signup():
   if cursor.rowcount == 0: # email doesn't exist in Users table
     cursor.execute("INSERT INTO Users VALUES (%s, %s, %s, %s)", (firstName,lastName, email, password))
     conn.commit()
-  elif cursor.rowcount > 1: # multiple emails exist in Users table
-    sys.exit("ERROR: DUPLICATE EMAILS IN DATABASE")
   else: # email already exists in Users table
     print "Account exists!"
   
@@ -224,10 +222,10 @@ def add_item():
     price = request.form['price']
 
     if(quantity <= 0):
-      sys.exit("ERROR: QUANTITY CANNOT BE 0")
+      print "ERROR: QUANTITY CANNOT BE 0"
 
     if(price <= 0):
-      sys.exit("ERROR: PRICE CANNOT BE LESS THAN $0")
+      print "ERROR: PRICE CANNOT BE LESS THAN $0"
 
     cursor = conn.cursor()
     cursor.execute("INSERT INTO Items VALUES (%s, %s, %d, %d, %d)", (user_email, item_name, quantity, price, bill_id))
@@ -389,7 +387,7 @@ def split_cost():
   	  pre_tax += (float(item['Price']) * int(item['Quantity']))
 
     if ((user_total > pre_tax) or (user_total > post_tax)):
-      sys.exit("ERROR: USER BILL GREATER THAN TOTAL BILL")
+      print "ERROR: USER BILL GREATER THAN TOTAL BILL"
 
     user_total = ((user_total / pre_tax) * post_tax) * (1 + tip)
     user_total = ("%.2f" % user_total)
