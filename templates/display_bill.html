@@ -12,11 +12,12 @@
 </head>
 
 <body>
-
 	<div class="container-fluid"> 
-
+    <div class="top-page col-lg-12">
+    <h1>Itemized Cost for Bill {{Billid}}</h1>
+    </div>
+	<div class="row col-lg-6">	
 		<form action="/display_bill" method="post">
-			<h1>Itemized Cost for Bill {{Billid}}</h1>
 			<table>
 		         <thead>
 		            <tr>
@@ -46,28 +47,54 @@
 		        </tbody>
 		    </table>
 		</form>
-
+		<br>
+		<br>
 		<form action="/add_item" method="post">
 		    <input type = "text" name = "item" placeholder = "Item" /><br>
 		   	<input type = "text" name = "price" placeholder = "Price" /><br>
 		   	<input type = "text" name = "quantity" placeholder = "Quantity" /><br>
 	       	<input type = "submit" value = "Add" />
        	</form>
-
+    </div>
+    <div class="row col-lg-6">
+    	<table>
+	         <thead>
+	            <tr>
+	               <th>Name</th>
+	               <th>Email</th>
+	               <!-- <th>Owes</th> -->
+	            </tr>
+	         </thead>
+	 
+	         <tbody>
+	            {% for n in Userlist %}
+	               <tr>
+	               	  <td>{{ n.Name }}</td>
+	                  <td>{{ n.Email }}</td>
+	                  <!-- <td>0</td> -->
+	               </tr>
+	            {% endfor %}
+	        </tbody>
+	    </table>
+	    <br>
+	    <br>
        	<form action="/add_friend" method="POST">
 			<input type="hidden" name="Billid" value={{Billid}}>
 			<input type = "text" name = "Friend_email" placeholder = "Friend Email" /><br>
        		<input type = "submit" value = "Invite" />
 		</form>
-
+		<br>
+		<br>
 		<form action="/split_cost" method="POST">
 			<input type="hidden" name="Billid" value={{Billid}}>
 			<input type = "text" name = "Tip" placeholder = "Tip" /><br>
        		<input type = "submit" value = "Submit" />
 		</form>
-
 	</div>
+	</div>
+	
 
+		
 </body>
 
 </html>

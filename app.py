@@ -238,18 +238,36 @@ def display_bill():
     # set current session bill
 #    bill_id = billId
 
+    # add user into Bill_Users table
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO Bill_Users VALUES (%d, %s)", (billid, Femail))
+    conn.commit()
+
     # retrieve all items associated with email and bill
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Items WHERE Email=%s AND billID=%d", (user_email, bill_id))
+#    cursor.execute("SELECT * FROM Items WHERE Email=%s AND billID=%d", (user_email, bill_id))
+    cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
     data = cursor.fetchall()
+    conn.commit()
 
     Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
+    data = cursor.fetchall()
     conn.commit()
+    cursor = conn.cursor()
 
+    Userlist = ()
+
+    for row in data:
+      cursor.execute("SELECT * FROM Users WHERE Email=%s", row[1])
+      data1 = cursor.fetchall
+      Userlist['Name'] = data1[0][0]
+      Userlist['Email'] = row[1]
 
     # bill shows list of items
-    return render_template('display_bill.html', Userbill = Userbill, Billid=bill_id)
+    return render_template('display_bill.html', Userbill = Userbill, Userlist = Userlist, Billid=bill_id)
 
 # ADD ITEM
 @app.route('/add_item', methods=['GET', 'POST'])
@@ -268,14 +286,29 @@ def add_item():
 
     # retrieve all items associated with email and bill
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Items WHERE Email=%s AND billID=%d", (user_email, bill_id))
+#    cursor.execute("SELECT * FROM Items WHERE Email=%s AND billID=%d", (user_email, bill_id))
+    cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
     data = cursor.fetchall()
+    conn.commit()
 
     Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
-    print data
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
+    data = cursor.fetchall()
+    conn.commit()
+    cursor = conn.cursor()
 
-    return render_template('display_bill.html', Userbill = Userbill, Billid=bill_id)
+    Userlist = ()
+
+    for row in data:
+      cursor.execute("SELECT * FROM Users WHERE Email=%s", row[1])
+      data1 = cursor.fetchall
+      Userlist['Name'] = data1[0][0]
+      Userlist['Email'] = row[1]
+
+    # bill shows list of items
+    return render_template('display_bill.html', Userbill = Userbill, Userlist = Userlist, Billid=bill_id)
 
 
 # REMOVE ITEM
@@ -293,14 +326,30 @@ def remove_item():
 
     # retrieve all items associated with email and bill
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Items WHERE Email=%s AND billID=%d", (user_email, bill_id))
+#    cursor.execute("SELECT * FROM Items WHERE Email=%s AND billID=%d", (user_email, bill_id))
+    cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
     data = cursor.fetchall()
+    conn.commit()
 
     Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
-    print data
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
+    data = cursor.fetchall()
+    conn.commit()
+    cursor = conn.cursor()
 
-    return render_template('display_bill.html', Userbill = Userbill, Billid=bill_id)
+    Userlist = ()
+
+    for row in data:
+      cursor.execute("SELECT * FROM Users WHERE Email=%s", row[1])
+      data1 = cursor.fetchall
+      Userlist['Name'] = data1[0][0]
+      Userlist['Email'] = row[1]
+
+    # bill shows list of items
+    return render_template('display_bill.html', Userbill = Userbill, Userlist = Userlist, Billid=bill_id)
+
 
 # EDIT ITEM
 # @app.route('/edit_item', methods=['GET', 'POST'])
@@ -325,20 +374,32 @@ def add_friend():
     print Femail
     print billid
 
-    # add user into Bill_Users table
-    cursor = conn.cursor()
-    cursor.execute("INSERT INTO Bill_Users VALUES (%d, %s)", (billid, Femail))
-    conn.commit()
-
     # retrieve all items associated with email and bill
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Items WHERE Email=%s AND billID=%d", (user_email, bill_id))
+#    cursor.execute("SELECT * FROM Items WHERE Email=%s AND billID=%d", (user_email, bill_id))
+    cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
     data = cursor.fetchall()
+    conn.commit()
 
     Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
+    data = cursor.fetchall()
+    conn.commit()
+    cursor = conn.cursor()
 
-    return render_template('display_bill.html', Userbill = Userbill, Billid=bill_id)
+    Userlist = ()
+
+    for row in data:
+      cursor.execute("SELECT * FROM Users WHERE Email=%s", row[1])
+      data1 = cursor.fetchall
+      Userlist['Name'] = data1[0][0]
+      Userlist['Email'] = row[1]
+
+    # bill shows list of items
+    return render_template('display_bill.html', Userbill = Userbill, Userlist = Userlist, Billid=bill_id)
+
 
 # ADD FRIEND
 @app.route('/split_cost', methods=['GET', 'POST'])
