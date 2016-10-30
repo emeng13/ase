@@ -181,23 +181,38 @@ def bill():
     """)
   cursor.close()
 
-  randomNum = (randint(0,1000))
-  cursor1 = conn.cursor()
-  cursor1.execute("INSERT INTO Bill_Users VALUES (%d, %s)", (randomNum, user_email))
-  cursor1.close()
+  global user_email
 
-  # Printing values in the table for testing purposes
-  cursor2 = conn.cursor()
-  cursor2.execute("SELECT * FROM Bill_Users")
-  data = cursor2.fetchall()
+  # Creating a new Bill Session
+  if form.validate_on_submit():
+    if 'Create a Bill Session' in request.form:
+      condition = True
+      while(condition):
+        randomNum = (randint(0,1000))
+        cursor1 = conn.cursor()
+        result = cursor1.execute("SELECT billID FROM Bill_Users WHERE billID = %d", randomNum)
+        if(result > 0):
+          condition = False
 
-  Userbill = [dict(BillID=row[0], Email=row[1]) for row in data]
+      cursor2 = conn.cursor()
+      cursor2.execute("INSERT INTO Bill_Users VALUES (%d, %s)", (randomNum, user_email))
+      cursor2.close()
+      print 'Hello Anna'
+    conn.commit()
 
-  print data
-  
-  conn.commit()
+    return render_template('bill.html', Userbill = Userbill )
 
-  return render_template('bill.html', Userbill = Userbill )
+  else:
+    # Displays the Bill ID that the user is associated to
+    cursor2 = conn.cursor()
+    cursor2.execute("SELECT billID, Email FROM Bill_Users WHERE Email = %s", user_email)
+    data = cursor2.fetchall()
+
+    Userbill = [dict(BillID=row[0], Email=row[1]) for row in data]
+    
+    conn.commit()
+
+    return render_template('bill.html', Userbill = Userbill )
 
 # DISPLAY BILL
 # @app.route('/display_bill', methods=['GET', 'POST'])

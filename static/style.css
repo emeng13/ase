@@ -2,6 +2,10 @@
 	height:100px;
 }
 
+table, th, td {
+    border: 1px solid black;
+}
+
 input[type="submit"]{
 	background-color:#F55D5D;
 	border-radius: 15px;
