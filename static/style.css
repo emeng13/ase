@@ -1,9 +1,17 @@
 #logo{
 	height:100px;
 }
-
+/* not necessary */
 table, th, td {
     border: 1px solid black;
+}
+
+.table td{
+    border: black solid 1px !important;
+}
+
+.table th{
+    border: black solid 1px !important;
 }
 
 input[type="submit"]{
@@ -14,8 +22,11 @@ input[type="submit"]{
     border-style: none;
 }
 
-#home_pic{
-	left:0;
+img#home_pic{
+	/*left:0;*/
+  float: left;
+  height: 80%;
+  width: 45%;
 }
 
 form.col-md-9{
@@ -24,7 +35,23 @@ form.col-md-9{
 
 div.col-md-6{
 	background-color:#8BC4F2;
-	height:100%;
+	height: 80%;
+  float: left;
+  width: 45%;
 }
+
+div.col-md-10{
+  background-color:#8BC4F2;
+  height: 80%;
+}
+
+#logout{
+  float:right;
+}
+
+
+
+
+
 
 

@@ -75,20 +75,24 @@ def login():
   cursor.execute("SELECT password FROM Users WHERE Email=%s", email)
 
   if cursor.rowcount == 0: # email doesn't exist in Users table
-    print "Sign up first!"
+    message= "Sign up first!"
+    cursor.close()
+    return render_template('index.html', response = message)
   else:
     data = cursor.fetchall()
     cursor.close()
 
     if sha256_crypt.verify(password, data[0][0]): # login OK
-      
-      print "Login successful!"
+      print "Login successful!" #for testing
+      #### need to show username!
+        # cursor.execute("SELECT FirstName FROM Users WHERE Email=%s", email)
+        # userName = cursor.fetchall()
+      #####
       return redirect('bill')
     else: # login failed
-      print "Incorrect password!"
+      message = "Incorrect password!"
+      return render_template('index.html', response= message)
   
-  cursor.close()
-  return render_template('index.html')
 
 
 
