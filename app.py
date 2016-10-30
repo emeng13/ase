@@ -5,84 +5,23 @@ from random import randint
 import pymssql
 app = Flask(__name__)
 
+# server connection
 conn = pymssql.connect(server='eats.database.windows.net', \
   user='th2520@eats',\
   password='123*&$eats',\
   database='AERIS')\
 
+
+# global variables for current logged in user and bill session
 user_email = ""
 bill_id = -1
-
-# class User(db.Model):
-#   id = db.Column('item_id', db.Integer, primary_key=True) #idk
-#   name = db.Column(db.String(100))
-#   email = db.Column(db.String(50))
-#   password = 
-#   costs = 
-
-#   def __init__(self, email, password):
-#   	self.name = name
-#   	self.email = email
-#   	self.password = password
-#   	self.costs = []
-
-#   def add_item(name, price, quantity):
-#     # create item using parameters and user email
-#     # insert item into db
-
-#   def remove_item(name, price, quantity):
-#   	# find item in db and remove
-
-#   def edit_item(name, price, quantity):
-#   	# find item in db, extract item, modify, and insert into db
-
-#   def add_top(tip):
-#   	# set tip attribute in bill
-
-#   def create_bill():
-#   	# create new bill table
-
-
-# class Bill(db.Model):
-#   id = db.Column('item_id', db.Integer, primary_key=True) #idk
-#   bill_id = 
-#   items = 
-#   tip = 
-#   total_cost
-
-
-#   def __init__(bill_id):
-#   	self.bill_id = bill_id
-#   	items = []
-#   	tip = 0.0
-#   	total_cost = 0
-
-#   def split_cost():
-
-#   #def validate_tip():
-
-# class Item(db.Model):
-#   id = db.Column('item_id', db.Integer, primary_key=True) #idk
-#   name
-#   cost
-#   user
-#   quantity
-#   bill_id
-
-#   def __init__(name, cost, user, quantity, bill_id):
-#   	self.name = name
-#   	self.cost = cost
-#   	self.user = user
-#   	self.quantity = quantity
-#   	self.bill_id = bill_id
-
-#   def validate_cost():
 
 
 
 @app.route("/")
 def main():
   cursor = conn.cursor()
+  # create Users table
   # cursor.execute("""
     # IF OBJECT_ID('Users', 'U') IS NOT NULL
     #   DROP TABLE Users
@@ -95,13 +34,14 @@ def main():
     # """)
   cursor.execute("SELECT * FROM Users")
   data = cursor.fetchall()
-  print data
 
+  print data # debug print User table
+
+  conn.commit()
   cursor.close()
 
-
   cursor1 = conn.cursor()
-  #creates Item table
+  # create Item table
   # cursor1.execute("""
   #   CREATE TABLE Items(
   #     Email varchar(255) NOT NULL, 
@@ -112,43 +52,44 @@ def main():
   #     PRIMARY KEY (Email, ItemName)
   #   )
   #   """)
-  # cursor1.close()
-
-  # cursor2 = conn.cursor()
-  # cursor2.execute("INSERT INTO Items VALUES (%s, %s, %d, %d, %d)", ('annawen12@gmail.com', 'cupcake', 1, 4.00, 77))
-  # cursor2.close()
 
   conn.commit()
+  cursor1.close()
 
   return render_template('index.html')
  
+
 
 @app.route('/login', methods=['POST'])
 def login():
   email = request.form['email']
   password = request.form['password']
 
+  # set global variable for current logged in user
   global user_email 
   user_email = email
 
   cursor = conn.cursor()
   cursor.execute("SELECT password FROM Users WHERE Email=%s", email)
 
-  if cursor.rowcount == 0: # email doesn't exist in db
+  if cursor.rowcount == 0: # email doesn't exist in Users table
     print "Sign up first!"
+  elif cursor.rowcount > 1: # multiple emails exist in Users table
+    raise Exception("ERROR: DUPLICATE EMAILS IN DATABASE")
   else:
     data = cursor.fetchall()
+    conn.close()
 
-    print data[0][0]
-    print password 
-    if sha256_crypt.verify(password, data[0][0]):
-      conn.commit()
-      print "You are logged in!"
+    if sha256_crypt.verify(password, data[0][0]): # login OK
+      
+      print "Login successful!"
       return redirect('bill')
-    else:
-      print "wrong password!"
-  conn.commit()
+    else: # login failed
+      print "Incorrect password!"
+  
+  conn.close()
   return render_template('index.html')
+
 
 
 @app.route('/signUp', methods=['POST'])
@@ -158,22 +99,27 @@ def signup():
   email = request.form['email']
   password = sha256_crypt.encrypt(request.form['password'])
 
-  # find if the email exists in the database
+  # check if email exists in Users table
   cursor = conn.cursor()
-  cursor.execute("SELECT * FROM Users WHERE Email =%s", email)
+  cursor.execute("SELECT * FROM Users WHERE Email=%s", email)
 
-  if cursor.rowcount == 0: # no existing email in db
+  if cursor.rowcount == 0: # email doesn't exist in Users table
     cursor.execute("INSERT INTO Users VALUES (%s, %s, %s, %s)", (firstName,lastName, email, password))
     conn.commit()
-  else:
-    print "You already have an account! Login!"
+  elif cursor.rowcount > 1: # multiple emails exist in Users table
+    sys.exit("ERROR: DUPLICATE EMAILS IN DATABASE")
+  else: # email already exists in Users table
+    print "Account exists!"
   
+  conn.close()
   return render_template('index.html')
+
+
 
 # BILL PAGE
 @app.route('/bill', methods=['GET', 'POST'])
 def bill():
-  #checks if table is already created, if it is, table is dropped and new table created
+  # checks if table is already created, if it is, table is dropped and new table created
   # cursor = conn.cursor()
   # cursor.execute("""
   #   IF OBJECT_ID('Bill_Users', 'U') IS NOT NULL
@@ -188,9 +134,9 @@ def bill():
 
   global user_email
 
-  # Displays the Bill ID that the user is associated to
+  # find all bills associated with user
   cursor2 = conn.cursor()
-  cursor2.execute("SELECT billID, Email FROM Bill_Users WHERE Email = %s", user_email)
+  cursor2.execute("SELECT billID, Email FROM Bill_Users WHERE Email=%s", user_email)
   data = cursor2.fetchall()
 
   Userbill = [dict(BillID=row[0], Email=row[1]) for row in data]
@@ -199,21 +145,24 @@ def bill():
 
   conn.commit()
 
-  return render_template('bill.html', Userbill = Userbill )
+  return render_template('bill.html', Userbill=Userbill)
 
 # CREATE BILL
 @app.route('/create_bill', methods=['GET', 'POST'])
 def create_bill():
-  condition = False
-  while(condition == False):
+
+  # generate bill id
+  isUnique = False
+  while(isUnique == False):
     randomNum = (randint(0,1000))
     cursor1 = conn.cursor()
     result = cursor1.execute("SELECT billID FROM Bill_Users WHERE billID = %d", randomNum)
     if (randomNum != result):
-      print "hello1"
-      condition = True
+      print "Created bill session!" # debug print
+      isUnique = True
       cursor1.close()
 
+  # add bill to Bill_Users table
   cursor2 = conn.cursor()
   cursor2.execute("INSERT INTO Bill_Users VALUES (%d, %s)", (randomNum, user_email))
   cursor2.close()
@@ -223,52 +172,48 @@ def create_bill():
   return redirect('bill')
 
 
+
 # DISPLAY BILL
 @app.route('/display_bill', methods=['GET', 'POST'])
 def display_bill():
   if request.method == 'POST':
-    global bill_id
-
-    bill_id = request.form['billId']
-
-    print bill_id
-
     global user_email
 
-    # set current session bill
-#    bill_id = billId
+    # set global variable for current bill session
+    global bill_id
+    bill_id = request.form['billId']
 
-    # retrieve all items associated with email and bill
+    # retrieve all items in Items table associated with email and bill
     cursor = conn.cursor()
-#    cursor.execute("SELECT * FROM Items WHERE Email=%s AND billID=%d", (user_email, bill_id))
     cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
     data = cursor.fetchall()
-    conn.commit()
+    cursor.close()
 
     Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
-    data = cursor.fetchall()
-    conn.commit()
-    cursor = conn.cursor()
+    # retrieve all users in Bill_Users table associated with bill
+    cursor1 = conn.cursor()
+    cursor1.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
+    data = cursor1.fetchall()
+    cursor1.close()
+
+    cursor2 = conn.cursor()
 
     Userlist = []
 
+    # retrieve names of users in Users table associated with email
     for row in data:
       cursor.execute("SELECT * FROM Users WHERE Email=%s", row[1])
-      data1 = cursor.fetchall()
-      print data1[0][0]
-      print row[1]
+      data1 = cursor2.fetchall()
       Userdict = {}
       Userdict["Name"] = data1[0][0]
       Userdict["Email"] = row[1]
       Userlist.append(Userdict)
 
-    print Userlist
-    print Userbill
+    conn.commit()
+
     # bill shows list of items
-    return render_template('display_bill.html', Userbill = Userbill, Userlist = Userlist, Billid=bill_id)
+    return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id)
 
 # ADD ITEM
 @app.route('/add_item', methods=['GET', 'POST'])
@@ -281,39 +226,47 @@ def add_item():
     quantity = request.form['quantity']
     price = request.form['price']
 
+    if(quantity <= 0):
+      sys.exit("ERROR: QUANTITY CANNOT BE 0")
+
+    if(price <= 0):
+      sys.exit("ERROR: PRICE CANNOT BE LESS THAN $0")
+
     cursor = conn.cursor()
     cursor.execute("INSERT INTO Items VALUES (%s, %s, %d, %d, %d)", (user_email, item_name, quantity, price, bill_id))
     conn.commit()
 
-    # retrieve all items associated with email and bill
+    # retrieve all items in Items table associated with email and bill
     cursor = conn.cursor()
-#    cursor.execute("SELECT * FROM Items WHERE Email=%s AND billID=%d", (user_email, bill_id))
     cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
     data = cursor.fetchall()
-    conn.commit()
+    cursor.close()
 
     Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
-    data = cursor.fetchall()
-    conn.commit()
-    cursor = conn.cursor()
+    # retrieve all users in Bill_Users table associated with bill
+    cursor1 = conn.cursor()
+    cursor1.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
+    data = cursor1.fetchall()
+    cursor1.close()
+
+    cursor2 = conn.cursor()
 
     Userlist = []
 
+    # retrieve names of users in Users table associated with email
     for row in data:
       cursor.execute("SELECT * FROM Users WHERE Email=%s", row[1])
-      data1 = cursor.fetchall()
-      print data1[0][0]
-      print row[1]
+      data1 = cursor2.fetchall()
       Userdict = {}
       Userdict["Name"] = data1[0][0]
       Userdict["Email"] = row[1]
       Userlist.append(Userdict)
 
+    conn.commit()
+
     # bill shows list of items
-    return render_template('display_bill.html', Userbill = Userbill, Userlist = Userlist, Billid=bill_id)
+    return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id)
 
 
 # REMOVE ITEM
@@ -326,43 +279,42 @@ def remove_item():
     item_name = request.form['ItemName']
 
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM Items WHERE Email = %s AND ItemName = %s AND billID = %d", (user_email, item_name, bill_id))
+    cursor.execute("DELETE FROM Items WHERE Email=%s AND ItemName=%s AND billID=%d", (user_email, item_name, bill_id))
     conn.commit()
 
-    # retrieve all items associated with email and bill
+    # retrieve all items in Items table associated with email and bill
     cursor = conn.cursor()
-#    cursor.execute("SELECT * FROM Items WHERE Email=%s AND billID=%d", (user_email, bill_id))
     cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
     data = cursor.fetchall()
-    conn.commit()
+    cursor.close()
 
     Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
-    data = cursor.fetchall()
-    conn.commit()
-    cursor = conn.cursor()
+    # retrieve all users in Bill_Users table associated with bill
+    cursor1 = conn.cursor()
+    cursor1.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
+    data = cursor1.fetchall()
+    cursor1.close()
+
+    cursor2 = conn.cursor()
 
     Userlist = []
 
+    # retrieve names of users in Users table associated with email
     for row in data:
       cursor.execute("SELECT * FROM Users WHERE Email=%s", row[1])
-      data1 = cursor.fetchall()
-      print data1[0][0]
-      print row[1]
+      data1 = cursor2.fetchall()
       Userdict = {}
       Userdict["Name"] = data1[0][0]
       Userdict["Email"] = row[1]
       Userlist.append(Userdict)
 
+    conn.commit()
+
     # bill shows list of items
-    return render_template('display_bill.html', Userbill = Userbill, Userlist = Userlist, Billid=bill_id)
+    return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id)
 
 
-# EDIT ITEM
-# @app.route('/edit_item', methods=['GET', 'POST'])
-# def edit_item():
 
 # ADD FRIEND
 @app.route('/add_friend', methods=['GET', 'POST'])
@@ -374,51 +326,49 @@ def add_friend():
     Femail = request.form['Friend_email']
     billid = request.form['Billid']
 
-
-
     # get user from Users table
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM Users WHERE Email=%s", (Femail))
     data = cursor.fetchall()
     conn.commit()
 
-    print Femail
-    print billid
-
     # add user into Bill_Users table
     cursor = conn.cursor()
     cursor.execute("INSERT INTO Bill_Users VALUES (%d, %s)", (billid, Femail))
     conn.commit()
 
-    # retrieve all items associated with email and bill
+    # retrieve all items in Items table associated with email and bill
     cursor = conn.cursor()
-#    cursor.execute("SELECT * FROM Items WHERE Email=%s AND billID=%d", (user_email, bill_id))
     cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
     data = cursor.fetchall()
-    conn.commit()
+    cursor.close()
 
     Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
-    data = cursor.fetchall()
-    conn.commit()
-    cursor = conn.cursor()
+    # retrieve all users in Bill_Users table associated with bill
+    cursor1 = conn.cursor()
+    cursor1.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
+    data = cursor1.fetchall()
+    cursor1.close()
+
+    cursor2 = conn.cursor()
 
     Userlist = []
 
+    # retrieve names of users in Users table associated with email
     for row in data:
       cursor.execute("SELECT * FROM Users WHERE Email=%s", row[1])
-      data1 = cursor.fetchall()
-      print data1[0][0]
-      print row[1]
+      data1 = cursor2.fetchall()
       Userdict = {}
       Userdict["Name"] = data1[0][0]
       Userdict["Email"] = row[1]
       Userlist.append(Userdict)
 
+    conn.commit()
+
     # bill shows list of items
-    return render_template('display_bill.html', Userbill = Userbill, Userlist = Userlist, Billid=bill_id)
+    return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id)
+
 
 
 # SPLIT COST
@@ -444,21 +394,15 @@ def split_cost():
     for item in Userbill:
   	  print item
   	  if item['Email'] == user_email:
-  	  	user_total += float(item['Price'])
-  	  pre_tax += float(item['Price'])
+  	  	user_total += (float(item['Price']) * int(item['Quantity']))
+  	  pre_tax += (float(item['Price']) * int(item['Quantity']))
+
+    if(user_total > pre_tax):
+      sys.exit("ERROR: USER BILL GREATER THAN TOTAL BILL")
 
     user_total = ((user_total / pre_tax) * post_tax) * (1 + tip)
     user_total = ("%.2f" % user_total)
     print user_total
-
-
-    # retrieve all items associated with email and bill
-    #cursor = conn.cursor()
-    #cursor.execute("SELECT * FROM Items WHERE Email=%s AND billID=%d", (user_email, bill_id))
-    #data = cursor.fetchall()
-
-    #Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
-
 
     return render_template('split_cost.html', Cost = user_total)
 
