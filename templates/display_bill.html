@@ -16,11 +16,12 @@
 	<div class="container-fluid"> 
 
 		<form action="/display_bill" method="post">
-			<h1>Itemized Cost for Bill {Billid}</h1>
+			<h1>Itemized Cost for Bill {{Billid}}</h1>
 			<table>
 		         <thead>
 		            <tr>
 		               <th>Name</th>
+		               <th>Item</th>
 		               <th>Cost</th>
 		               <th>Quantity</th>
 		            </tr>
@@ -29,7 +30,8 @@
 		         <tbody>
 		            {% for n in Userbill %}
 		               <tr>
-		                  <td>{{ n.Item_Name }}</td>
+		               		<td>{{ n.Email }}</td>
+		                  <td>{{ n.ItemName }}</td>
 		                  <td>{{ n.Price }}</td>
 		                  <td>{{ n.Quantity }}</td>
 		               </tr>
@@ -38,11 +40,11 @@
 		    </table>
 		</form>
 
-		<form action="/display_bill" method="post">
-		    <input type = "text" name = "Item_name" placeholder = "Item_name" /><br>
-		   	<input type = "text" name = "Item_cost" placeholder = "Item_cost" /><br>
-		   	<input type = "text" name = "Item_quantity" placeholder = "Item_quantity" /><br>
-	       	<input type = "add" value = "Add" />
+		<form action="/add_item" method="post">
+		    <input type = "text" name = "item" placeholder = "Item" /><br>
+		   	<input type = "text" name = "price" placeholder = "Price" /><br>
+		   	<input type = "text" name = "quantity" placeholder = "Quantity" /><br>
+	       	<input type = "submit" value = "Add" />
        	</form>
 
 	</div>

@@ -102,24 +102,21 @@ def main():
 
   cursor1 = conn.cursor()
   #creates Item table
-  cursor1.execute("""
-    IF OBJECT_ID('Items', 'U') IS NOT NULL
-      DROP TABLE Items
-    CREATE TABLE Items(
-      Email varchar(255) NOT NULL, 
-      ItemName varchar(255) NOT NULL,
-      Quantity INT NOT NULL,
-      Price DECIMAL(10,2) NOT NULL,     
-      BillId INT NOT NULL,
-      PRIMARY KEY (Email, ItemName),
-      FOREIGN KEY (Email) REFERENCES Users(Email),
-    )
-    """)
-  cursor1.close()
+  # cursor1.execute("""
+  #   CREATE TABLE Items(
+  #     Email varchar(255) NOT NULL, 
+  #     ItemName varchar(255) NOT NULL,
+  #     Quantity INT NOT NULL,
+  #     Price DECIMAL(10,2) NOT NULL,     
+  #     BillId INT NOT NULL,
+  #     PRIMARY KEY (Email, ItemName)
+  #   )
+  #   """)
+  # cursor1.close()
 
-  cursor2 = conn.cursor()
-  cursor2.execute("INSERT INTO Items VALUES (%s, %s, %d, %d, %d)", ('annawen12@gmail.com', 'cupcake', 1, 4.00, 77))
-  cursor2.close()
+  # cursor2 = conn.cursor()
+  # cursor2.execute("INSERT INTO Items VALUES (%s, %s, %d, %d, %d)", ('annawen12@gmail.com', 'cupcake', 1, 4.00, 77))
+  # cursor2.close()
 
   conn.commit()
 
@@ -228,12 +225,14 @@ def create_bill():
 
 # DISPLAY BILL
 @app.route('/display_bill', methods=['GET', 'POST'])
-@app.route('/display_bill/<billId>', methods=['GET', 'POST'])
 def display_bill():
   if request.method == 'POST':
     global bill_id
 
-    bill_id = request.args.get('billId')
+    bill_id = request.form['billId']
+
+    print bill_id
+
     global user_email
 
     # set current session bill
@@ -241,10 +240,10 @@ def display_bill():
 
     # retrieve all items associated with email and bill
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Item WHERE Email=%s AND billID=%d", (user_email, bill_id))
+    cursor.execute("SELECT * FROM Items WHERE Email=%s AND billID=%d", (user_email, bill_id))
     data = cursor.fetchall()
 
-    Userbill = [dict(Item_name=row[0], Quantity=row[2], Price=row[3]) for row in data]
+    Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
     conn.commit()
 
@@ -264,15 +263,15 @@ def add_item():
     price = request.form['price']
 
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO Items VALUES (%s, %s, %d, %f, %d)", (user_email, item_name, quantity, price, bill_id))
+    cursor.execute("INSERT INTO Items VALUES (%s, %s, %d, %d, %d)", (user_email, item_name, quantity, price, bill_id))
     conn.commit()
 
     # retrieve all items associated with email and bill
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Item WHERE Email=%s AND billID=%d", user_email, bill_id)
+    cursor.execute("SELECT * FROM Items WHERE Email=%s AND billID=%d", (user_email, bill_id))
     data = cursor.fetchall()
 
-    Userbill = [dict(Item_name=row[0], Quantity=row[2], Price=row[3]) for row in data]
+    Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
     print data
 
