@@ -24,9 +24,10 @@
 		               <th>Item</th>
 		               <th>Cost</th>
 		               <th>Quantity</th>
+		               <th>Delete</th>
 		            </tr>
 		         </thead>
-		         
+		 
 		         <tbody>
 		            {% for n in Userbill %}
 		               <tr>
@@ -34,6 +35,12 @@
 		                  <td>{{ n.ItemName }}</td>
 		                  <td>{{ n.Price }}</td>
 		                  <td>{{ n.Quantity }}</td>
+		                  <td>
+			        		<form action="/remove_item" method="POST">
+			        		<input type="hidden" name="ItemName" value={{n.ItemName}}>
+			        		<input type="submit" name="button" value="Delete">
+			        		</form>
+			        	  </td>
 		               </tr>
 		            {% endfor %}
 		        </tbody>
@@ -46,6 +53,12 @@
 		   	<input type = "text" name = "quantity" placeholder = "Quantity" /><br>
 	       	<input type = "submit" value = "Add" />
        	</form>
+
+       	<form action="/add_friend" method="POST">
+			<input type="hidden" name="Billid" value={{Billid}}>
+			<input type = "text" name = "Friend_email" placeholder = "Friend Email" /><br>
+       		<input type = "submit" value = "Invite" />
+		</form>
 
 	</div>
 

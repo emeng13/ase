@@ -280,20 +280,23 @@ def add_item():
 
 # REMOVE ITEM
 @app.route('/remove_item', methods=['GET', 'POST'])
-def remove_item(item_name):
+def remove_item():
   if request.method == 'POST':
     global user_email
     global bill_id
 
-    cursor.execute("DELETE FROM Items VALUES (%s, %s, %d, %f, %d)", (user_email, item_name, quantity, price, billId))
+    item_name = request.form['ItemName']
+
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM Items WHERE Email = %s AND ItemName = %s AND billID = %d", (user_email, item_name, bill_id))
     conn.commit()
 
     # retrieve all items associated with email and bill
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Item WHERE Email=%s AND billID=%d", user_email, bill_id)
+    cursor.execute("SELECT * FROM Items WHERE Email=%s AND billID=%d", (user_email, bill_id))
     data = cursor.fetchall()
 
-    Userbill = [dict(Item_name=row[0], Quantity=row[2], Price=row[3]) for row in data]
+    Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
     print data
 
@@ -304,11 +307,38 @@ def remove_item(item_name):
 # def edit_item():
 
 # ADD FRIEND
-@app.route('/add_friends', methods=['GET', 'POST'])
-def add_friends():
-  Femail = request.form['Friend_email']
+@app.route('/add_friend', methods=['GET', 'POST'])
+def add_friend():
+  if request.method == 'POST':
+    global user_email
+    global bill_id
 
-  return render_template('add_friends.html')
+    Femail = request.form['Friend_email']
+    billid = request.form['Billid']
+
+    # get user from Users table
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Users WHERE Email=%s", (Femail))
+    data = cursor.fetchall()
+    conn.commit()
+
+    print Femail
+    print billid
+
+    # add user into Bill_Users table
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO Bill_Users VALUES (%d, %s)", (billid, Femail))
+    conn.commit()
+
+    # retrieve all items associated with email and bill
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Items WHERE Email=%s AND billID=%d", (user_email, bill_id))
+    data = cursor.fetchall()
+
+    Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
+
+
+    return render_template('display_bill.html', Userbill = Userbill, Billid=bill_id)
 
 if __name__ == "__main__":
 	app.run(debug = True)
