@@ -256,7 +256,7 @@ def add_item():
 # REMOVE ITEM
 @app.route('/remove_item', methods=['GET', 'POST'])
 def remove_item(item_name):
-  if request.method == 'POST'
+  if request.method == 'POST':
     global user_email
     global bill_id
 
@@ -275,8 +275,8 @@ def remove_item(item_name):
     return render_template('display_bill.html', Userbill = Userbill, Billid=bill_id)
 
 # EDIT ITEM
-@app.route('/edit_item', methods=['GET', 'POST'])
-def edit_item():
+# @app.route('/edit_item', methods=['GET', 'POST'])
+# def edit_item():
 
 # ADD FRIEND
 @app.route('/add_friends', methods=['GET', 'POST'])
