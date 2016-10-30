@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from passlib.hash import sha256_crypt
 from random import randint
 
@@ -10,72 +10,72 @@ conn = pymssql.connect(server='eats.database.windows.net', \
   password='123*&$eats',\
   database='AERIS')\
 
-user_email = "aw2802@barnard.edu"
+user_email = ""
 
-class User(db.Model):
-  id = db.Column('item_id', db.Integer, primary_key=True) #idk
-  name = db.Column(db.String(100))
-  email = db.Column(db.String(50))
-  password = 
-  costs = 
+# class User(db.Model):
+#   id = db.Column('item_id', db.Integer, primary_key=True) #idk
+#   name = db.Column(db.String(100))
+#   email = db.Column(db.String(50))
+#   password = 
+#   costs = 
 
-  def __init__(self, email, password):
-  	self.name = name
-  	self.email = email
-  	self.password = password
-  	self.costs = []
+#   def __init__(self, email, password):
+#   	self.name = name
+#   	self.email = email
+#   	self.password = password
+#   	self.costs = []
 
-  def add_item(name, price, quantity):
-    # create item using parameters and user email
-    # insert item into db
+#   def add_item(name, price, quantity):
+#     # create item using parameters and user email
+#     # insert item into db
 
-  def remove_item(name, price, quantity):
-  	# find item in db and remove
+#   def remove_item(name, price, quantity):
+#   	# find item in db and remove
 
-  def edit_item(name, price, quantity):
-  	# find item in db, extract item, modify, and insert into db
+#   def edit_item(name, price, quantity):
+#   	# find item in db, extract item, modify, and insert into db
 
-  def add_top(tip):
-  	# set tip attribute in bill
+#   def add_top(tip):
+#   	# set tip attribute in bill
 
-  def create_bill():
-  	# create new bill table
-
-
-class Bill(db.Model):
-  id = db.Column('item_id', db.Integer, primary_key=True) #idk
-  bill_id = 
-  items = 
-  tip = 
-  total_cost
+#   def create_bill():
+#   	# create new bill table
 
 
-  def __init__(bill_id):
-  	self.bill_id = bill_id
-  	items = []
-  	tip = 0.0
-  	total_cost = 0
+# class Bill(db.Model):
+#   id = db.Column('item_id', db.Integer, primary_key=True) #idk
+#   bill_id = 
+#   items = 
+#   tip = 
+#   total_cost
 
-  def split_cost():
 
-  #def validate_tip():
+#   def __init__(bill_id):
+#   	self.bill_id = bill_id
+#   	items = []
+#   	tip = 0.0
+#   	total_cost = 0
 
-class Item(db.Model):
-  id = db.Column('item_id', db.Integer, primary_key=True) #idk
-  name
-  cost
-  user
-  quantity
-  bill_id
+#   def split_cost():
 
-  def __init__(name, cost, user, quantity, bill_id):
-  	self.name = name
-  	self.cost = cost
-  	self.user = user
-  	self.quantity = quantity
-  	self.bill_id = bill_id
+#   #def validate_tip():
 
-  def validate_cost():
+# class Item(db.Model):
+#   id = db.Column('item_id', db.Integer, primary_key=True) #idk
+#   name
+#   cost
+#   user
+#   quantity
+#   bill_id
+
+#   def __init__(name, cost, user, quantity, bill_id):
+#   	self.name = name
+#   	self.cost = cost
+#   	self.user = user
+#   	self.quantity = quantity
+#   	self.bill_id = bill_id
+
+#   def validate_cost():
 
 
 
@@ -107,6 +107,9 @@ def login():
   email = request.form['email']
   password = request.form['password']
 
+  global user_email 
+  user_email = email
+
   cursor = conn.cursor()
   cursor.execute("SELECT password FROM Users WHERE Email=%s", email)
 
@@ -118,7 +121,9 @@ def login():
     print data[0][0]
     print password 
     if sha256_crypt.verify(password, data[0][0]):
+      conn.commit()
       print "You are logged in!"
+      return render_template('bill.html')
     else:
       print "wrong password!"
   conn.commit()
@@ -147,8 +152,6 @@ def signup():
 # BILL PAGE
 @app.route('/bill', methods=['GET', 'POST'])
 def bill():
-  randomNum = (randint(0,1000))
-
   #checks if table is already created, if it is, table is dropped and new table created
   # cursor = conn.cursor()
   # cursor.execute("""
@@ -187,33 +190,36 @@ def bill():
   cursor2 = conn.cursor()
   cursor2.execute("SELECT * FROM Bill_Users")
   data = cursor2.fetchall()
+
+  Userbill = [dict(BillID=row[0], Email=row[1]) for row in data]
+
   print data
   
   conn.commit()
-  
-  return render_template('bill.html')
+
+  return render_template('bill.html', Userbill = Userbill )
 
 # DISPLAY BILL
-@app.route('/display_bill', methods=['GET', 'POST'])
-def display_bill():
-  cursor2.execute("SELECT * FROM Bill_Users")
-  data = cursor2.fetchall()
-  # display data in html
+# @app.route('/display_bill', methods=['GET', 'POST'])
+# def display_bill():
+#   cursor2.execute("SELECT * FROM Bill_Users")
+#   data = cursor2.fetchall()
+#   # display data in html
 
-  # add item
-  cursor.execute("INSERT INTO Bill_Users VALUES (%s, %s, %d, %f)", (user_email, item_name, quantity, price))
-  conn.commit()
+#   # add item
+#   cursor.execute("INSERT INTO Bill_Users VALUES (%s, %s, %d, %f)", (user_email, item_name, quantity, price))
+#   conn.commit()
 
-  # remove item
-  cursor.execute("DELETE FROM Bill_Users VALUES (%s, %s, %d, %f)", (user_email, item_name, quantity, price))
-  conn.commit()
+#   # remove item
+#   cursor.execute("DELETE FROM Bill_Users VALUES (%s, %s, %d, %f)", (user_email, item_name, quantity, price))
+#   conn.commit()
 
 # ADD FRIEND
 @app.route('/add_friends', methods=['GET', 'POST'])
-def display_bill():
-  cursor2.execute("SELECT * FROM Bill_Users")
-  data = cursor2.fetchall()
-  # display data in html
+def add_friends():
+  Femail = request.form['Friend_email']
+
+  return render_template('add_friends.html')
 
 if __name__ == "__main__":
 	app.run(debug = True)

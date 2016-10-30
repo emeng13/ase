@@ -13,11 +13,33 @@
 
 <body>
 
+	<h1> Bill.html page</h1>
+
 	<div class="container-fluid"> 
 
 		<form action="/bill" method="post">
-			<button type="submit" value="Create a Bill Session">Create a Bill Session</button>
+			Email: <input type="email" placeholder="Email" name="email" required>
+			<input type="submit" value="Create a Bill Session">
 		</form>
+
+		<h1>Bill Session Invites</h1>
+		<table>
+			<thead>
+				<tr>
+					<th>Bill ID</th>
+					<th>Email</th>
+				</tr>
+			</thead>
+			
+			  <tbody>
+			    {% for n in Userbill %}
+			    <tr>
+			        <td>{{n.BillID}}<td>
+			        <td>{{n.Email}}<td>
+			     </tr>
+			    {% endfor %}
+			  </tbody>
+		 </table>
 
 	</div>
 
