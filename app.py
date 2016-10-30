@@ -428,8 +428,9 @@ def split_cost():
     global user_email
     global bill_id
 
-    tip = request.form['Tip']
+    tip = float(request.form['Tip'])
     billid = request.form['Billid']
+    post_tax = float(request.form['Total'])
 
     # retrieve all items associated with email and bill
     cursor = conn.cursor()
@@ -446,8 +447,7 @@ def split_cost():
   	  	user_total += float(item['Price'])
   	  pre_tax += float(item['Price'])
 
-    post_tax = pre_tax
-    user_total = ((user_total / pre_tax) * post_tax) * (1 + float(tip))
+    user_total = ((user_total / pre_tax) * post_tax) * (1 + tip)
     user_total = ("%.2f" % user_total)
     print user_total
 
