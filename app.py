@@ -340,5 +340,46 @@ def add_friend():
 
     return render_template('display_bill.html', Userbill = Userbill, Billid=bill_id)
 
+# ADD FRIEND
+@app.route('/split_cost', methods=['GET', 'POST'])
+def split_cost():
+  if request.method == 'POST':
+    global user_email
+    global bill_id
+
+    tip = request.form['Tip']
+    billid = request.form['Billid']
+
+    # retrieve all items associated with email and bill
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Items WHERE Email=%s AND billID=%d", (user_email, bill_id))
+    data = cursor.fetchall()
+
+    Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
+
+    pre_tax = 0.0
+    user_total = 0.0
+    for item in Userbill:
+  	  print item
+  	  if item['Email'] == user_email:
+  	  	user_total += float(item['Price'])
+  	  pre_tax += float(item['Price'])
+
+    post_tax = pre_tax
+    user_total = ((user_total / pre_tax) * post_tax) * (1 + float(tip))
+    user_total = ("%.2f" % user_total)
+    print user_total
+
+
+    # retrieve all items associated with email and bill
+    #cursor = conn.cursor()
+    #cursor.execute("SELECT * FROM Items WHERE Email=%s AND billID=%d", (user_email, bill_id))
+    #data = cursor.fetchall()
+
+    #Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
+
+
+    return render_template('split_cost.html', Cost = user_total)
+
 if __name__ == "__main__":
 	app.run(debug = True)
