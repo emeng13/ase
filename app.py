@@ -215,6 +215,55 @@ def bill():
 
     return render_template('bill.html', Userbill = Userbill )
 
+# CREATE BILL
+@app.route('/create_bill', methods=['GET', 'POST'])
+def create_bill():
+
+  cursor = conn.cursor()
+
+  # creates Bill_Users table
+  cursor.execute("""
+    IF OBJECT_ID('Bill_Users', 'U') IS NOT NULL
+      DROP TABLE Bill_Users
+    CREATE TABLE Bill_Users (
+      Email varchar(255) NOT NULL,
+      BillId INT NOT NULL,
+      PRIMARY KEY (Email, BillId)
+    )
+    """)
+  conn.commit()
+
+  billId = request.form['billId']
+  global CURRBILLID
+  CURRBILLID = billID
+
+  cursor.execute("INSERT INTO Bill_Users VALUES (%s, %d)", (CURRUSER, billId))
+  conn.commit()
+
+  print "Created bill %d" % CURRBILLID
+
+ # creates Item table
+  cursor.execute("""
+    IF OBJECT_ID('Item', 'U') IS NOT NULL
+      DROP TABLE Item
+    CREATE TABLE Item(
+      Email varchar(255) NOT NULL, 
+      ItemName varchar(255) NOT NULL,
+      Quantity INT NOT NULL,
+      Price DECIMAL(10,2) NOT NULL,     
+      BillId INT NOT NULL,
+      PRIMARY KEY (Email, ItemName)
+      FOREIGN KEY (Email) REFERENCES Users(Email)
+      FOREIGN KEY (BillId) REFERENCES Bill_Users(BillId)
+    )
+    """)
+  cursor.close()
+
+  conn.commit()
+  
+  return render_template('bill.html', id=CURRBILLID, list=)
+
+
 # DISPLAY BILL
 @app.route('/display_bill', methods=['GET', 'POST'])
 def display_bill():
