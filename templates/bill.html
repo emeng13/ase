@@ -37,9 +37,9 @@
 			        <td>{{n.BillID}}</td>
 			        <td>{{n.Email}}</td>
 			        <td>
-			        	<form action="/display_bill" method="GET">
-			        		<input type="hidden" name="billId" value="{{n.BillID}}">
-			        		<input type="submit" value="Access">
+			        	<form action="/display_bill" method="POST">
+			        		<input type="text" name="billId" value={{n.BillID}}>
+			        		<input type="submit" name="button" value="Access">
 			        	</form>
 			        <td>
 			     </tr>

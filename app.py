@@ -84,20 +84,43 @@ bill_id = -1
 def main():
   cursor = conn.cursor()
   # cursor.execute("""
-  #   IF OBJECT_ID('Users', 'U') IS NOT NULL
-  #     DROP TABLE Users
-  #   CREATE TABLE Users (
-  #     FirstName VARCHAR(255) NOT NULL,
-  #     LastName VARCHAR(255) NOT NULL,
-  #     Email varchar(255) NOT NULL PRIMARY KEY,
-  #     Password varchar(255) NOT NULL 
-  #   )
-  #   """)
+    # IF OBJECT_ID('Users', 'U') IS NOT NULL
+    #   DROP TABLE Users
+    # CREATE TABLE Users (
+    #   FirstName VARCHAR(255) NOT NULL,
+    #   LastName VARCHAR(255) NOT NULL,
+    #   Email varchar(255) NOT NULL PRIMARY KEY,
+    #   Password varchar(255) NOT NULL 
+    # )
+    # """)
   cursor.execute("SELECT * FROM Users")
   data = cursor.fetchall()
   print data
 
-  
+  cursor.close()
+
+
+  cursor1 = conn.cursor()
+  #creates Item table
+  cursor1.execute("""
+    IF OBJECT_ID('Items', 'U') IS NOT NULL
+      DROP TABLE Items
+    CREATE TABLE Items(
+      Email varchar(255) NOT NULL, 
+      ItemName varchar(255) NOT NULL,
+      Quantity INT NOT NULL,
+      Price DECIMAL(10,2) NOT NULL,     
+      BillId INT NOT NULL,
+      PRIMARY KEY (Email, ItemName),
+      FOREIGN KEY (Email) REFERENCES Users(Email),
+    )
+    """)
+  cursor1.close()
+
+  cursor2 = conn.cursor()
+  cursor2.execute("INSERT INTO Items VALUES (%s, %s, %d, %d, %d)", ('annawen12@gmail.com', 'cupcake', 1, 4.00, 77))
+  cursor2.close()
+
   conn.commit()
 
   return render_template('index.html')
@@ -174,7 +197,9 @@ def bill():
   data = cursor2.fetchall()
 
   Userbill = [dict(BillID=row[0], Email=row[1]) for row in data]
-  
+
+  cursor2.close()
+
   conn.commit()
 
   return render_template('bill.html', Userbill = Userbill )
@@ -203,25 +228,26 @@ def create_bill():
 
 # DISPLAY BILL
 @app.route('/display_bill', methods=['GET', 'POST'])
+@app.route('/display_bill/<billId>', methods=['GET', 'POST'])
 def display_bill():
-  if request.method == 'GET':
+  if request.method == 'POST':
     global bill_id
-    bill_id = request.form['billId']
-    
+
+    bill_id = request.args.get('billId')
     global user_email
+
     # set current session bill
-    bill_id = billId
+#    bill_id = billId
 
     # retrieve all items associated with email and bill
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Item WHERE Email=%s AND billID=%d", user_email, bill_id)
+    cursor.execute("SELECT * FROM Item WHERE Email=%s AND billID=%d", (user_email, bill_id))
     data = cursor.fetchall()
 
     Userbill = [dict(Item_name=row[0], Quantity=row[2], Price=row[3]) for row in data]
 
-    print data
-
     conn.commit()
+
 
     # bill shows list of items
     return render_template('display_bill.html', Userbill = Userbill, Billid=bill_id)
