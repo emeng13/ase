@@ -22,7 +22,7 @@ bill_id = -1
 
 @app.route("/")
 def main():
-  cursor = conn.cursor()
+  # cursor = conn.cursor()
   # create Users table
   # cursor.execute("""
     # IF OBJECT_ID('Users', 'U') IS NOT NULL
@@ -34,15 +34,16 @@ def main():
     #   Password varchar(255) NOT NULL 
     # )
     # """)
-  cursor.execute("SELECT * FROM Users")
-  data = cursor.fetchall()
+  # cursor.execute("SELECT * FROM Users")
+  # data = cursor.fetchall()
 
-  print data # debug print User table
+  # print data # debug print User table
 
-  conn.commit()
-  cursor.close()
+  # conn.commit()
+  # cursor.close()
 
-  cursor1 = conn.cursor()
+  # cursor1 = conn.cursor()
+
   # create Item table
   # cursor1.execute("""
   #   CREATE TABLE Items(
@@ -55,8 +56,10 @@ def main():
   #   )
   #   """)
 
-  conn.commit()
-  cursor1.close()
+  # conn.commit()
+  # cursor1.close()
+
+  print request.args
 
   return render_template('index.html')
  
@@ -110,11 +113,15 @@ def signup():
   if cursor.rowcount == 0: # email doesn't exist in Users table
     cursor.execute("INSERT INTO Users VALUES (%s, %s, %s, %s)", (firstName,lastName, email, password))
     conn.commit()
+    cursor.close()
+    message = "Your account is registered successfully!"
+    return render_template('index.html', response=message)
+    
   else: # email already exists in Users table
-    print "Account exists!"
-  
-  cursor.close()
-  return render_template('index.html')
+    message = "You registered with the same email before."
+    cursor.close()
+    return render_template('index.html', response=message)
+
 
 
 
@@ -400,4 +407,4 @@ def split_cost():
     return render_template('split_cost.html', Cost = user_total)
 
 if __name__ == "__main__":
-	app.run(debug = True)
+	app.run(debug = True, threaded=True)
