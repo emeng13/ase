@@ -3,6 +3,8 @@ from passlib.hash import sha256_crypt
 from random import randint
 
 import pymssql
+import sys
+
 app = Flask(__name__)
 
 # server connection
@@ -49,7 +51,7 @@ def main():
   #     Quantity INT NOT NULL,
   #     Price DECIMAL(10,2) NOT NULL,     
   #     BillId INT NOT NULL,
-  #     PRIMARY KEY (Email, ItemName)
+  #     PRIMARY KEY (Email, ItemName, BillId)
   #   )
   #   """)
 
@@ -139,7 +141,6 @@ def bill():
 
   Userbill = [dict(BillID=row[0], Email=row[1]) for row in data]
 
-  cursor2.close()
 
   conn.commit()
 
@@ -185,7 +186,6 @@ def display_bill():
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
     data = cursor.fetchall()
-    cursor.close()
 
     Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
@@ -193,7 +193,6 @@ def display_bill():
     cursor1 = conn.cursor()
     cursor1.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
     data = cursor1.fetchall()
-    cursor1.close()
 
     cursor2 = conn.cursor()
 
@@ -201,7 +200,7 @@ def display_bill():
 
     # retrieve names of users in Users table associated with email
     for row in data:
-      cursor.execute("SELECT * FROM Users WHERE Email=%s", row[1])
+      cursor2.execute("SELECT * FROM Users WHERE Email=%s", row[1])
       data1 = cursor2.fetchall()
       Userdict = {}
       Userdict["Name"] = data1[0][0]
@@ -238,7 +237,6 @@ def add_item():
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
     data = cursor.fetchall()
-    cursor.close()
 
     Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
@@ -246,7 +244,6 @@ def add_item():
     cursor1 = conn.cursor()
     cursor1.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
     data = cursor1.fetchall()
-    cursor1.close()
 
     cursor2 = conn.cursor()
 
@@ -254,7 +251,7 @@ def add_item():
 
     # retrieve names of users in Users table associated with email
     for row in data:
-      cursor.execute("SELECT * FROM Users WHERE Email=%s", row[1])
+      cursor2.execute("SELECT * FROM Users WHERE Email=%s", row[1])
       data1 = cursor2.fetchall()
       Userdict = {}
       Userdict["Name"] = data1[0][0]
@@ -284,7 +281,6 @@ def remove_item():
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
     data = cursor.fetchall()
-    cursor.close()
 
     Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
@@ -292,7 +288,6 @@ def remove_item():
     cursor1 = conn.cursor()
     cursor1.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
     data = cursor1.fetchall()
-    cursor1.close()
 
     cursor2 = conn.cursor()
 
@@ -300,7 +295,7 @@ def remove_item():
 
     # retrieve names of users in Users table associated with email
     for row in data:
-      cursor.execute("SELECT * FROM Users WHERE Email=%s", row[1])
+      cursor2.execute("SELECT * FROM Users WHERE Email=%s", row[1])
       data1 = cursor2.fetchall()
       Userdict = {}
       Userdict["Name"] = data1[0][0]
@@ -339,7 +334,6 @@ def add_friend():
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
     data = cursor.fetchall()
-    cursor.close()
 
     Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
@@ -347,7 +341,6 @@ def add_friend():
     cursor1 = conn.cursor()
     cursor1.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
     data = cursor1.fetchall()
-    cursor1.close()
 
     cursor2 = conn.cursor()
 
@@ -355,7 +348,7 @@ def add_friend():
 
     # retrieve names of users in Users table associated with email
     for row in data:
-      cursor.execute("SELECT * FROM Users WHERE Email=%s", row[1])
+      cursor2.execute("SELECT * FROM Users WHERE Email=%s", row[1])
       data1 = cursor2.fetchall()
       Userdict = {}
       Userdict["Name"] = data1[0][0]
@@ -395,7 +388,7 @@ def split_cost():
   	  	user_total += (float(item['Price']) * int(item['Quantity']))
   	  pre_tax += (float(item['Price']) * int(item['Quantity']))
 
-    if(user_total > pre_tax):
+    if ((user_total > pre_tax) or (user_total > post_tax)):
       sys.exit("ERROR: USER BILL GREATER THAN TOTAL BILL")
 
     user_total = ((user_total / pre_tax) * post_tax) * (1 + tip)
