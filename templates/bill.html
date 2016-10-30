@@ -27,6 +27,7 @@
 				<tr>
 					<th>Bill ID</th>
 					<th>Email</th>
+					<th> </th>
 				</tr>
 			</thead>
 
@@ -35,6 +36,12 @@
 			    <tr>
 			        <td>{{n.BillID}}</td>
 			        <td>{{n.Email}}</td>
+			        <td>
+			        	<form action="/display_bill" method="GET">
+			        		<input type="submit" name=button value="Access">
+			        		<input type="hidden" name=billId value={{n.BillID}}>
+			        	</form>
+			        <td>
 			     </tr>
 			    {% endfor %}
 			  </tbody>

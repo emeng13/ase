@@ -215,11 +215,29 @@ def bill():
     return render_template('bill.html', Userbill = Userbill )
 
 # DISPLAY BILL
-# @app.route('/display_bill', methods=['GET', 'POST'])
-# def display_bill():
-#   cursor2.execute("SELECT * FROM Bill_Users")
-#   data = cursor2.fetchall()
-#   # display data in html
+@app.route('/display_bill', methods=['GET', 'POST'])
+def display_bill():
+  if request.method == 'GET':
+    bill_id = request.form['billId']
+    
+    global user_email
+    # set current session bill
+    global bill_id
+    bill_id = billId
+
+    # retrieve all items associated with email and bill
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Item WHERE Email=%s AND billID=%d", user_email, bill_id)
+    data = cursor.fetchall()
+
+    Userbill = [dict(Item_name=row[0], Quantity=row[2], Price=row[3]) for row in data]
+
+    print data
+
+    conn.commit()
+
+    # bill shows list of items
+    return render_template('display_bill.html', Userbill = Userbill, Billid=bill_id)
 
 #   # add item
 #   cursor.execute("INSERT INTO Bill_Users VALUES (%s, %s, %d, %f)", (user_email, item_name, quantity, price))
