@@ -15,8 +15,26 @@
 
 	<div class="container-fluid"> 
 
-		<form action="/bill" method="post">
-			<button type="submit" value="Create a Bill Session">Create a Bill Session</button>
+		<form action="/display_bill" method="post">
+			<table>
+		         <thead>
+		            <tr>
+		               <th>Name</th>
+		               <th>Cost</th>
+		               <th>Quantity</th>
+		            </tr>
+		         </thead>
+		         
+		         <tbody>
+		            {% for item in list %}
+		               <tr>
+		                  <td>{{ item.name }}</td>
+		                  <td>{{ item.cost }}</td>
+		                  <td>{{ item.quantity }}</td>
+		               </tr>
+		            {% endfor %}
+		         </tbody>
+		      </table>
 		</form>
 
 	</div>
