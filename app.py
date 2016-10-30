@@ -226,13 +226,57 @@ def display_bill():
     # bill shows list of items
     return render_template('display_bill.html', Userbill = Userbill, Billid=bill_id)
 
-#   # add item
-#   cursor.execute("INSERT INTO Bill_Users VALUES (%s, %s, %d, %f)", (user_email, item_name, quantity, price))
-#   conn.commit()
+# ADD ITEM
+@app.route('/add_item', methods=['GET', 'POST'])
+def add_item():
+  if request.method == 'POST':
+    global user_email
+    global bill_id
 
-#   # remove item
-#   cursor.execute("DELETE FROM Bill_Users VALUES (%s, %s, %d, %f)", (user_email, item_name, quantity, price))
-#   conn.commit()
+    item_name = request.form['item']
+    quantity = request.form['quantity']
+    price = request.form['price']
+
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO Items VALUES (%s, %s, %d, %f, %d)", (user_email, item_name, quantity, price, bill_id))
+    conn.commit()
+
+    # retrieve all items associated with email and bill
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Item WHERE Email=%s AND billID=%d", user_email, bill_id)
+    data = cursor.fetchall()
+
+    Userbill = [dict(Item_name=row[0], Quantity=row[2], Price=row[3]) for row in data]
+
+    print data
+
+    return render_template('display_bill.html', Userbill = Userbill, Billid=bill_id)
+
+
+# REMOVE ITEM
+@app.route('/remove_item', methods=['GET', 'POST'])
+def remove_item(item_name):
+  if request.method == 'POST'
+    global user_email
+    global bill_id
+
+    cursor.execute("DELETE FROM Items VALUES (%s, %s, %d, %f, %d)", (user_email, item_name, quantity, price, billId))
+    conn.commit()
+
+    # retrieve all items associated with email and bill
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Item WHERE Email=%s AND billID=%d", user_email, bill_id)
+    data = cursor.fetchall()
+
+    Userbill = [dict(Item_name=row[0], Quantity=row[2], Price=row[3]) for row in data]
+
+    print data
+
+    return render_template('display_bill.html', Userbill = Userbill, Billid=bill_id)
+
+# EDIT ITEM
+@app.route('/edit_item', methods=['GET', 'POST'])
+def edit_item():
 
 # ADD FRIEND
 @app.route('/add_friends', methods=['GET', 'POST'])
