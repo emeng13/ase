@@ -253,14 +253,20 @@ def display_bill():
     conn.commit()
     cursor = conn.cursor()
 
-    Userlist = ()
+    Userlist = []
 
     for row in data:
       cursor.execute("SELECT * FROM Users WHERE Email=%s", row[1])
-      data1 = cursor.fetchall
-      Userlist['Name'] = data1[0][0]
-      Userlist['Email'] = row[1]
+      data1 = cursor.fetchall()
+      print data1[0][0]
+      print row[1]
+      Userdict = {}
+      Userdict["Name"] = data1[0][0]
+      Userdict["Email"] = row[1]
+      Userlist.append(Userdict)
 
+    print Userlist
+    print Userbill
     # bill shows list of items
     return render_template('display_bill.html', Userbill = Userbill, Userlist = Userlist, Billid=bill_id)
 
@@ -294,13 +300,17 @@ def add_item():
     conn.commit()
     cursor = conn.cursor()
 
-    Userlist = ()
+    Userlist = []
 
     for row in data:
       cursor.execute("SELECT * FROM Users WHERE Email=%s", row[1])
-      data1 = cursor.fetchall
-      Userlist['Name'] = data1[0][0]
-      Userlist['Email'] = row[1]
+      data1 = cursor.fetchall()
+      print data1[0][0]
+      print row[1]
+      Userdict = {}
+      Userdict["Name"] = data1[0][0]
+      Userdict["Email"] = row[1]
+      Userlist.append(Userdict)
 
     # bill shows list of items
     return render_template('display_bill.html', Userbill = Userbill, Userlist = Userlist, Billid=bill_id)
@@ -334,13 +344,17 @@ def remove_item():
     conn.commit()
     cursor = conn.cursor()
 
-    Userlist = ()
+    Userlist = []
 
     for row in data:
       cursor.execute("SELECT * FROM Users WHERE Email=%s", row[1])
-      data1 = cursor.fetchall
-      Userlist['Name'] = data1[0][0]
-      Userlist['Email'] = row[1]
+      data1 = cursor.fetchall()
+      print data1[0][0]
+      print row[1]
+      Userdict = {}
+      Userdict["Name"] = data1[0][0]
+      Userdict["Email"] = row[1]
+      Userlist.append(Userdict)
 
     # bill shows list of items
     return render_template('display_bill.html', Userbill = Userbill, Userlist = Userlist, Billid=bill_id)
@@ -391,13 +405,17 @@ def add_friend():
     conn.commit()
     cursor = conn.cursor()
 
-    Userlist = ()
+    Userlist = []
 
     for row in data:
       cursor.execute("SELECT * FROM Users WHERE Email=%s", row[1])
-      data1 = cursor.fetchall
-      Userlist['Name'] = data1[0][0]
-      Userlist['Email'] = row[1]
+      data1 = cursor.fetchall()
+      print data1[0][0]
+      print row[1]
+      Userdict = {}
+      Userdict["Name"] = data1[0][0]
+      Userdict["Email"] = row[1]
+      Userlist.append(Userdict)
 
     # bill shows list of items
     return render_template('display_bill.html', Userbill = Userbill, Userlist = Userlist, Billid=bill_id)
