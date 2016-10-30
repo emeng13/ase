@@ -11,6 +11,7 @@ conn = pymssql.connect(server='eats.database.windows.net', \
   database='AERIS')\
 
 user_email = ""
+bill_id = -1
 
 # class User(db.Model):
 #   id = db.Column('item_id', db.Integer, primary_key=True) #idk
