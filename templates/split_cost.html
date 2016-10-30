@@ -10,6 +10,19 @@
   <link rel="stylesheet" href="static/style.css">
 
 </head>
+<style>
+a:link, a:visited {
+    background-color: #F55D5D;
+    border-radius: 15px;
+    min-width: 100px;
+    padding: 10px 25px;
+    text-align: center; 
+    display: inline-block;
+    color: white;
+    border-style: none;
+}
+</style>
+
 <body>
   <div class="container-fluid">
     <div class="row">
@@ -25,6 +38,8 @@
       <div class="col-md-6">
         <h1>You owe ${{Cost}}</h1>
         <a href="{{ url_for('bill') }}">Your Bills</a>
+        <br></br>
+        <a href="{{ url_for('main') }}">Logout</a>
       </div>
     </div>
 

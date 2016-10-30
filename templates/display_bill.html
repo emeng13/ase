@@ -11,85 +11,111 @@
 
 </head>
 
+<style>
+a:link, a:visited {
+    background-color: #F55D5D;
+    border-radius: 15px;
+    min-width: 100px;
+    padding: 10px 25px;
+    text-align: center; 
+    display: inline-block;
+    color: white;
+    border-style: none;
+}
+</style>
+
 <body>
 	<div class="container-fluid"> 
-    <div class="top-page col-lg-12">
-    <h1>Itemized Cost for Bill {{Billid}}</h1>
+	<div class="row">
+      <div class="top-page col-lg-12">
+
+        <!-- our logo -->
+        <img id="logo" class="col-md-3" src="static/img/logo.png"> 
+      </div>
     </div>
-	<div class="row col-lg-6">	
-		<form action="/display_bill" method="post">
-			<table>
+
+	    <div class="top-page col-lg-12">
+	    <h1>Itemized Cost for Bill {{Billid}}</h1>
+	    </div>
+		<div class="row col-lg-6">	
+			<form action="/display_bill" method="post">
+				<table>
+			         <thead>
+			            <tr>
+			               <th>Name</th>
+			               <th>Item</th>
+			               <th>Cost</th>
+			               <th>Quantity</th>
+			               <th>Delete</th>
+			            </tr>
+			         </thead>
+			 
+			         <tbody>
+			            {% for n in Userbill %}
+			               <tr>
+			               		<td>{{ n.Email }}</td>
+			                  <td>{{ n.ItemName }}</td>
+			                  <td>{{ n.Price }}</td>
+			                  <td>{{ n.Quantity }}</td>
+			                  <td>
+				        		<form action="/remove_item" method="POST">
+				        		<input type="hidden" name="ItemName" value={{n.ItemName}}>
+				        		<input type="submit" name="button" value="Delete">
+				        		</form>
+				        	  </td>
+			               </tr>
+			            {% endfor %}
+			        </tbody>
+			    </table>
+			</form>
+			<br>
+			<br>
+			<form action="/add_item" method="post">
+			    <input type = "text" name = "item" placeholder = "Item" /><br>
+			   	<input type = "text" name = "price" placeholder = "Price" /><br>
+			   	<input type = "text" name = "quantity" placeholder = "Quantity" /><br>
+		       	<input type = "submit" value = "Add" />
+	       	</form>
+
+	       	<br></br>
+
+	       	<a href="{{ url_for('bill') }}">Your Bills</a>
+	    </div>
+	    <div class="row col-lg-6">
+	    	<h3> Users </h3>
+	    	<table>
 		         <thead>
 		            <tr>
 		               <th>Name</th>
-		               <th>Item</th>
-		               <th>Cost</th>
-		               <th>Quantity</th>
-		               <th>Delete</th>
+		               <th>Email</th>
 		            </tr>
 		         </thead>
 		 
 		         <tbody>
-		            {% for n in Userbill %}
+		            {% for n in Userlist %}
 		               <tr>
-		               		<td>{{ n.Email }}</td>
-		                  <td>{{ n.ItemName }}</td>
-		                  <td>{{ n.Price }}</td>
-		                  <td>{{ n.Quantity }}</td>
-		                  <td>
-			        		<form action="/remove_item" method="POST">
-			        		<input type="hidden" name="ItemName" value={{n.ItemName}}>
-			        		<input type="submit" name="button" value="Delete">
-			        		</form>
-			        	  </td>
+		               	  <td>{{ n.Name }}</td>
+		                  <td>{{ n.Email }}</td>
 		               </tr>
 		            {% endfor %}
 		        </tbody>
 		    </table>
-		</form>
-		<br>
-		<br>
-		<form action="/add_item" method="post">
-		    <input type = "text" name = "item" placeholder = "Item" /><br>
-		   	<input type = "text" name = "price" placeholder = "Price" /><br>
-		   	<input type = "text" name = "quantity" placeholder = "Quantity" /><br>
-	       	<input type = "submit" value = "Add" />
-       	</form>
-    </div>
-    <div class="row col-lg-6">
-    	<table>
-	         <thead>
-	            <tr>
-	               <th>Name</th>
-	               <th>Email</th>
-	            </tr>
-	         </thead>
-	 
-	         <tbody>
-	            {% for n in Userlist %}
-	               <tr>
-	               	  <td>{{ n.Name }}</td>
-	                  <td>{{ n.Email }}</td>
-	               </tr>
-	            {% endfor %}
-	        </tbody>
-	    </table>
-	    <br>
-	    <br>
-       	<form action="/add_friend" method="POST">
-			<input type="hidden" name="Billid" value={{Billid}}>
-			<input type = "text" name = "Friend_email" placeholder = "Friend Email" /><br>
-       		<input type = "submit" value = "Invite" />
-		</form>
-		<br>
-		<br>
-		<form action="/split_cost" method="POST">
-			<input type="hidden" name="Billid" value={{Billid}}>
-			<input type = "text" name = "Total" placeholder = "Total" /><br>
-			<input type = "text" name = "Tip" placeholder = "Tip" /><br>
-       		<input type = "submit" value = "Submit" />
-		</form>
-	</div>
+		    <br>
+		    <br>
+	       	<form action="/add_friend" method="POST">
+				<input type="hidden" name="Billid" value={{Billid}}>
+				<input type = "text" name = "Friend_email" placeholder = "Friend Email" /><br>
+	       		<input type = "submit" value = "Invite" />
+			</form>
+			<br>
+			<br>
+			<form action="/split_cost" method="POST">
+				<input type="hidden" name="Billid" value={{Billid}}>
+				<input type = "text" name = "Total" placeholder = "Total" /><br>
+				<input type = "text" name = "Tip" placeholder = "Tip" /><br>
+	       		<input type = "submit" value = "Submit" />
+			</form>
+		</div>
 	</div>
 	
 
