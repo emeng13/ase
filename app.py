@@ -238,11 +238,6 @@ def display_bill():
     # set current session bill
 #    bill_id = billId
 
-    # add user into Bill_Users table
-    cursor = conn.cursor()
-    cursor.execute("INSERT INTO Bill_Users VALUES (%d, %s)", (billid, Femail))
-    conn.commit()
-
     # retrieve all items associated with email and bill
     cursor = conn.cursor()
 #    cursor.execute("SELECT * FROM Items WHERE Email=%s AND billID=%d", (user_email, bill_id))
@@ -365,6 +360,8 @@ def add_friend():
     Femail = request.form['Friend_email']
     billid = request.form['Billid']
 
+
+
     # get user from Users table
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM Users WHERE Email=%s", (Femail))
@@ -373,6 +370,11 @@ def add_friend():
 
     print Femail
     print billid
+
+    # add user into Bill_Users table
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO Bill_Users VALUES (%d, %s)", (billid, Femail))
+    conn.commit()
 
     # retrieve all items associated with email and bill
     cursor = conn.cursor()
@@ -401,7 +403,7 @@ def add_friend():
     return render_template('display_bill.html', Userbill = Userbill, Userlist = Userlist, Billid=bill_id)
 
 
-# ADD FRIEND
+# SPLIT COST
 @app.route('/split_cost', methods=['GET', 'POST'])
 def split_cost():
   if request.method == 'POST':
