@@ -232,11 +232,8 @@ def add_item():
     quantity = request.form['quantity']
     price = request.form['price']
 
-    if(quantity <= 0):
-      print "ERROR: QUANTITY CANNOT BE 0"
-
-    if(price <= 0):
-      print "ERROR: PRICE CANNOT BE LESS THAN $0"
+    if (quantity <= 0) or (price <= 0):
+      return render_template("400.html", message = "INVALID INPUT VALUES")
 
     cursor = conn.cursor()
     cursor.execute("INSERT INTO Items VALUES (%s, %s, %d, %d, %d)", (user_email, item_name, quantity, price, bill_id))
@@ -382,6 +379,10 @@ def split_cost():
     billid = request.form['Billid']
     post_tax = float(request.form['Total'])
 
+    if (tip < 0) or (post_tax < 0):
+      return render_template("400.html", message = "INVALID INPUT VALUES")
+
+
     # retrieve all items associated with email and bill
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
@@ -397,8 +398,12 @@ def split_cost():
   	  	user_total += (float(item['Price']) * int(item['Quantity']))
   	  pre_tax += (float(item['Price']) * int(item['Quantity']))
 
-    if ((user_total > pre_tax) or (user_total > post_tax)):
-      print "ERROR: USER BILL GREATER THAN TOTAL BILL"
+    print post_tax
+    print pre_tax
+    print user_total
+
+    if ((user_total > post_tax) or (user_total > pre_tax)):
+      return render_template("400.html", message = "USER BILL GREATER THAN TOTAL BILL")
 
     user_total = ((user_total / pre_tax) * post_tax) * (1 + tip)
     user_total = ("%.2f" % user_total)
