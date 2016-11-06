@@ -31,3 +31,6 @@ def deploy():
     with cd(os.getcwd()):
         local("git pull")
         local("python app.py")
+
+
+
