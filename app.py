@@ -384,7 +384,7 @@ def split_cost():
 
     # retrieve all items associated with email and bill
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Items WHERE Email=%s AND billID=%d", (user_email, bill_id))
+    cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
     data = cursor.fetchall()
 
     Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
