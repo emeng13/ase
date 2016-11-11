@@ -1,12 +1,18 @@
 """app unit tests"""
 # reference: http://www.drdobbs.com/testing/unit-testing-with-python/240165163
-import unittest
 import pymssql 
+import os
+import unittest
 
 from app import app
 
-user_email = "test@test.com"
+user_email = "test@test"
 bill_id = -1
+
+conn = pymssql.connect(server='eats.database.windows.net', \
+  user='th2520@eats',\
+  password='123*&$eats',\
+  database='AERIS')\
 
 class MyTest(unittest.TestCase):
 	"""Test class"""
@@ -20,53 +26,19 @@ class MyTest(unittest.TestCase):
 	
 	def test_add_item(self):
 		"""Add item to bill"""
-		global user_email
-		global bill_id
-
-		item_name = "test_add_item"
-		quantity = 3
-		price = 1.50
-
-		cursor = conn.cursor()
-		cursor.execute("INSERT INTO Items VALUES (%s, %s, %d, %d, %d)", (user_email, item_name, quantity, price, bill_id))
-    	conn.commit()
-
-		cursor = conn.cursor()
-		cursor.execute("SELECT * FROM Items WHERE Email=%s AND ItemName=%s AND Quantity=%d AND Price=%d AND BillId=%d", (user_email, item_name, quantity, price, bill_id))
-		
-		assert cursor.rowcount == 1
 
 
 	def test_remove_item(self):
 		"""Add then remove item from list"""
-		global user_email
-		global bill_id
 
-		item_name = "test_remove_item"
-		quantity = 5
-		price = 1.00
+	def test_split_cost(self):
+		rv = self.app.post('/split_cost', data=dict(
+        Tip='0.2',
+        Billid='364',
+        Total='2.20'), follow_redirects=True)
+    	assert '2.64' in rv.data
 
-		cursor = conn.cursor()
-		cursor.execute("INSERT INTO Items VALUES (%s, %s, %d, %d, %d)", (user_email, item_name, quantity, price, bill_id))
-    	conn.commit()
-
-		cursor = conn.cursor()
-		cursor.execute("SELECT * FROM Items WHERE Email=%s AND ItemName=%s AND Quantity=%d AND Price=%d AND BillId=%d", (user_email, item_name, quantity, price, bill_id))
-		
-		assert cursor.rowcount == 1
-
-		cursor = conn.cursor()
-		cursor.execute("DELETE FROM Items WHERE Email=%s AND ItemName=%s AND Quantity=%d AND Price=%d AND BillId=%d", (user_email, item_name, quantity, price, bill_id))
-		conn.commit()
-
-		cursor = conn.cursor()
-		cursor.execute("SELECT * FROM Items WHERE Email=%s AND ItemName=%s AND Quantity=%d AND Price=%d AND BillId=%d", (user_email, item_name, quantity, price, bill_id))
-		
-		assert cursor.rowcount == 0
-
-	def test
 
 
 if __name__ == '__main__':
 	unittest.main()
-	db.session.close()
