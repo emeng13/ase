@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
+from flask_login import LoginManager, UserMixin, login_required
 from passlib.hash import sha256_crypt
 from random import randint
 
@@ -6,6 +7,9 @@ import pymssql
 import sys
 
 app = Flask(__name__)
+login_manager = LoginManager()
+login_manager.init_app(app)
+app.secret_key = "sdfhweoirhlsdfsdijfoisjdfoijsef"
 
 # server connection
 conn = pymssql.connect(server='eats.database.windows.net', \
@@ -67,12 +71,13 @@ def main():
 
 @app.route('/login', methods=['POST'])
 def login():
-  email = request.form['email']
-  password = request.form['password']
-
-  # set global variable for current logged in user
-  global user_email 
-  user_email = email
+  # if 'username' in session:
+  #   username = session['username']
+  #   print ("Logged in as " + username)
+  #   return redirect ('bill')
+  if request.method == 'POST':
+    email = request.form['email']
+    password = request.form['password']
 
   cursor = conn.cursor()
   cursor.execute("SELECT password FROM Users WHERE Email=%s", email)
@@ -84,6 +89,14 @@ def login():
   else:
     data = cursor.fetchall()
     cursor.close()
+    session['username'] = email
+    username = session['username']
+
+    # set global variable for current logged in user
+    global user_email 
+    user_email = email
+
+    print username 
 
     if sha256_crypt.verify(password, data[0][0]): # login OK
       print "Login successful!" #for testing
