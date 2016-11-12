@@ -19,6 +19,11 @@ conn = pymssql.connect(server='eats.database.windows.net', \
 user_email = ""
 bill_id = -1
 
+def validate_name(name):
+  if not re.match("^[A-Za-z0-9 ]*$"):
+    return False
+  return True
+
 def validate_email(email):
   if not re.match("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", email):
     return False
@@ -286,7 +291,7 @@ def add_item():
   # check fields
   if not item_name or not quantity or not price:
     return render_template("400.html", message="INVALID INPUT VALUES")
-  if not quantity.isnumeric() or not validate_price(price):
+  if not validate_name(item_name) or not quantity.isnumeric() or not validate_price(price):
     return render_template("400.html", message="INVALID INPUT VALUES")
   if (quantity == 0) or (price == 0):
     return render_template("400.html", message="INVALID INPUT VALUES")
@@ -333,11 +338,7 @@ def remove_item():
   global user_email
   global bill_id
 
-  item_name = request.form['ItemName'].strip()
-
-  # check fields
-  if not item_name:
-    return render_template("400.html", message="INVALID INPUT VALUES")
+  item_name = request.form['ItemName']
 
   cursor = conn.cursor()
   cursor.execute("DELETE FROM Items WHERE Email=%s AND ItemName=%s AND billID=%d", (user_email, item_name, bill_id))
