@@ -19,7 +19,6 @@ class MyTest(unittest.TestCase):
 	def setUp(self):
 	   """Set up"""
 	   self.app = app.test_client(self)
-	   print("in setUp")
 
 	def tearDown(self):
 	   """Tear down"""
@@ -53,6 +52,32 @@ class MyTest(unittest.TestCase):
 			'password': 'test'}, follow_redirects=True)		
 		assert 'You registered with the same email before.' in rv.data
 
+	def test_display_bills(self):
+		rv = self.app.get('/bill', data={}, follow_redirects=True)
+		assert '364' in rv.data
+		assert '365' not in rv.data
+
+	def test_display_bill(self):
+		rv = self.app.post('/display_bill', data={'billId': '364'}, follow_redirects=True)
+		assert 'abc' in rv.data
+		assert 'def' not in rv.data
+
+	def test_add_item_successful(self):
+		rv = self.app.post('/add_item', data={'item': 'aaa', 'quantity': '1', 'price': '1.00'}, follow_redirects=True)
+		assert 'aaa' in rv.data
+
+	def test_add_item_invalid_price_quantity(self):
+		rv = self.app.post('/add_item', data={'item': 'bbb', 'quantity': '-1', 'price': '0.00'}, follow_redirects=True)
+		assert 'bbb' not in rv.data
+
+	def test_remove_item(self):
+		rv = self.app.post('/remove_item', data={'ItemName': 'aaa'}, follow_redirects=True)
+		assert 'aaa' not in rv.data
+
+
+	#def test_add_item_invalid_name(self):
+	#	rv = self.app.post('/add_item', data={'item': '???', 'quantity': '1', 'price': '1.00'}, follow_redirects=True)
+	#	assert '???' not in rv.data
 
 
 if __name__ == '__main__':
