@@ -18,7 +18,7 @@ class MyTest(unittest.TestCase):
 	"""Test class"""
 	def setUp(self):
 		"""Set up"""
-
+		self.app = app.test_client(self)
 
 	def tearDown(self):
 		"""Tear down"""
@@ -32,10 +32,9 @@ class MyTest(unittest.TestCase):
 		"""Add then remove item from list"""
 
 	def test_split_cost(self):
-		rv = self.app.post('/split_cost', data=dict(
-        Tip='0.2',
-        Billid='364',
-        Total='2.20'), follow_redirects=True)
+		#rv = self.app.post('/split_cost?Tip=0.2&Billid=364&Total=2.20')
+		rv = self.app.post('/split_cost', data={'Tip': '0.2', 'Billid': '364', \
+        'Total': '2.20'}, follow_redirects=True)
     	assert '2.64' in rv.data
 
 
