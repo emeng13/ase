@@ -22,31 +22,28 @@ bill_id = -1
 
 @app.route("/")
 def main():
-  # cursor = conn.cursor()
-  # create Users table
+  cursor = conn.cursor()
   # cursor.execute("""
-    # IF OBJECT_ID('Users', 'U') IS NOT NULL
-    #   DROP TABLE Users
-    # CREATE TABLE Users (
-    #   FirstName VARCHAR(255) NOT NULL,
-    #   LastName VARCHAR(255) NOT NULL,
-    #   Email varchar(255) NOT NULL PRIMARY KEY,
-    #   Password varchar(255) NOT NULL 
-    # )
-    # """)
-  # cursor.execute("SELECT * FROM Users")
-  # data = cursor.fetchall()
+  #   CREATE TABLE Test_Users (
+  #     FirstName VARCHAR(255) NOT NULL,
+  #     LastName VARCHAR(255) NOT NULL,
+  #     Email varchar(255) NOT NULL PRIMARY KEY,
+  #     Password varchar(255) NOT NULL 
+  #   )
+  #   """)
+  cursor.execute("SELECT * FROM Test_Users")
+  data = cursor.fetchall()
 
-  # print data # debug print User table
+  print data # debug print User table
 
-  # conn.commit()
+  # # conn.commit()
   # cursor.close()
 
-  # cursor1 = conn.cursor()
+  # cursor = conn.cursor()
 
-  # create Item table
-  # cursor1.execute("""
-  #   CREATE TABLE Items(
+  # #create Item table
+  # cursor.execute("""
+  #   CREATE TABLE Test_Items(
   #     Email varchar(255) NOT NULL, 
   #     ItemName varchar(255) NOT NULL,
   #     Quantity INT NOT NULL,
@@ -57,7 +54,24 @@ def main():
   #   """)
 
   # conn.commit()
-  # cursor1.close()
+
+  cursor.execute("SELECT * FROM Test_Items")
+  data = cursor.fetchall()
+  print data
+
+  # cursor = conn.cursor()
+  # cursor.execute("""
+  #   CREATE TABLE Test_Bill_Users (
+  #     billID INT NOT NULL,
+  #     Email varchar(255) NOT NULL,
+  #     PRIMARY KEY (billID, Email)
+  #   )
+  #   """)
+  # conn.commit()
+  
+  cursor.execute("SELECT * FROM Test_Bill_Users")
+  data = cursor.fetchall()
+  print data
 
   print request.args
 

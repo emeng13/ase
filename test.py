@@ -17,25 +17,27 @@ conn = pymssql.connect(server='eats.database.windows.net', \
 class MyTest(unittest.TestCase):
 	"""Test class"""
 	def setUp(self):
-		"""Set up"""
-		self.app = app.test_client(self)
+	   """Set up"""
+	   self.app = app.test_client(self)
+	   print("in setUp")
 
 	def tearDown(self):
-		"""Tear down"""
+	   """Tear down"""
 
 	
 	def test_add_item(self):
-		"""Add item to bill"""
+	   """Add item to bill"""
 
 
 	def test_remove_item(self):
-		"""Add then remove item from list"""
+	   """Add then remove item from list"""
 
 	def test_split_cost(self):
-		#rv = self.app.post('/split_cost?Tip=0.2&Billid=364&Total=2.20')
-		rv = self.app.post('/split_cost', data={'Tip': '0.2', 'Billid': '364', \
-        'Total': '2.20'}, follow_redirects=True)
-    	assert '2.64' in rv.data
+	   #rv = self.app.post('/split_cost?Tip=0.2&Billid=364&Total=2.20')
+	   # rv = self.app.post('/split_cost', data={'Tip': '0.2', 'Billid': '364', \
+	   #  'Total': '2.20'}, follow_redirects=True)
+	   rv = self.app.post('/split_cost', data=dict(Tip= '0.2', Billid= '364', Total= '2.20'),follow_redirects=True)
+	   assert '2.64' in rv.data
 
 
 
