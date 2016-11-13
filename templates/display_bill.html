@@ -42,7 +42,7 @@ a:link, a:visited {
 		<div class="row">	
 			<div class="col-lg-6">
 			<h1>Itemized Cost for Bill {{Billid}}</h1>
-			<form action="/display_bill" method="post">
+			<form action="/remove_item" method="post">
 				<table class="table table-bordered">
 			         <thead>
 			            <tr>
@@ -62,7 +62,7 @@ a:link, a:visited {
 			                  <td>{{ n.Price }}</td>
 			                  <td>{{ n.Quantity }}</td>
 			                  <td>
-				        		<form action="/remove_item" method="POST">
+				        		<form action="/remove_item" method="post">
 				        		<input type="hidden" name="ItemName" value={{n.ItemName}}>
 				        		<input type="submit" name="button" value="Delete">
 				        		</form>
