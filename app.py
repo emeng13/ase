@@ -22,36 +22,37 @@ conn = pymssql.connect(server='eats.database.windows.net', \
 # global variables for current logged in bill session
 bill_id = -1
 
-def validate_name(name):
-  if not re.match("^[A-Za-z0-9 ]*$"):
-    return False
-  return True
+# def validate_name(name):
+#   if not re.match("^[A-Za-z0-9 ]*$"):
+#     return False
+#   return True
 
-def validate_email(email):
-  if not re.match("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", email):
-    return False
-  return True
+# def validate_email(email):
+#   if not re.match("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", email):
+#     return False
+#   return True
 
-def validate_price(price):
-  if not re.match("^(?=.*\d)\d*(?:\.\d\d)?$", price):
-    return False
-  return True
+# def validate_price(price):
+#   if not re.match("^(?=.*\d)\d*(?:\.\d\d)?$", price):
+#     return False
+#   return True
 
 @app.route("/")
 def main():
-  cursor = conn.cursor()
-  # cursor.execute("""
-  #   CREATE TABLE Test_Users (
-  #     FirstName VARCHAR(255) NOT NULL,
-  #     LastName VARCHAR(255) NOT NULL,
-  #     Email varchar(255) NOT NULL PRIMARY KEY,
-  #     Password varchar(255) NOT NULL 
-  #   )
-  #   """)
-  cursor.execute("SELECT * FROM Test_Users")
-  data = cursor.fetchall()
 
-  print data # debug print User table
+  # cursor = conn.cursor()
+  # # cursor.execute("""
+  # #   CREATE TABLE Test_Users (
+  # #     FirstName VARCHAR(255) NOT NULL,
+  # #     LastName VARCHAR(255) NOT NULL,
+  # #     Email varchar(255) NOT NULL PRIMARY KEY,
+  # #     Password varchar(255) NOT NULL 
+  # #   )
+  # #   """)
+  # cursor.execute("SELECT * FROM Test_Users")
+  # data = cursor.fetchall()
+
+  # print data # debug print User table
 
   if 'username' in session:
     username = session['username']
@@ -61,39 +62,57 @@ def main():
   # # conn.commit()
   # cursor.close()
 
-  # cursor = conn.cursor()
-
-  # #create Item table
-  # cursor.execute("""
-  #   CREATE TABLE Test_Items(
-  #     Email varchar(255) NOT NULL, 
-  #     ItemName varchar(255) NOT NULL,
-  #     Quantity INT NOT NULL,
-  #     Price DECIMAL(10,2) NOT NULL,     
-  #     BillId INT NOT NULL,
-  #     PRIMARY KEY (Email, ItemName, BillId)
-  #   )
-  #   """)
-
-  # conn.commit()
-
-  cursor.execute("SELECT * FROM Test_Items")
-  data = cursor.fetchall()
-  print data
 
   # cursor = conn.cursor()
-  # cursor.execute("""
-  #   CREATE TABLE Test_Bill_Users (
-  #     billID INT NOT NULL,
-  #     Email varchar(255) NOT NULL,
-  #     PRIMARY KEY (billID, Email)
-  #   )
-  #   """)
-  # conn.commit()
+  # # cursor.execute("""
+  # #   CREATE TABLE Test_Users (
+  # #     FirstName VARCHAR(255) NOT NULL,
+  # #     LastName VARCHAR(255) NOT NULL,
+  # #     Email varchar(255) NOT NULL PRIMARY KEY,
+  # #     Password varchar(255) NOT NULL 
+  # #   )
+  # #   """)
+  # cursor.execute("SELECT * FROM Test_Users")
+  # data = cursor.fetchall()
+
+  # print data # debug print User table
+
+  # # # conn.commit()
+  # # cursor.close()
+
+  # # cursor = conn.cursor()
+
+  # # #create Item table
+  # # cursor.execute("""
+  # #   CREATE TABLE Test_Items(
+  # #     Email varchar(255) NOT NULL, 
+  # #     ItemName varchar(255) NOT NULL,
+  # #     Quantity INT NOT NULL,
+  # #     Price DECIMAL(10,2) NOT NULL,     
+  # #     BillId INT NOT NULL,
+  # #     PRIMARY KEY (Email, ItemName, BillId)
+  # #   )
+  # #   """)
+
+  # # conn.commit()
+
+  # cursor.execute("SELECT * FROM Test_Items")
+  # data = cursor.fetchall()
+  # print data
+
+  # # cursor = conn.cursor()
+  # # cursor.execute("""
+  # #   CREATE TABLE Test_Bill_Users (
+  # #     billID INT NOT NULL,
+  # #     Email varchar(255) NOT NULL,
+  # #     PRIMARY KEY (billID, Email)
+  # #   )
+  # #   """)
+  # # conn.commit()
   
-  cursor.execute("SELECT * FROM Test_Bill_Users")
-  data = cursor.fetchall()
-  print data
+  # cursor.execute("SELECT * FROM Test_Bill_Users")
+  # data = cursor.fetchall()
+  # print data
 
   print request.args
 
@@ -122,9 +141,9 @@ def login():
     return render_template('index.html', response=message)
 
   # validate email
-  if not validate_email(email):
-    message = "Invalid email!"
-    return render_template('index.html', response=message)
+  # if not validate_email(email):
+  #   message = "Invalid email!"
+  #   return render_template('index.html', response=message)
 
   cursor = conn.cursor()
   cursor.execute("SELECT Password FROM Users WHERE Email=%s", email)
@@ -170,10 +189,10 @@ def signup():
     return render_template('index.html', response=message)
 
   # validate email
-  if not isError:
-    if not validate_email(email):
-      message = "Invalid email!"
-      return render_template('index.html', response=message)
+  # if not isError:
+  #   if not validate_email(email):
+  #     message = "Invalid email!"
+  #     return render_template('index.html', response=message)
 
   # check if email exists in Users table
   cursor = conn.cursor()
@@ -270,6 +289,7 @@ def display_bill():
   cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
   data = cursor.fetchall()
 
+
   Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
   # retrieve all users in Bill_Users table associated with bill
@@ -310,12 +330,12 @@ def add_item():
     username = session['username']
 
   # check fields
-  if not item_name or not quantity or not price:
-    return render_template("400.html", message="INVALID INPUT VALUES")
-  if not validate_name(item_name) or not quantity.isnumeric() or not validate_price(price):
-    return render_template("400.html", message="INVALID INPUT VALUES")
-  if (quantity == 0) or (price == 0):
-    return render_template("400.html", message="INVALID INPUT VALUES")
+  # if not item_name or not quantity or not price:
+  #   return render_template("400.html", message="INVALID INPUT VALUES")
+  # if not validate_name(item_name) or not quantity.isnumeric() or not validate_price(price):
+  #   return render_template("400.html", message="INVALID INPUT VALUES")
+  # if (quantity == 0) or (price == 0):
+  #   return render_template("400.html", message="INVALID INPUT VALUES")
 
   cursor = conn.cursor()
   cursor.execute("INSERT INTO Items VALUES (%s, %s, %d, %d, %d)", (username, item_name, quantity, price, bill_id))
@@ -360,11 +380,16 @@ def remove_item():
 
   item_name = request.form['ItemName']
 
+
   if 'username' in session:
     username = session['username']
 
   cursor = conn.cursor()
   cursor.execute("DELETE FROM Items WHERE Email=%s AND ItemName=%s AND billID=%d", (username, item_name, bill_id))
+
+
+  cursor = conn.cursor()
+  cursor.execute("DELETE FROM Items WHERE Email=%s AND ItemName=%s AND billID=%d", (user_email, item_name, bill_id))
   conn.commit()
 
   # retrieve all items in Items table associated with email and bill
@@ -408,10 +433,10 @@ def add_friend():
   billid = request.form['Billid'].strip()
 
   # check fields
-  if not Femail or not billid:
-    return render_template("400.html", message="INVALID INPUT VALUES")
-  if not validate_email(Femail) or not billid.isnumeric():
-    return render_template("400.html", message="INVALID INPUT VALUES")
+  # if not Femail or not billid:
+  #   return render_template("400.html", message="INVALID INPUT VALUES")
+  # if not validate_email(Femail) or not billid.isnumeric():
+  #   return render_template("400.html", message="INVALID INPUT VALUES")
 
   # get user from Users table
   cursor = conn.cursor()
@@ -464,10 +489,10 @@ def split_cost():
   tip = request.form['Tip'].strip()
   post_tax = request.form['Total'].strip()
 
-  if not tip or not post_tax:
-    return render_template("400.html", message = "INVALID INPUT VALUES")
-  if not validate_price(tip) or not validate_price(post_tax):
-    return render_template("400.html", message = "INVALID INPUT VALUES")
+  # if not tip or not post_tax:
+  #   return render_template("400.html", message = "INVALID INPUT VALUES")
+  # if not validate_price(tip) or not validate_price(post_tax):
+  #   return render_template("400.html", message = "INVALID INPUT VALUES")
 
   if 'username' in session:
     username = session['username']
