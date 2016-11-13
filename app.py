@@ -23,10 +23,13 @@ conn = pymssql.connect(server='eats.database.windows.net', \
 # global variables for current logged in bill session
 bill_id = -1
 
+
 def validate_name(name):
   if not re.match("^[A-Za-z0-9 ]*$", name):
     return False
   return True
+
+
 
 def validate_email(email):
   if not re.match("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", email):
@@ -60,27 +63,27 @@ def main():
     print ("Logged in as " + username)
     return redirect (url_for('bill'))
 
-  cursor = conn.cursor()
+  # cursor = conn.cursor()
 
-  #create Item table
-  cursor.execute("""
-  IF OBJECT_ID('Items', 'U') IS NOT NULL
-    DROP TABLE Items
-  CREATE TABLE Items(
-    Email varchar(255) NOT NULL, 
-    ItemName varchar(255) NOT NULL,
-    Quantity INT NOT NULL,
-    Price DECIMAL(10,2) NOT NULL,     
-    BillId INT NOT NULL,
-    CONSTRAINT pk_itms PRIMARY KEY (Email, ItemName, BillId)
-  )
-  """)
+  # #create Item table
+  # # cursor.execute("""
+  # # IF OBJECT_ID('Items', 'U') IS NOT NULL
+  # #   DROP TABLE Items
+  # # CREATE TABLE Items(
+  # #   Email varchar(255) NOT NULL, 
+  # #   ItemName varchar(255) NOT NULL,
+  # #   Quantity INT NOT NULL,
+  # #   Price DECIMAL(10,2) NOT NULL,     
+  # #   BillId INT NOT NULL,
+  # #   CONSTRAINT pk_itms PRIMARY KEY (Email, ItemName, BillId)
+  # # )
+  # # """)
 
-  conn.commit()
+  # conn.commit()
 
-  cursor.execute("SELECT * FROM Items")
-  data = cursor.fetchall()
-  print data
+  # cursor.execute("SELECT * FROM Items")
+  # data = cursor.fetchall()
+  # print data
 
   # # conn.commit()
   # cursor.close()
@@ -139,7 +142,7 @@ def login():
 
   is_valid = validate_email(email)
 
-  print ("valid: " + is_valid)
+  # print ("valid: " + is_valid)
 
   # check fields
   if not email or not password:
