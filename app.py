@@ -386,10 +386,6 @@ def remove_item():
 
   cursor = conn.cursor()
   cursor.execute("DELETE FROM Items WHERE Email=%s AND ItemName=%s AND billID=%d", (username, item_name, bill_id))
-
-
-  cursor = conn.cursor()
-  cursor.execute("DELETE FROM Items WHERE Email=%s AND ItemName=%s AND billID=%d", (user_email, item_name, bill_id))
   conn.commit()
 
   # retrieve all items in Items table associated with email and bill
