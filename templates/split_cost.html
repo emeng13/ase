@@ -38,9 +38,10 @@ a:link, a:visited {
       <div class="col-md-6">
         <h1>You owe ${{Cost}}</h1>
         <a href="{{ url_for('bill') }}">Your Bills</a>
-        <br></br>
-        <a href="{{ url_for('main') }}">Logout</a>
       </div>
+        <form class="col-md-9" method="POST" action="/logout">
+          <input type="submit" value="logout">
+        </form>
     </div>
 
   </div>

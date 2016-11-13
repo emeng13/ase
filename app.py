@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, session, url_for
 from flask_login import LoginManager, UserMixin, login_required
 from passlib.hash import sha256_crypt
 from random import randint
+from validate_email import validate_email
 
 import pymssql
 import sys
@@ -126,7 +127,6 @@ def main():
 def login():
   if 'username' in session:
     username = session['username']
-    print ("Logged in as " + username)
     return redirect (url_for('bill'))
 
   if request.method == 'POST':
@@ -136,6 +136,10 @@ def login():
   # take email and password from form
   email = request.form['email'].strip()
   password = request.form['password']
+
+  is_valid = validate_email(email)
+
+  print ("valid: " + is_valid)
 
   # check fields
   if not email or not password:
@@ -160,7 +164,6 @@ def login():
     cursor.close()
     session['username'] = email
     username = session['username']
-    print username 
 
     # login success
     if sha256_crypt.verify(password, data[0][0]): 
