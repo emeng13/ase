@@ -335,7 +335,9 @@ def display_bill():
     cursor2.execute("SELECT * FROM Users WHERE Email=%s", row[1])
     data1 = cursor2.fetchall()
     Userdict = {}
-    Userdict["Name"] = data1[0][0]
+
+    if data1: # prevent list out of range error
+      Userdict["Name"] = data1[0][0]
     Userdict["Email"] = row[1]
     Userlist.append(Userdict)
 
@@ -359,6 +361,11 @@ def add_item():
     username = session['username']
   else:
     return redirect(url_for('main'))
+
+  print "in add_item" #testing
+  print item_name #testing
+  print bill_id #testing
+  print username #testing
 
   # check fields
   if not item_name or not quantity or not price:
@@ -392,8 +399,11 @@ def add_item():
   for row in data:
     cursor2.execute("SELECT * FROM Users WHERE Email=%s", row[1])
     data1 = cursor2.fetchall()
+
+
     Userdict = {}
-    Userdict["Name"] = data1[0][0]
+    if data1: # prevent list out of range error
+      Userdict["Name"] = data1[0][0]
     Userdict["Email"] = row[1]
     Userlist.append(Userdict)
 
@@ -417,6 +427,20 @@ def remove_item():
   else:
     return redirect(url_for('main'))
 
+  print "entering remove_item"
+  print item_name #testing
+  print bill_id #testing
+  print username #testing
+
+  ## testing for test.py
+  cursor = conn.cursor()
+  cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
+  data = cursor.fetchall()
+
+  print data #testing
+
+  ##
+
   cursor = conn.cursor()
   cursor.execute("DELETE FROM Items WHERE Email=%s AND ItemName=%s AND billID=%d", (username, item_name, bill_id))
   conn.commit()
@@ -426,12 +450,16 @@ def remove_item():
   cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
   data = cursor.fetchall()
 
+  print data #testing
+
   Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
   # retrieve all users in Bill_Users table associated with bill
   cursor1 = conn.cursor()
   cursor1.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
   data = cursor1.fetchall()
+
+  
 
   Userlist = []
 
@@ -442,7 +470,8 @@ def remove_item():
     cursor2.execute("SELECT * FROM Users WHERE Email=%s", row[1])
     data1 = cursor2.fetchall()
     Userdict = {}
-    Userdict["Name"] = data1[0][0]
+    if data1: # prevent list out of bound error
+      Userdict["Name"] = data1[0][0]
     Userdict["Email"] = row[1]
     Userlist.append(Userdict)
 
@@ -465,7 +494,7 @@ def add_friend():
   if not Femail or not billid:
     return render_template("400.html", message="PLEASE ENTER EMAIL")
   if not validate_email(Femail) or not billid.isnumeric():
-    return render_template("400.html", message="ACCOUNT NOT REGISTERED")
+    return render_template("400.html", message="PLEASE INPUT EMAIL IN CORRECT FORMAT")
 
   # get user from Users table
   cursor = conn.cursor()
@@ -473,7 +502,17 @@ def add_friend():
   data = cursor.fetchall()
   conn.commit()
 
-  # add user into Bill_Users table
+  if not data: #if friend's email address is not found
+    return render_template("400.html", message="NO ACCOUNT WITH THIS EMAIL EXISTS")
+
+  # check if friend's email is already in Bill_Users table
+  cursor = conn.cursor()
+  cursor.execute("SELECT * FROM Bill_Users WHERE Email=%s", (Femail))
+  data = cursor.fetchall()
+
+  if data: # if friend has already been added to the bill
+    return render_template("400.html", message="THIS EMAIL WAS ALREADY IN THE BILL.")
+  # add friend's email into Bill_Users table
   cursor = conn.cursor()
   cursor.execute("INSERT INTO Bill_Users VALUES (%d, %s)", (billid, Femail))
   conn.commit()
@@ -498,8 +537,10 @@ def add_friend():
   for row in data:
     cursor2.execute("SELECT * FROM Users WHERE Email=%s", row[1])
     data1 = cursor2.fetchall()
+
     Userdict = {}
-    Userdict["Name"] = data1[0][0]
+    if data1: # prevent list out of range error
+      Userdict["Name"] = data1[0][0]
     Userdict["Email"] = row[1]
     Userlist.append(Userdict)
 
@@ -515,26 +556,41 @@ def add_friend():
 def split_cost():
   global bill_id
 
+  print "in split_cost" #testing
+  print bill_id #testing
+
   tip = request.form['Tip'].strip()
   post_tax = request.form['Total'].strip()
+
+  
+  print "still in" #testing
 
   if not tip or not post_tax:
     return render_template("400.html", message = "PLEASE FILL IN ALL VALUES")
   if not is_positive(tip) or not is_positive(post_tax):
     return render_template("400.html", message = "TIP AND POST TAX COST HAVE TO BE POSITIVE VALUES")
 
+  
+
   if 'username' in session:
     username = session['username']
   else:
     return redirect(url_for('main'))
 
+  
+
   tip = float(tip)
   post_tax = float(post_tax)
+
+  print tip #testing
+  print post_tax #testing
 
   # retrieve all items associated with email and bill
   cursor = conn.cursor()
   cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
   data = cursor.fetchall()
+
+  print data #testing
 
   Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
