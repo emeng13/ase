@@ -22,22 +22,24 @@ input[type="submit"]{
     border-style: none;
 }
 
-img#home_pic{
-	/*left:0;*/
+/* img#home_pic{
+	left:0;
   float: left;
-  height: 80%;
+  height: 500px;
   width: 45%;
-}
+}*/
 
 form.col-md-9{
 	margin-top:30px;
 }
 
-div.col-md-6{
+div#signup-form.col-sm-6 {
 	background-color:#8BC4F2;
-	height: 80%;
-  float: left;
-  width: 45%;
+  padding-bottom:40px
+}
+
+div#home_pic.col-sm-6{
+  padding:0;
 }
 
 div.col-md-10{

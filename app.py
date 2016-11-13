@@ -59,6 +59,28 @@ def main():
     print ("Logged in as " + username)
     return redirect (url_for('bill'))
 
+  cursor = conn.cursor()
+
+  #create Item table
+  cursor.execute("""
+  IF OBJECT_ID('Items', 'U') IS NOT NULL
+    DROP TABLE Items
+  CREATE TABLE Items(
+    Email varchar(255) NOT NULL, 
+    ItemName varchar(255) NOT NULL,
+    Quantity INT NOT NULL,
+    Price DECIMAL(10,2) NOT NULL,     
+    BillId INT NOT NULL,
+    CONSTRAINT pk_itms PRIMARY KEY (Email, ItemName, BillId)
+  )
+  """)
+
+  conn.commit()
+
+  cursor.execute("SELECT * FROM Items")
+  data = cursor.fetchall()
+  print data
+
   # # conn.commit()
   # cursor.close()
 
@@ -79,26 +101,6 @@ def main():
 
   # # # conn.commit()
   # # cursor.close()
-
-  # # cursor = conn.cursor()
-
-  # # #create Item table
-  # # cursor.execute("""
-  # #   CREATE TABLE Test_Items(
-  # #     Email varchar(255) NOT NULL, 
-  # #     ItemName varchar(255) NOT NULL,
-  # #     Quantity INT NOT NULL,
-  # #     Price DECIMAL(10,2) NOT NULL,     
-  # #     BillId INT NOT NULL,
-  # #     PRIMARY KEY (Email, ItemName, BillId)
-  # #   )
-  # #   """)
-
-  # # conn.commit()
-
-  # cursor.execute("SELECT * FROM Test_Items")
-  # data = cursor.fetchall()
-  # print data
 
   # # cursor = conn.cursor()
   # # cursor.execute("""
