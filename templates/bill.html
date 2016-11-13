@@ -34,7 +34,9 @@ a:link, a:visited {
         </div>
       </div>
 
-    <a id="logout" href="{{ url_for('main') }}">Logout</a>
+	<form class="col-md-9" method="POST" action="/logout">
+	  <input type="submit" value="logout">
+	</form>
       
     <h1> Create A New Bill Session</h1>
 
