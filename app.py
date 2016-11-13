@@ -44,21 +44,6 @@ def is_positive(price):
     return False
   return True
 
-# def validate_name(name):
-#   if not re.match("^[A-Za-z0-9 ]*$"):
-#     return False
-#   return True
-
-# def validate_email(email):
-#   if not re.match("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", email):
-#     return False
-#   return True
-
-# def validate_price(price):
-#   if not re.match("^(?=.*\d)\d*(?:\.\d\d)?$", price):
-#     return False
-#   return True
-
 @app.route("/")
 def main():
 
