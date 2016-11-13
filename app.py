@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, url_for
 from flask_login import LoginManager, UserMixin, login_required
 from passlib.hash import sha256_crypt
 from random import randint
@@ -19,8 +19,7 @@ conn = pymssql.connect(server='eats.database.windows.net', \
   database='AERIS')\
 
 
-# global variables for current logged in user and bill session
-user_email = ""
+# global variables for current logged in bill session
 bill_id = -1
 
 def validate_name(name):
@@ -99,15 +98,13 @@ def main():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-<<<<<<< HEAD
-  # if 'username' in session:
-  #   username = session['username']
-  #   print ("Logged in as " + username)
-  #   return redirect ('bill')
+  if 'username' in session:
+    username = session['username']
+    print ("Logged in as " + username)
+    return redirect ('bill')
   if request.method == 'POST':
     email = request.form['email']
     password = request.form['password']
-=======
 
   # take email and password from form
   email = request.form['email'].strip()
@@ -123,11 +120,6 @@ def login():
     message = "Invalid email!"
     return render_template('index.html', response=message)
 
-  # set global variable for current logged in user
-  global user_email 
-  user_email = email
->>>>>>> 0dd1fffddf1ddf0f825deb2fa89408a734fb9855
-
   cursor = conn.cursor()
   cursor.execute("SELECT Password FROM Users WHERE Email=%s", email)
 
@@ -141,11 +133,6 @@ def login():
     cursor.close()
     session['username'] = email
     username = session['username']
-
-    # set global variable for current logged in user
-    global user_email 
-    user_email = email
-
     print username 
 
     # login success
@@ -218,11 +205,13 @@ def bill():
   #   """)
   # cursor.close()
 
-  global user_email
+  if 'username' in session:
+    username = session['username']
+    print username
 
   # find all associated bills in Bill_Users table
   cursor2 = conn.cursor()
-  cursor2.execute("SELECT billID, Email FROM Bill_Users WHERE Email=%s", user_email)
+  cursor2.execute('SELECT billID, Email FROM Bill_Users WHERE Email=%s', username)
   data = cursor2.fetchall()
 
   Userbill = [dict(BillID=row[0], Email=row[1]) for row in data]
@@ -237,6 +226,9 @@ def bill():
 @app.route('/create_bill', methods=['GET', 'POST'])
 def create_bill():
 
+  if 'username' in session:
+    username = session['username']
+
   # generate new bill id
   isUnique = False
   while(isUnique == False):
@@ -248,9 +240,10 @@ def create_bill():
       isUnique = True
       cursor1.close()
 
+
   # add bill to Bill_Users table
   cursor2 = conn.cursor()
-  cursor2.execute("INSERT INTO Bill_Users VALUES (%d, %s)", (randomNum, user_email))
+  cursor2.execute("INSERT INTO Bill_Users VALUES (%d, %s)", (randomNum, username))
   cursor2.close()
   
   conn.commit()
@@ -262,8 +255,6 @@ def create_bill():
 # DISPLAY BILL
 @app.route('/display_bill', methods=['GET', 'POST'])
 def display_bill():
-  global user_email
-
   # set global variable for current bill session
   global bill_id
   bill_id = request.form['billId']
@@ -303,12 +294,14 @@ def display_bill():
 # ADD ITEM
 @app.route('/add_item', methods=['GET', 'POST'])
 def add_item():
-  global user_email
   global bill_id
 
   item_name = request.form['item'].strip()
   quantity = request.form['quantity'].strip()
   price = request.form['price'].strip()
+
+  if 'username' in session:
+    username = session['username']
 
   # check fields
   if not item_name or not quantity or not price:
@@ -319,7 +312,7 @@ def add_item():
     return render_template("400.html", message="INVALID INPUT VALUES")
 
   cursor = conn.cursor()
-  cursor.execute("INSERT INTO Items VALUES (%s, %s, %d, %d, %d)", (user_email, item_name, quantity, price, bill_id))
+  cursor.execute("INSERT INTO Items VALUES (%s, %s, %d, %d, %d)", (username, item_name, quantity, price, bill_id))
   conn.commit()
 
   # retrieve all items in Items table associated with email and bill
@@ -357,13 +350,15 @@ def add_item():
 # REMOVE ITEM
 @app.route('/remove_item', methods=['GET', 'POST'])
 def remove_item():
-  global user_email
   global bill_id
 
   item_name = request.form['ItemName']
 
+  if 'username' in session:
+    username = session['username']
+
   cursor = conn.cursor()
-  cursor.execute("DELETE FROM Items WHERE Email=%s AND ItemName=%s AND billID=%d", (user_email, item_name, bill_id))
+  cursor.execute("DELETE FROM Items WHERE Email=%s AND ItemName=%s AND billID=%d", (username, item_name, bill_id))
   conn.commit()
 
   # retrieve all items in Items table associated with email and bill
@@ -401,7 +396,6 @@ def remove_item():
 # ADD FRIEND
 @app.route('/add_friend', methods=['GET', 'POST'])
 def add_friend():
-  global user_email
   global bill_id
 
   Femail = request.form['Friend_email'].strip()
@@ -459,7 +453,6 @@ def add_friend():
 # SPLIT COST
 @app.route('/split_cost', methods=['GET', 'POST'])
 def split_cost():
-  global user_email
   global bill_id
 
   tip = request.form['Tip'].strip()
@@ -469,6 +462,9 @@ def split_cost():
     return render_template("400.html", message = "INVALID INPUT VALUES")
   if not validate_price(tip) or not validate_price(post_tax):
     return render_template("400.html", message = "INVALID INPUT VALUES")
+
+  if 'username' in session:
+    username = session['username']
 
   tip = float(tip)
   post_tax = float(post_tax)
@@ -484,7 +480,7 @@ def split_cost():
   user_total = 0.0
   for item in Userbill:
 	  print item
-	  if item['Email'] == user_email:
+	  if item['Email'] == username:
 	  	user_total += (float(item['Price']) * int(item['Quantity']))
 	  pre_tax += (float(item['Price']) * int(item['Quantity']))
 
@@ -500,6 +496,13 @@ def split_cost():
   print user_total
 
   return render_template('split_cost.html', Cost=user_total)
+
+
+# LOG OUT USER
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+  session.pop('username', None)
+  return redirect(url_for('main'))
 
 if __name__ == "__main__":
 	app.run(debug=True, threaded=True)
