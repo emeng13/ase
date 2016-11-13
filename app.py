@@ -233,6 +233,8 @@ def bill():
   if 'username' in session:
     username = session['username']
     print username
+  else:
+    return redirect(url_for('main'))
 
   # find all associated bills in Bill_Users table
   cursor2 = conn.cursor()
@@ -253,6 +255,8 @@ def create_bill():
 
   if 'username' in session:
     username = session['username']
+  else:
+    return redirect(url_for('main'))
 
   # generate new bill id
   isUnique = False
@@ -328,6 +332,8 @@ def add_item():
 
   if 'username' in session:
     username = session['username']
+  else:
+    return redirect(url_for('main'))
 
   # check fields
   # if not item_name or not quantity or not price:
@@ -383,6 +389,8 @@ def remove_item():
 
   if 'username' in session:
     username = session['username']
+  else:
+    return redirect(url_for('main'))
 
   cursor = conn.cursor()
   cursor.execute("DELETE FROM Items WHERE Email=%s AND ItemName=%s AND billID=%d", (username, item_name, bill_id))
@@ -492,6 +500,8 @@ def split_cost():
 
   if 'username' in session:
     username = session['username']
+  else:
+    return redirect(url_for('main'))
 
   tip = float(tip)
   post_tax = float(post_tax)
