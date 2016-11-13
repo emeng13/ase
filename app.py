@@ -22,20 +22,20 @@ conn = pymssql.connect(server='eats.database.windows.net', \
 # global variables for current logged in bill session
 bill_id = -1
 
-# def validate_name(name):
-#   if not re.match("^[A-Za-z0-9 ]*$"):
-#     return False
-#   return True
+def validate_name(name):
+  if not re.match("^[A-Za-z0-9 ]*$", name):
+    return False
+  return True
 
-# def validate_email(email):
-#   if not re.match("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", email):
-#     return False
-#   return True
+def validate_email(email):
+  if not re.match("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", email):
+    return False
+  return True
 
-# def validate_price(price):
-#   if not re.match("^(?=.*\d)\d*(?:\.\d\d)?$", price):
-#     return False
-#   return True
+def validate_price(price):
+  if not re.match("^(?=.*\d)\d*(?:\.\d\d)?$", price):
+    return False
+  return True
 
 @app.route("/")
 def main():
@@ -143,9 +143,9 @@ def login():
     return render_template('index.html', response=message)
 
   # validate email
-  # if not validate_email(email):
-  #   message = "Invalid email!"
-  #   return render_template('index.html', response=message)
+  if not validate_email(email):
+    message = "Invalid email!"
+    return render_template('index.html', response=message)
 
   cursor = conn.cursor()
   cursor.execute("SELECT Password FROM Users WHERE Email=%s", email)
@@ -191,10 +191,9 @@ def signup():
     return render_template('index.html', response=message)
 
   # validate email
-  # if not isError:
-  #   if not validate_email(email):
-  #     message = "Invalid email!"
-  #     return render_template('index.html', response=message)
+  if not validate_email(email):
+    message = "Invalid email!"
+    return render_template('index.html', response=message)
 
   # check if email exists in Users table
   cursor = conn.cursor()
@@ -338,12 +337,12 @@ def add_item():
     return redirect(url_for('main'))
 
   # check fields
-  # if not item_name or not quantity or not price:
-  #   return render_template("400.html", message="INVALID INPUT VALUES")
-  # if not validate_name(item_name) or not quantity.isnumeric() or not validate_price(price):
-  #   return render_template("400.html", message="INVALID INPUT VALUES")
-  # if (quantity == 0) or (price == 0):
-  #   return render_template("400.html", message="INVALID INPUT VALUES")
+  if not item_name or not quantity or not price:
+    return render_template("400.html", message="PLEASE FILL IN ALL VALUES")
+  if not validate_name(item_name) or not quantity.isnumeric() or not validate_price(price):
+    return render_template("400.html", message="INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)")
+  if (quantity == 0) or (price == 0):
+    return render_template("400.html", message="INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)")
 
   cursor = conn.cursor()
   cursor.execute("INSERT INTO Items VALUES (%s, %s, %d, %d, %d)", (username, item_name, quantity, price, bill_id))
@@ -439,10 +438,10 @@ def add_friend():
   billid = request.form['Billid'].strip()
 
   # check fields
-  # if not Femail or not billid:
-  #   return render_template("400.html", message="INVALID INPUT VALUES")
-  # if not validate_email(Femail) or not billid.isnumeric():
-  #   return render_template("400.html", message="INVALID INPUT VALUES")
+  if not Femail or not billid:
+    return render_template("400.html", message="PLEASE ENTER EMAIL")
+  if not validate_email(Femail) or not billid.isnumeric():
+    return render_template("400.html", message="ACCOUNT NOT REGISTERED")
 
   # get user from Users table
   cursor = conn.cursor()
@@ -495,10 +494,10 @@ def split_cost():
   tip = request.form['Tip'].strip()
   post_tax = request.form['Total'].strip()
 
-  # if not tip or not post_tax:
-  #   return render_template("400.html", message = "INVALID INPUT VALUES")
-  # if not validate_price(tip) or not validate_price(post_tax):
-  #   return render_template("400.html", message = "INVALID INPUT VALUES")
+  if not tip or not post_tax:
+    return render_template("400.html", message = "PLEASE FILL IN ALL VALUES")
+  if not validate_price(tip) or not validate_price(post_tax):
+    return render_template("400.html", message = "TIP AND POST TAX COST HAVE TO BE POSITIVE VALUES")
 
   if 'username' in session:
     username = session['username']
