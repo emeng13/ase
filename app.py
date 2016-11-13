@@ -53,6 +53,11 @@ def main():
 
   print data # debug print User table
 
+  if 'username' in session:
+    username = session['username']
+    print ("Logged in as " + username)
+    return redirect (url_for('bill'))
+
   # # conn.commit()
   # cursor.close()
 
@@ -101,7 +106,8 @@ def login():
   if 'username' in session:
     username = session['username']
     print ("Logged in as " + username)
-    return redirect ('bill')
+    return redirect (url_for('bill'))
+
   if request.method == 'POST':
     email = request.form['email']
     password = request.form['password']
