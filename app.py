@@ -38,6 +38,12 @@ def validate_price(price):
     return False
   return True
 
+def is_positive(price):
+  price = float(price)
+  if(price <= 0):
+    return False
+  return True
+
 # def validate_name(name):
 #   if not re.match("^[A-Za-z0-9 ]*$"):
 #     return False
@@ -359,7 +365,7 @@ def add_item():
     return render_template("400.html", message="PLEASE FILL IN ALL VALUES")
   if not validate_name(item_name) or not quantity.isnumeric() or not validate_price(price):
     return render_template("400.html", message="INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)")
-  if (quantity == 0) or (price == 0):
+  if (quantity == 0) or not is_positive(price):
     return render_template("400.html", message="INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)")
 
   cursor = conn.cursor()
@@ -514,7 +520,7 @@ def split_cost():
 
   if not tip or not post_tax:
     return render_template("400.html", message = "PLEASE FILL IN ALL VALUES")
-  if not validate_price(tip) or not validate_price(post_tax):
+  if not is_positive(tip) or not is_positive(post_tax):
     return render_template("400.html", message = "TIP AND POST TAX COST HAVE TO BE POSITIVE VALUES")
 
   if 'username' in session:
