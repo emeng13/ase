@@ -76,8 +76,13 @@ class MyTest(unittest.TestCase):
 		rv = self.app.post('/add_item', data={'item': 'chicken', 'quantity': '1', 'price': '7.00'}, follow_redirects=True)
 		assert 'chicken' in rv.data
 
+	@patch('app.bill_id', 221)
 	def test_add_item_invalid_price_quantity(self):
+		with self.app.session_transaction() as sess:
+			sess['username']='test@test'
+
 		rv = self.app.post('/add_item', data={'item': 'bbb', 'quantity': '-1', 'price': '0.00'}, follow_redirects=True)
+		assert 'INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)' in rv.data
 		assert 'bbb' not in rv.data
 
 	def test_remove_item(self): 
@@ -90,50 +95,47 @@ class MyTest(unittest.TestCase):
 		rv = self.app.post('/add_friend', data= {'Friend_email': 'random@email.com', 'Billid': '221'}, follow_redirects=True)
 		assert 'NO ACCOUNT WITH THIS EMAIL EXISTS' in rv.data
 
+	@patch('app.bill_id', 221)
 	def test_add_friend_successful(self): #friend exists
-		rv = self.app.post('/add_friend', data={'Friend_email': 'annawen12@gmail.com', 'Billid': '221'}, follow_redirects=True)
-		assert 'annawen12@gmail.com' in rv.data
+		rv = self.app.post('/add_friend', data={'Friend_email': 'tin@test.com', 'Billid': '221'}, follow_redirects=True)
+		assert 'tin@test.com' in rv.data
 
 	def test_add_friend_same_email(self): #adding friend who is already in the bill again
 		rv = self.app.post('/add_friend', data={'Friend_email': 'annawen12@gmail.com', 'Billid': '221'}, follow_redirects=True)
 		assert "THIS EMAIL WAS ALREADY IN THE BILL." in rv.data
 
+	def test_split_cost_invalid_totalprice(self):
+		with self.app.session_transaction() as sess:
+			sess['username']='test@test'
+		rv = self.app.post('/split_cost', data={'Tip': '0.2', 'Total': '-1'}, follow_redirects=True)
+		assert "TIP AND POST TAX COST HAVE TO BE POSITIVE VALUES" in rv.data
+
+	def test_split_cost_invalid_tip(self):
+		with self.app.session_transaction() as sess:
+			sess['username']='test@test'
+		rv = self.app.post('/split_cost', data={'Tip': '-0.4', 'Total': '100'}, follow_redirects=True)
+		assert "TIP AND POST TAX COST HAVE TO BE POSITIVE VALUES" in rv.data
 
 
+	def test_login_invalid_email(self):
+		rv = self.app.post('/login', data={'email': "test", 'password': 'test'}, follow_redirects=True)
+		assert 'Invalid email!' in rv.data
+		assert 'test' not in rv.data
 
-	# def test_bill_associated(self): #check if invited friends see their emails associated with billID in bill table
+	def test_signup_invalid_email(self):
+		rv = self.app.post('/signUp', data={'firstName': 'Test', 'lastName': 'Test', 'email': "random", \
+			'password': 'test'}, follow_redirects=True)
+		assert 'Invalid email!' in rv.data
+		assert 'random' not in rv.data
 
-
-	# def test_split_cost_invalid_totalprice(self):
-
-
-	# def test_split_cost_invalid_tip(self):
-
-
-	# def test_users_in_bill(self): #check if bill table only has people associated 
-
-
-	# def test_users_not_in_bill(self): #check if bill table doesn't have people not associated
-
-
-	# def test_login_invalid_email(self):
-
-
-	# def test_signup_invalid_email(self):
-
-
-	# def test_add_item_invalid_item(self):
-
-
-
-
-
-
-
-
-	#def test_add_item_invalid_name(self):
-	#	rv = self.app.post('/add_item', data={'item': '???', 'quantity': '1', 'price': '1.00'}, follow_redirects=True)
-	#	assert '???' not in rv.data
+	@patch('app.bill_id', 221)
+	def test_add_item_invalid_item(self):
+		with self.app.session_transaction() as sess:
+			sess['username']='test@test'
+			
+		rv = self.app.post('/add_item', data={'item': '???', 'quantity': '1', 'price': '1.00'}, follow_redirects=True)
+		assert 'INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)' in rv.data
+		assert '???' not in rv.data
 
 
 if __name__ == '__main__':

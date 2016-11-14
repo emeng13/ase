@@ -38,21 +38,6 @@ def validate_price(price):
     return False
   return True
 
-# def validate_name(name):
-#   if not re.match("^[A-Za-z0-9 ]*$"):
-#     return False
-#   return True
-
-# def validate_email(email):
-#   if not re.match("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", email):
-#     return False
-#   return True
-
-# def validate_price(price):
-#   if not re.match("^(?=.*\d)\d*(?:\.\d\d)?$", price):
-#     return False
-#   return True
-
 @app.route("/")
 def main():
 
@@ -153,8 +138,6 @@ def login():
   password = request.form['password']
 
   is_valid = validate_email(email)
-
-  # print ("valid: " + is_valid)
 
   # check fields
   if not email or not password:
@@ -356,11 +339,6 @@ def add_item():
   else:
     return redirect(url_for('main'))
 
-  print "in add_item" #testing
-  print item_name #testing
-  print bill_id #testing
-  print username #testing
-
   # check fields
   if not item_name or not quantity or not price:
     return render_template("400.html", message="PLEASE FILL IN ALL VALUES")
@@ -421,19 +399,6 @@ def remove_item():
   else:
     return redirect(url_for('main'))
 
-  print "entering remove_item"
-  print item_name #testing
-  print bill_id #testing
-  print username #testing
-
-  ## testing for test.py
-  cursor = conn.cursor()
-  cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
-  data = cursor.fetchall()
-
-  print data #testing
-
-  ##
 
   cursor = conn.cursor()
   cursor.execute("DELETE FROM Items WHERE Email=%s AND ItemName=%s AND billID=%d", (username, item_name, bill_id))
@@ -444,7 +409,6 @@ def remove_item():
   cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
   data = cursor.fetchall()
 
-  print data #testing
 
   Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
@@ -452,8 +416,6 @@ def remove_item():
   cursor1 = conn.cursor()
   cursor1.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
   data = cursor1.fetchall()
-
-  
 
   Userlist = []
 
@@ -490,6 +452,7 @@ def add_friend():
   if not validate_email(Femail) or not billid.isnumeric():
     return render_template("400.html", message="PLEASE INPUT EMAIL IN CORRECT FORMAT")
 
+
   # get user from Users table
   cursor = conn.cursor()
   cursor.execute("SELECT * FROM Users WHERE Email=%s", (Femail))
@@ -499,28 +462,33 @@ def add_friend():
   if not data: #if friend's email address is not found
     return render_template("400.html", message="NO ACCOUNT WITH THIS EMAIL EXISTS")
 
+
   # check if friend's email is already in Bill_Users table
   cursor = conn.cursor()
-  cursor.execute("SELECT * FROM Bill_Users WHERE Email=%s", (Femail))
+  cursor.execute("SELECT * FROM Bill_Users WHERE Email=%s AND billID = %d", (Femail, billid))
   data = cursor.fetchall()
 
   if data: # if friend has already been added to the bill
     return render_template("400.html", message="THIS EMAIL WAS ALREADY IN THE BILL.")
+  
+
+  
   # add friend's email into Bill_Users table
   cursor = conn.cursor()
   cursor.execute("INSERT INTO Bill_Users VALUES (%d, %s)", (billid, Femail))
   conn.commit()
 
+
   # retrieve all items in Items table associated with email and bill
   cursor = conn.cursor()
-  cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
+  cursor.execute("SELECT * FROM Items WHERE billID=%d", (billid)) #bill_id
   data = cursor.fetchall()
 
   Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
   # retrieve all users in Bill_Users table associated with bill
   cursor1 = conn.cursor()
-  cursor1.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
+  cursor1.execute("SELECT * FROM Bill_Users WHERE billID=%d", (billid)) #bill_id
   data = cursor1.fetchall()
 
   Userlist = []
@@ -541,7 +509,7 @@ def add_friend():
   conn.commit()
 
   # bill shows list of items
-  return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id)
+  return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=billid) #bill_id
 
 
 
@@ -550,41 +518,27 @@ def add_friend():
 def split_cost():
   global bill_id
 
-  print "in split_cost" #testing
-  print bill_id #testing
-
   tip = request.form['Tip'].strip()
   post_tax = request.form['Total'].strip()
-
-  
-  print "still in" #testing
 
   if not tip or not post_tax:
     return render_template("400.html", message = "PLEASE FILL IN ALL VALUES")
   if not validate_price(tip) or not validate_price(post_tax):
     return render_template("400.html", message = "TIP AND POST TAX COST HAVE TO BE POSITIVE VALUES")
-
-  
+ 
 
   if 'username' in session:
     username = session['username']
   else:
-    return redirect(url_for('main'))
-
-  
+    return redirect(url_for('main')) 
 
   tip = float(tip)
   post_tax = float(post_tax)
-
-  print tip #testing
-  print post_tax #testing
 
   # retrieve all items associated with email and bill
   cursor = conn.cursor()
   cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
   data = cursor.fetchall()
-
-  print data #testing
 
   Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
@@ -596,9 +550,6 @@ def split_cost():
 	  	user_total += (float(item['Price']) * int(item['Quantity']))
 	  pre_tax += (float(item['Price']) * int(item['Quantity']))
 
-  print post_tax
-  print pre_tax
-  print user_total
 
   if ((user_total > post_tax) or (user_total > pre_tax)):
     return render_template("400.html", message = "USER BILL GREATER THAN TOTAL BILL")
