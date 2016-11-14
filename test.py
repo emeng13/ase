@@ -108,13 +108,13 @@ class MyTest(unittest.TestCase):
 		with self.app.session_transaction() as sess:
 			sess['username']='test@test'
 		rv = self.app.post('/split_cost', data={'Tip': '0.2', 'Total': '-1'}, follow_redirects=True)
-		assert "TIP AND POST TAX COST HAVE TO BE POSITIVE VALUES" in rv.data
+		assert "INVALID INPUT VALUES (Tip and Post Tax Value have to be positive values)" in rv.data
 
 	def test_split_cost_invalid_tip(self):
 		with self.app.session_transaction() as sess:
 			sess['username']='test@test'
 		rv = self.app.post('/split_cost', data={'Tip': '-0.4', 'Total': '100'}, follow_redirects=True)
-		assert "TIP AND POST TAX COST HAVE TO BE POSITIVE VALUES" in rv.data
+		assert "INVALID INPUT VALUES (Tip and Post Tax Value have to be positive values)" in rv.data
 
 
 	def test_login_invalid_email(self):
