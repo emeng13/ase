@@ -59,17 +59,20 @@ class MyTest(unittest.TestCase):
 			sess['username']='test@test'
 		rv = self.app.post('/split_cost', data={'Tip':'0.2', 'Total': '7.20'}, follow_redirects=True)
 		assert '8.64' in rv.data
+		print "test_split_cost passes!"
 
 
 	def test_login_user_not_exist(self):
 		"""Login where user doesn't exist"""
 		rv = self.app.post('/login', data={'email': "not_test@test", 'password': 'test'}, follow_redirects=True)
 		assert 'Sign up first' in rv.data
+		print "test_login_user_not_exist passes!"
 
 	def test_login_incorrect_password(self):
 		"""Login where password is wrong"""
 		rv = self.app.post('/login', data={'email': "test@test", 'password': 'not_test'}, follow_redirects=True)
 		assert 'Incorrect password' in rv.data
+		print "test_login_incorrect_password passes!"
 
 	def test_signup_successful(self):
 		"""Successful creating account"""
@@ -77,25 +80,30 @@ class MyTest(unittest.TestCase):
 		rv = self.app.post('/signUp', data={'firstName': 'Test', 'lastName': 'Test', 'email': test_user1, \
 			'password': 'test'}, follow_redirects=True)
 		assert 'Your account is registered successfully!' in rv.data
+		print "test_signup_successful passes!"
 
 	def test_signup_same_user(self):
 		"""Create account that exists already"""
 		rv = self.app.post('/signUp', data={'firstName': 'Test', 'lastName': 'Test', 'email': "test@test", \
 			'password': 'test'}, follow_redirects=True)		
 		assert 'You registered with the same email before.' in rv.data
+		print "test_signup_same_user passes!"
 
 	def test_login_successful(self):
 		"""Successful login"""
 		rv = self.app.post('/login', data={'email': "test@test", 'password': 'test'}, follow_redirects=True)
 		assert 'Bill' in rv.data
+		print "test_login_successful passes!"
 
 	def test_create_bill(self):
 		"""Create bill"""
 		with self.app.session_transaction() as sess:
 			sess['username']='test@test'
 
+
 		rv = self.app.post('/create_bill', data={}, follow_redirects=True)
 		assert 'Bill created!' in rv.data
+		print "test_create_bill passes!"
 		
 	def test_display_bills(self): 
 		"""Check bill IDs displayed are correct"""
@@ -105,18 +113,21 @@ class MyTest(unittest.TestCase):
 		rv = self.app.get('/bill', data={}, follow_redirects=True)
 		assert '364' in rv.data
 		assert '365' not in rv.data
+		print "test_display_bill passes!"
 
 	def test_display_bill_items(self): 
 		"""Check items displayed are correct"""
 		rv = self.app.post('/display_bill', data={'billId': '221'}, follow_redirects=True)
 		assert 'test' in rv.data
 		assert 'def' not in rv.data
+		print "test_display_bill_items passes!"
 
 	def test_display_bill_people(self): 
 		"""Check people associated with bill are correct"""
 		rv = self.app.post('/display_bill', data={'billId': '221'}, follow_redirects=True)
 		assert 'test@test' in rv.data
 		assert 'hello' not in rv.data
+		print "test_display_bill_people passes!"
 
 	@patch('app.bill_id', 221)
 	def test_add_item_successful(self): 
@@ -127,6 +138,7 @@ class MyTest(unittest.TestCase):
 		# with patch('self.app.bill_id', 364):
 		rv = self.app.post('/add_item', data={'item': 'chicken', 'quantity': '1', 'price': '7.00'}, follow_redirects=True)
 		assert 'chicken' in rv.data
+		print "test_add_item_successful passes!"
 
 	def test_remove_item(self): 
 		"""Successful removing item"""
@@ -134,6 +146,7 @@ class MyTest(unittest.TestCase):
 			sess['username']='test@test'
 		rv = self.app.post('/remove_item', data={'ItemName': 'chicken'}, follow_redirects=True)
 		assert 'chicken' not in rv.data
+		print "test_remove_item passes!"
 
 	@patch('app.bill_id', 221)
 	def test_add_item_invalid_price_quantity(self):
@@ -144,11 +157,13 @@ class MyTest(unittest.TestCase):
 		rv = self.app.post('/add_item', data={'item': 'bbb', 'quantity': '-1', 'price': '0.00'}, follow_redirects=True)
 		assert 'INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)' in rv.data
 		assert 'bbb' not in rv.data
+		print "test_add_item_invalid_price_quantity passes!"
 
 	def test_add_friend_not_exist(self): 
 		"""Add user to bill -- user doesn't exist"""
 		rv = self.app.post('/add_friend', data= {'Friend_email': 'random@email.com', 'Billid': '221'}, follow_redirects=True)
 		assert 'NO ACCOUNT WITH THIS EMAIL EXISTS' in rv.data
+		print "test_add_friend_not_exist passes!"
 
 	@patch('app.bill_id', 221)
 	def test_add_friend_successful(self): 
@@ -156,11 +171,13 @@ class MyTest(unittest.TestCase):
 		global test_user2
 		rv = self.app.post('/add_friend', data={'Friend_email': test_user2, 'Billid': '221'}, follow_redirects=True)
 		assert test_user2 in rv.data
+		print "test_add_friend_successful passes!"
 
 	def test_add_friend_same_email(self): 
 		"""Add user to bill twice"""
 		rv = self.app.post('/add_friend', data={'Friend_email': "test@test", 'Billid': '221'}, follow_redirects=True)
 		assert "THIS EMAIL WAS ALREADY IN THE BILL." in rv.data
+		print "test_add_friend_same_email passes!"
 
 	def test_split_cost_invalid_totalprice(self):
 		"""Split cost with invalid total cost input"""
@@ -168,6 +185,7 @@ class MyTest(unittest.TestCase):
 			sess['username']='test@test'
 		rv = self.app.post('/split_cost', data={'Tip': '0.0', 'Total': '-1'}, follow_redirects=True)
 		assert "TIP AND POST TAX COST HAVE TO BE POSITIVE VALUES" in rv.data
+		print "test_split_cost_invalid_totalprice passes!"
 
 	def test_split_cost_invalid_tip(self):
 		"""Split cost with invalid tip input"""
@@ -175,6 +193,7 @@ class MyTest(unittest.TestCase):
 			sess['username']='test@test'
 		rv = self.app.post('/split_cost', data={'Tip': '-0.4', 'Total': '100'}, follow_redirects=True)
 		assert "NUMERICAL INPUTS ONLY" in rv.data
+		print "test_split_cost_invalid_tip passes!"
 
 	# def test_login_invalid_email(self):
 	# 	"""Login with invalid email"""
@@ -198,6 +217,7 @@ class MyTest(unittest.TestCase):
 		rv = self.app.post('/add_item', data={'item': '???', 'quantity': '1', 'price': '1.00'}, follow_redirects=True)
 		assert 'INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)' in rv.data
 		assert '???' not in rv.data
+		print "test_add_item_invalid_item passes!"
 
 
 if __name__ == '__main__':

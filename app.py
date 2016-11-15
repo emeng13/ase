@@ -241,7 +241,12 @@ def bill():
   #   """)
   # cursor.close()
 
- 
+  # message = request.args.get('response', type=str)
+  # bill = request.args.get('id')
+
+  # if bill != None:
+  #   response = "Bill " + bill + " created!"
+
 
   if 'username' in session:
     username = session['username']
