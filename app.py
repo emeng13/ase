@@ -530,10 +530,14 @@ def split_cost():
 
   if not tip or not post_tax:
     return render_template("400.html", message = "PLEASE FILL IN ALL VALUES")
-  if not validate_price(tip) or not validate_price(post_tax):
+  if not validate_price(tip):
     return render_template("400.html", message = "NUMERICAL INPUTS ONLY")
-  if not is_positive(tip) or not is_positive(post_tax):
+  if not validate_price(post_tax):
+    return render_template("400.html", message = "NUMERICAL INPUTS ONLY")
+  if not is_positive(tip):
     return render_template("400.html", message = "TIP AND POST TAX COST HAVE TO BE POSITIVE VALUES")
+  if not is_positive(post_tax):
+    return render_template("400.html", message = "TIP AND POST TAX COST HAVE TO BE POSITIVE VALUES")  
  
 
   if 'username' in session:
