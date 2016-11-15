@@ -286,7 +286,7 @@ def create_bill():
   
   conn.commit()
   
-  return redirect('bill')
+  return redirect(url_for('bill', response="Bill created!"))
 
 
 

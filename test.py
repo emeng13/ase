@@ -91,7 +91,11 @@ class MyTest(unittest.TestCase):
 
 	def test_create_bill(self):
 		"""Create bill"""
-		#how
+		with self.app.session_transaction() as sess:
+			sess['username']='test@test'
+
+		rv = self.app.post('/create_bill', data={}, follow_redirects=True)
+		assert 'Bill created!' in rv.data
 		
 	def test_display_bills(self): 
 		"""Check bill IDs displayed are correct"""
@@ -172,18 +176,18 @@ class MyTest(unittest.TestCase):
 		rv = self.app.post('/split_cost', data={'Tip': '-0.4', 'Total': '100'}, follow_redirects=True)
 		assert "NUMERICAL INPUTS ONLY" in rv.data
 
-	def test_login_invalid_email(self):
-		"""Login with invalid email"""
-		rv = self.app.post('/login', data={'email': "test", 'password': 'test'}, follow_redirects=True)
-		assert 'Invalid email!' in rv.data
-		assert 'test' not in rv.data
+	# def test_login_invalid_email(self):
+	# 	"""Login with invalid email"""
+	# 	rv = self.app.post('/login', data={'email': "test", 'password': 'test'}, follow_redirects=True)
+	# 	assert 'Invalid email!' in rv.data
+	# 	assert 'test' not in rv.data
 
-	def test_signup_invalid_email(self):
-		"""Sign up with invalid email"""
-		rv = self.app.post('/signUp', data={'firstName': 'Test', 'lastName': 'Test', 'email': "random", \
-			'password': 'test'}, follow_redirects=True)
-		assert 'Invalid email!' in rv.data
-		assert 'random' not in rv.data
+	# def test_signup_invalid_email(self):
+	# 	"""Sign up with invalid email"""
+	# 	rv = self.app.post('/signUp', data={'firstName': 'Test', 'lastName': 'Test', 'email': "random", \
+	# 		'password': 'test'}, follow_redirects=True)
+	# 	assert 'Invalid email!' in rv.data
+	# 	assert 'random' not in rv.data
 
 	@patch('app.bill_id', 221)
 	def test_add_item_invalid_item(self):
