@@ -19,7 +19,8 @@ conn = pymssql.connect(server='eats.database.windows.net', \
 class MyTest(unittest.TestCase):
 	def setUp(self):
 		 """Set up"""
-		 global test_user
+		 global test_user1
+		 global test_user2
 		 self.app = app.test_client(self)
 		 self.conn = pymssql.connect(server='eats.database.windows.net', \
 			user='th2520@eats',\
@@ -42,7 +43,7 @@ class MyTest(unittest.TestCase):
 
 	def tearDown(self):
 		 """Tear down"""
-		 global test_user
+		 global test_user2
 		 conn = self.conn
 		 cursor = conn.cursor()	 
 		 cursor.execute("DELETE FROM Bill_Users WHERE Email=%s AND billID=%d", (test_user2, 221))
@@ -72,7 +73,7 @@ class MyTest(unittest.TestCase):
 
 	def test_signup_successful(self):
 		"""Successful creating account"""
-		global test_user
+		global test_user1
 		rv = self.app.post('/signUp', data={'firstName': 'Test', 'lastName': 'Test', 'email': test_user1, \
 			'password': 'test'}, follow_redirects=True)
 		assert 'Your account is registered successfully!' in rv.data
@@ -148,13 +149,12 @@ class MyTest(unittest.TestCase):
 	@patch('app.bill_id', 221)
 	def test_add_friend_successful(self): 
 		"""Successful adding friend to bill"""
-		global test_user
+		global test_user2
 		rv = self.app.post('/add_friend', data={'Friend_email': test_user2, 'Billid': '221'}, follow_redirects=True)
 		assert test_user2 in rv.data
 
 	def test_add_friend_same_email(self): 
 		"""Add user to bill twice"""
-		global test_user
 		rv = self.app.post('/add_friend', data={'Friend_email': "test@test", 'Billid': '221'}, follow_redirects=True)
 		assert "THIS EMAIL WAS ALREADY IN THE BILL." in rv.data
 
