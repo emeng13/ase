@@ -241,6 +241,8 @@ def bill():
   #   """)
   # cursor.close()
 
+ 
+
   if 'username' in session:
     username = session['username']
   else:
@@ -255,7 +257,7 @@ def bill():
 
   conn.commit()
 
-  return render_template('bill.html', Userbill=Userbill)
+  return render_template('bill.html', Userbill=Userbill, response= request.args.get('response'))
 
 
 
@@ -296,6 +298,7 @@ def display_bill():
   # set global variable for current bill session
   global bill_id
   bill_id = request.form['billId']
+
 
   # retrieve all items in Items table associated with email and bill
   cursor = conn.cursor()
