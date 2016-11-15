@@ -8,7 +8,6 @@ from app import app
 
 from mock import patch
 
-
 conn = pymssql.connect(server='eats.database.windows.net', \
 	user='th2520@eats',\
 	password='123*&$eats',\
@@ -19,9 +18,20 @@ class MyTest(unittest.TestCase):
 	def setUp(self):
 		 """Set up"""
 		 self.app = app.test_client(self)
+		 self.conn = pymssql.connect(server='eats.database.windows.net', \
+			user='th2520@eats',\
+			password='123*&$eats',\
+			database='AERIS')\
+		
 
 	def tearDown(self):
 		 """Tear down"""
+		 conn = self.conn
+		 cursor = conn.cursor()
+		 cursor.execute("DELETE FROM Bill_Users WHERE billID=%d AND Email=%s", (221, "tin@test.com"))
+		 cursor.execute("DELETE FROM Users WHERE Email=%s", 'test1@test')
+		 conn.commit()
+		 self.conn.close()
 
 	# @patch('app.bill_id', 364)
 	def test_split_cost(self): #not working
@@ -29,8 +39,6 @@ class MyTest(unittest.TestCase):
 			sess['username']='test@test'
 		rv = self.app.post('/split_cost', data={'Tip':'0.2', 'Total': '2.20'}, follow_redirects=True)
 		assert '2.64' in rv.data
-
-	
 
 	def test_login_user_not_exist(self):
 		rv = self.app.post('/login', data={'email': "not_test@test", 'password': 'test'}, follow_redirects=True)
