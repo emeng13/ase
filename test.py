@@ -29,7 +29,7 @@ class MyTest(unittest.TestCase):
 		 """Tear down"""
 		 conn = self.conn
 		 cursor = conn.cursor()
-		 cursor.execute("DELETE FROM Bill_Users WHERE Email=%s AND billID=%d", (test_user, 221))
+		 cursor.execute("DELETE FROM Bill_Users WHERE Email=%s AND billID=%d", ("annawen12@gmail.com", 221))
 		 cursor.execute("DELETE FROM Users WHERE Email=%s", (test_user))
 		 conn.commit()
 		 self.conn.close()
@@ -136,8 +136,8 @@ class MyTest(unittest.TestCase):
 	def test_add_friend_successful(self): 
 		"""Successful adding friend to bill"""
 		global test_user
-		rv = self.app.post('/add_friend', data={'Friend_email': test_user, 'Billid': '221'}, follow_redirects=True)
-		assert test_user in rv.data
+		rv = self.app.post('/add_friend', data={'Friend_email': 'annawen12@gmail.com', 'Billid': '221'}, follow_redirects=True)
+		assert 'annawen12@gmail.com' in rv.data
 
 	def test_add_friend_same_email(self): 
 		"""Add user to bill twice"""

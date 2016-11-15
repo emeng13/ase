@@ -47,7 +47,12 @@ def is_positive(price):
 @app.route("/")
 def main():
 
-  # cursor = conn.cursor()
+  cursor = conn.cursor()
+  cursor.execute("SELECT * FROM Bill_Users")
+  data = cursor.fetchall()
+
+  print data # debug print User table
+
   # # cursor.execute("""
   # #   CREATE TABLE Test_Users (
   # #     FirstName VARCHAR(255) NOT NULL,
