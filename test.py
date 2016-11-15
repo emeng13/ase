@@ -22,17 +22,18 @@ class MyTest(unittest.TestCase):
 		 self.conn = pymssql.connect(server='eats.database.windows.net', \
 			user='th2520@eats',\
 			password='123*&$eats',\
-			database='AERIS')\
+			database='AERIS')
 		
 
 	def tearDown(self):
 		 """Tear down"""
 		 conn = self.conn
 		 cursor = conn.cursor()
-		 cursor.execute("DELETE FROM Bill_Users WHERE billID=%d AND Email=%s", (221, "tin@test.com"))
-		 cursor.execute("DELETE FROM Users WHERE Email=%s", 'test1@test')
+		 cursor.execute("DELETE FROM Bill_Users WHERE Email=%s AND billID=%d", (test_user, 221))
+		 cursor.execute("DELETE FROM Users WHERE Email=%s", (test_user))
 		 conn.commit()
 		 self.conn.close()
+
 		 # remove test_user (global var)
 		 # remove bill (don't know if this is possible since we use random numbers when we create the bill)
 		 # remove test_user from bill 221
@@ -42,9 +43,6 @@ class MyTest(unittest.TestCase):
 		"""Successful split cost"""
 		with self.app.session_transaction() as sess:
 			sess['username']='test@test'
-		rv = self.app.post('/split_cost', data={'Tip':'0.2', 'Total': '2.20'}, follow_redirects=True)
-		assert '2.64' in rv.data
-
 		rv = self.app.post('/split_cost', data={'Tip':'0.2', 'Total': '7.20'}, follow_redirects=True)
 		assert '8.64' in rv.data
 
@@ -112,6 +110,13 @@ class MyTest(unittest.TestCase):
 		rv = self.app.post('/add_item', data={'item': 'chicken', 'quantity': '1', 'price': '7.00'}, follow_redirects=True)
 		assert 'chicken' in rv.data
 
+	def test_remove_item(self): 
+		"""Successful removing item"""
+		with self.app.session_transaction() as sess:
+			sess['username']='test@test'
+		rv = self.app.post('/remove_item', data={'ItemName': 'chicken'}, follow_redirects=True)
+		assert 'chicken' not in rv.data
+
 	@patch('app.bill_id', 221)
 	def test_add_item_invalid_price_quantity(self):
 		"""Add item with invalid input values"""
@@ -121,13 +126,6 @@ class MyTest(unittest.TestCase):
 		rv = self.app.post('/add_item', data={'item': 'bbb', 'quantity': '-1', 'price': '0.00'}, follow_redirects=True)
 		assert 'INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)' in rv.data
 		assert 'bbb' not in rv.data
-
-	def test_remove_item(self): 
-		"""Successful removing item"""
-		with self.app.session_transaction() as sess:
-			sess['username']='test@test'
-		rv = self.app.post('/remove_item', data={'ItemName': 'chicken'}, follow_redirects=True)
-		assert 'chicken' not in rv.data
 
 	def test_add_friend_not_exist(self): 
 		"""Add user to bill -- user doesn't exist"""
@@ -144,7 +142,7 @@ class MyTest(unittest.TestCase):
 	def test_add_friend_same_email(self): 
 		"""Add user to bill twice"""
 		global test_user
-		rv = self.app.post('/add_friend', data={'Friend_email': test_user, 'Billid': '221'}, follow_redirects=True)
+		rv = self.app.post('/add_friend', data={'Friend_email': "test@test", 'Billid': '221'}, follow_redirects=True)
 		assert "THIS EMAIL WAS ALREADY IN THE BILL." in rv.data
 
 	def test_split_cost_invalid_totalprice(self):
