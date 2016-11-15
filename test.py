@@ -8,7 +8,8 @@ from app import app
 
 from mock import patch
 
-test_user = "test@test1"
+test_user1 = "test@test1"
+test_user2 = "test@test2"
 
 conn = pymssql.connect(server='eats.database.windows.net', \
 	user='th2520@eats',\
@@ -18,25 +19,37 @@ conn = pymssql.connect(server='eats.database.windows.net', \
 class MyTest(unittest.TestCase):
 	def setUp(self):
 		 """Set up"""
+		 global test_user
 		 self.app = app.test_client(self)
 		 self.conn = pymssql.connect(server='eats.database.windows.net', \
 			user='th2520@eats',\
 			password='123*&$eats',\
 			database='AERIS')
-		
+
+		 conn = self.conn
+		 cursor = conn.cursor()
+  		 cursor.execute("SELECT * FROM Users WHERE Email=%s", test_user2)
+  		 if cursor.rowcount == 0:
+		 	cursor.execute("INSERT INTO Users VALUES (%s, %s, %s, %s)", ("test","test", test_user2, "test"))
+		 	self.conn.commit()
+
+		 cursor.execute("SELECT * FROM Users WHERE Email=%s", test_user1)
+		 if cursor.rowcount != 0:
+		  	cursor.execute("DELETE FROM Users WHERE Email=%s", (test_user1))
+		  	self.conn.commit()
+		 cursor.close()
+
 
 	def tearDown(self):
 		 """Tear down"""
+		 global test_user
 		 conn = self.conn
-		 cursor = conn.cursor()
-		 cursor.execute("DELETE FROM Bill_Users WHERE Email=%s AND billID=%d", ("annawen12@gmail.com", 221))
-		 cursor.execute("DELETE FROM Users WHERE Email=%s", (test_user))
-		 conn.commit()
+		 cursor = conn.cursor()	 
+		 cursor.execute("DELETE FROM Bill_Users WHERE Email=%s AND billID=%d", (test_user2, 221))
+		 cursor.execute("DELETE FROM Users WHERE Email=%s", (test_user2))
+		 self.conn.commit()
 		 self.conn.close()
 
-		 # remove test_user (global var)
-		 # remove bill (don't know if this is possible since we use random numbers when we create the bill)
-		 # remove test_user from bill 221
 
 	@patch('app.bill_id', 364)
 	def test_split_cost(self): #not working
@@ -60,7 +73,7 @@ class MyTest(unittest.TestCase):
 	def test_signup_successful(self):
 		"""Successful creating account"""
 		global test_user
-		rv = self.app.post('/signUp', data={'firstName': 'Test', 'lastName': 'Test', 'email': test_user, \
+		rv = self.app.post('/signUp', data={'firstName': 'Test', 'lastName': 'Test', 'email': test_user1, \
 			'password': 'test'}, follow_redirects=True)
 		assert 'Your account is registered successfully!' in rv.data
 
@@ -136,8 +149,8 @@ class MyTest(unittest.TestCase):
 	def test_add_friend_successful(self): 
 		"""Successful adding friend to bill"""
 		global test_user
-		rv = self.app.post('/add_friend', data={'Friend_email': 'annawen12@gmail.com', 'Billid': '221'}, follow_redirects=True)
-		assert 'annawen12@gmail.com' in rv.data
+		rv = self.app.post('/add_friend', data={'Friend_email': test_user2, 'Billid': '221'}, follow_redirects=True)
+		assert test_user2 in rv.data
 
 	def test_add_friend_same_email(self): 
 		"""Add user to bill twice"""
