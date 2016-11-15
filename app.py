@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, session, url_for
 from flask_login import LoginManager, UserMixin, login_required
 from passlib.hash import sha256_crypt
 from random import randint
-from validate_email import validate_email
+#from validate_email import validate_email
 
 import pymssql
 import sys
@@ -34,7 +34,7 @@ def validate_email(email):
   return True
 
 def validate_price(price):
-  if not re.match("^(?=.*\d)\d*(?:\.\d\d)?$", price):
+  if not re.match("^([0-9])*(.([0-9]){1,2})?$", price):
     return False
   return True
 
@@ -123,7 +123,6 @@ def main():
   # data = cursor.fetchall()
   # print data
 
-  print request.args
 
   return render_template('index.html')
  
@@ -171,7 +170,6 @@ def login():
 
     # login success
     if sha256_crypt.verify(password, data[0][0]): 
-      print "Login successful!" #for testing
       ##### need to show username!
         # cursor.execute("SELECT FirstName FROM Users WHERE Email=%s", email)
         # userName = cursor.fetchall()
@@ -240,7 +238,6 @@ def bill():
 
   if 'username' in session:
     username = session['username']
-    print username
   else:
     return redirect(url_for('main'))
 
@@ -273,7 +270,6 @@ def create_bill():
     cursor1 = conn.cursor()
     result = cursor1.execute("SELECT billID FROM Bill_Users WHERE billID=%d", randomNum)
     if (randomNum != result):
-      print "Created bill session!"
       isUnique = True
       cursor1.close()
 
@@ -530,7 +526,7 @@ def split_cost():
   if not tip or not post_tax:
     return render_template("400.html", message = "PLEASE FILL IN ALL VALUES")
   if not validate_price(tip) or not validate_price(post_tax):
-    return render_template("400.html", message = "INVALID INPUT VALUES (Tip and Post Tax Value have to be positive values)")
+    return render_template("400.html", message = "NUMERICAL INPUTS ONLY")
   if not is_positive(tip) or not is_positive(post_tax):
     return render_template("400.html", message = "TIP AND POST TAX COST HAVE TO BE POSITIVE VALUES")
  
@@ -553,7 +549,6 @@ def split_cost():
   pre_tax = 0.0
   user_total = 0.0
   for item in Userbill:
-	  print item
 	  if item['Email'] == username:
 	  	user_total += (float(item['Price']) * int(item['Quantity']))
 	  pre_tax += (float(item['Price']) * int(item['Quantity']))
@@ -564,7 +559,6 @@ def split_cost():
 
   user_total = ((user_total / pre_tax) * post_tax) * (1 + tip)
   user_total = ("%.2f" % user_total)
-  print user_total
 
   return render_template('split_cost.html', Cost=user_total)
 
