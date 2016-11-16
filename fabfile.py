@@ -19,8 +19,12 @@ def commit():
 def push():
 	local("git push")
 
+def tests():
+	local("python test.py")
+
 def prepare_deploy():
 	static_analysis()
+	tests()
 	commit()
 	push()
 	local("sudo pip install passlib")
