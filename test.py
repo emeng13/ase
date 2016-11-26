@@ -29,10 +29,16 @@ class MyTest(unittest.TestCase):
 
 		 conn = self.conn
 		 cursor = conn.cursor()
+
+		 #remove later
+		 cursor.execute("DELETE FROM Bill_Users WHERE Email=%s AND amtOwed=%s AND billID=%d", (test_user2, '--', 221))
+		 self.conn.commit()
+  		 
+
   		 cursor.execute("SELECT * FROM Users WHERE Email=%s", test_user2)
   		 if cursor.rowcount == 0:
 		 	cursor.execute("INSERT INTO Users VALUES (%s, %s, %s, %s)", ("test","test", test_user2, "test"))
-		 	cursor.execute("DELETE FROM Bill_Users WHERE Email=%s AND amtOwed=%s AND billID=%d", (test_user2, '--', 221))
+		 	#cursor.execute("DELETE FROM Bill_Users WHERE Email=%s AND amtOwed=%s AND billID=%d", (test_user2, '--', 221))
 		 	self.conn.commit()
 
 		 cursor.execute("SELECT * FROM Users WHERE Email=%s", test_user1)
