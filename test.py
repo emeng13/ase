@@ -31,6 +31,7 @@ class MyTest(unittest.TestCase):
 		 cursor = conn.cursor()
   		 cursor.execute("SELECT * FROM Users WHERE Email=%s", test_user2)
   		 if cursor.rowcount == 0:
+  		 	cursor.execute("DELETE FROM Bill_Users WHERE Email=%s AND amtOwed=%s AND billID=%d", (test_user2, '--', 221))
 		 	cursor.execute("INSERT INTO Users VALUES (%s, %s, %s, %s)", ("test","test", test_user2, "test"))
 		 	self.conn.commit()
 
@@ -46,7 +47,7 @@ class MyTest(unittest.TestCase):
 		 global test_user2
 		 conn = self.conn
 		 cursor = conn.cursor()	 
-		 cursor.execute("DELETE FROM Bill_Users WHERE Email=%s AND billID=%d", (test_user2, 221))
+		 cursor.execute("DELETE FROM Bill_Users WHERE Email=%s AND amtOwed=%s AND billID=%d", (test_user2, '--', 221))
 		 cursor.execute("DELETE FROM Users WHERE Email=%s", (test_user2))
 		 self.conn.commit()
 		 self.conn.close()
@@ -213,9 +214,23 @@ class MyTest(unittest.TestCase):
 		with self.app.session_transaction() as sess:
 			sess['username']='test@test'
 
-		rv = self.app.post('/edit_item', data={'item': 'bbb', 'quantity': '-1', 'price': '0.00'}, follow_redirects=True)
+		self.app.post('/add_item', data={'item': 'aaa', 'quantity': '1', 'price': '7.00'}, follow_redirects=True)
+		rv = self.app.post('/edit_item', data={'item': 'aaa', 'quantity': '-1', 'price': '0.00'}, follow_redirects=True)
 		assert 'INVALID INPUT VALUES (Price and Quantity have to be positive values)' in rv.data
-		print "test_add_item_invalid_price_quantity passes!"
+		self.app.post('/remove_item', data={'ItemName': 'aaa'}, follow_redirects=True)
+		print "test_edit_item_invalid_price_quantity passes!"
+
+	@patch('app.bill_id', 221)
+	def test_edit_item_successful(self):
+		"""Edit item with invalid input values"""
+		with self.app.session_transaction() as sess:
+			sess['username']='test@test'
+
+		self.app.post('/add_item', data={'item': 'bbb', 'quantity': '1', 'price': '7.00'}, follow_redirects=True)
+		rv = self.app.post('/edit_item', data={'item': 'bbb', 'quantity': '100', 'price': '7.00'}, follow_redirects=True)
+		assert '100' in rv.data
+		self.app.post('/remove_item', data={'ItemName': 'bbb'}, follow_redirects=True)
+		print "test_edit_item_successful passes!"
 
 
 if __name__ == '__main__':
