@@ -235,8 +235,8 @@ def bill():
   #     DROP TABLE Bill_Users
   #   CREATE TABLE Bill_Users (
   #     billID INT NOT NULL,
-  #     amtOwed varchar(255) NOT NULL,
   #     Email varchar(255) NOT NULL,
+  #     amtOwed varchar(255) NOT NULL
   #     PRIMARY KEY (billID, Email)
   #   )
   #   """)
@@ -289,7 +289,7 @@ def create_bill():
 
   # add bill to Bill_Users table
   cursor2 = conn.cursor()
-  cursor2.execute("INSERT INTO Bill_Users VALUES (%d, %s, %s)", (randomNum, '--', username))
+  cursor2.execute("INSERT INTO Bill_Users VALUES (%d, %s, %s)", (randomNum, username, '--'))
   cursor2.close()
   
   conn.commit()
@@ -560,7 +560,7 @@ def add_friend():
   
   # add friend's email into Bill_Users table
   cursor = conn.cursor()
-  cursor.execute("INSERT INTO Bill_Users VALUES (%d, %s, %s)", (billid, '--', Femail))
+  cursor.execute("INSERT INTO Bill_Users VALUES (%d, %s, %s)", (billid, Femail, '--'))
   conn.commit()
 
 
