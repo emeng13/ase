@@ -400,11 +400,23 @@ def add_item():
   # bill shows list of items
   return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id)
 
+
+
+@app.route('/display_edit', methods=['GET', 'POST'])
+def display_edit():
+  item_name = request.form['item'].strip()
+  quantity = request.form['quantity'].strip()
+  price = request.form['price'].strip()
+
+  # shows item being edited, populated with current values
+  return render_template('display_edit.html', ItemName=item_name, Quantity=quantity, Price=price)
+
+
+
 @app.route('/edit_item', methods=['GET', 'POST'])
 def edit_item():
   global bill_id
 
-  item_name = request.form['item'].strip()
   quantity = request.form['quantity'].strip()
   price = request.form['price'].strip()
 
@@ -414,15 +426,15 @@ def edit_item():
     return redirect(url_for('main'))
 
   # check fields
-  if not item_name or not quantity or not price:
+  if not quantity or not price:
     return render_template("400.html", message="PLEASE FILL IN ALL VALUES")
-  if not validate_name(item_name) or not quantity.isnumeric() or not validate_price(price):
-    return render_template("400.html", message="INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)")
+  if not quantity.isnumeric() or not validate_price(price):
+    return render_template("400.html", message="INVALID INPUT VALUES (Price and Quantity have to be positive values)")
   if (quantity == 0) or not is_positive(price):
-    return render_template("400.html", message="INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)")
+    return render_template("400.html", message="INVALID INPUT VALUES (Price and Quantity have to be positive values)")
 
   cursor = conn.cursor()
-  cursor.execute("UPDATE Items SET ItemName=%s, Quantity=%d, Price=%f WHERE billId=%d AND email=%s", (item_name, quantity, price, bill_id, userName))
+  cursor.execute("UPDATE Items SET Quantity=%d, Price=%f WHERE ItemName=%s AND billId=%d AND email=%s", (quantity, price, item_name, bill_id, userName))
   conn.commit()
 
   # retrieve all items in Items table associated with email and bill
