@@ -235,7 +235,8 @@ def bill():
   #     DROP TABLE Bill_Users
   #   CREATE TABLE Bill_Users (
   #     billID INT NOT NULL,
-  #     Email varchar(255) NOT NULL,
+  #     amtOwed varchar(255) NOT NULL,
+  #     Email varchar(255) NOT NULL DEFAULT '--",
   #     PRIMARY KEY (billID, Email)
   #   )
   #   """)
@@ -255,10 +256,10 @@ def bill():
 
   # find all associated bills in Bill_Users table
   cursor2 = conn.cursor()
-  cursor2.execute('SELECT billID, Email FROM Bill_Users WHERE Email=%s', username)
+  cursor2.execute('SELECT billID, amtOwed, Email FROM Bill_Users WHERE Email=%s', username)
   data = cursor2.fetchall()
 
-  Userbill = [dict(BillID=row[0], Email=row[1]) for row in data]
+  Userbill = [dict(BillID=row[0], amtOwed=row[1], Email=row[2]) for row in data]
 
   conn.commit()
 
@@ -399,7 +400,63 @@ def add_item():
   # bill shows list of items
   return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id)
 
+@app.route('/edit_item', methods=['GET', 'POST'])
+def edit_item():
+  global bill_id
 
+  item_name = request.form['item'].strip()
+  quantity = request.form['quantity'].strip()
+  price = request.form['price'].strip()
+
+  if 'username' in session:
+    username = session['username']
+  else:
+    return redirect(url_for('main'))
+
+  # check fields
+  if not item_name or not quantity or not price:
+    return render_template("400.html", message="PLEASE FILL IN ALL VALUES")
+  if not validate_name(item_name) or not quantity.isnumeric() or not validate_price(price):
+    return render_template("400.html", message="INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)")
+  if (quantity == 0) or not is_positive(price):
+    return render_template("400.html", message="INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)")
+
+  cursor = conn.cursor()
+  cursor.execute("UPDATE Items SET ItemName=%s, Quantity=%d, Price=%f WHERE billId=%d AND email=%s", (item_name, quantity, price, bill_id, userName))
+  conn.commit()
+
+  # retrieve all items in Items table associated with email and bill
+  cursor = conn.cursor()
+  cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
+  data = cursor.fetchall()
+
+  Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
+
+  # retrieve all users in Bill_Users table associated with bill
+  cursor1 = conn.cursor()
+  cursor1.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
+  data = cursor1.fetchall()
+
+  Userlist = []
+
+  cursor2 = conn.cursor()
+
+  # retrieve names of users in Users table associated with email
+  for row in data:
+    cursor2.execute("SELECT * FROM Users WHERE Email=%s", row[1])
+    data1 = cursor2.fetchall()
+
+
+    Userdict = {}
+    if data1: # prevent list out of range error
+      Userdict["Name"] = data1[0][0]
+    Userdict["Email"] = row[1]
+    Userlist.append(Userdict)
+
+  conn.commit()
+
+  # bill shows list of items
+  return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id)
 
 # REMOVE ITEM
 @app.route('/remove_item', methods=['GET', 'POST'])
@@ -576,6 +633,10 @@ def split_cost():
 
   user_total = ((user_total / pre_tax) * post_tax) * (1 + tip)
   user_total = ("%.2f" % user_total)
+
+  cursor1 = conn.cursor()
+  cursor1.execute("UPDATE Bill_Users SET amtOwed=%s WHERE billId=%d AND email=%s", (str(user_total), bill_id, username))
+  data = cursor1.fetchall()
 
   return render_template('split_cost.html', Cost=user_total)
 
