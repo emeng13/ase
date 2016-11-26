@@ -208,25 +208,13 @@ class MyTest(unittest.TestCase):
 		print "test_add_item_invalid_item passes!"
 
 	@patch('app.bill_id', 221)
-	def test_edit_item_invalid_item(self):
-		"""Edit item with invalid name"""
-		with self.app.session_transaction() as sess:
-			sess['username']='test@test'
-			
-		rv = self.app.post('/edit_item', data={'item': '???', 'quantity': '1', 'price': '1.00'}, follow_redirects=True)
-		assert 'INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)' in rv.data
-		assert '???' not in rv.data
-		print "test_edit_item_invalid_item passes!"
-
-	@patch('app.bill_id', 221)
 	def test_edit_item_invalid_price_quantity(self):
 		"""Edit item with invalid input values"""
 		with self.app.session_transaction() as sess:
 			sess['username']='test@test'
 
 		rv = self.app.post('/edit_item', data={'item': 'bbb', 'quantity': '-1', 'price': '0.00'}, follow_redirects=True)
-		assert 'INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)' in rv.data
-		assert 'bbb' not in rv.data
+		assert 'INVALID INPUT VALUES (Price and Quantity have to be positive values)' in rv.data
 		print "test_add_item_invalid_price_quantity passes!"
 
 
