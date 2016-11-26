@@ -38,11 +38,12 @@
 
   			<div style="height: 100vh;"class="col-xs-9">
 				<div class="col-xs-7">
-					<h2>Editing ${{ItemName}}</h2>
+					<h2>Editing {{ItemName}}</h2>
 						<form action="/edit_item" method="post">
+                <input type="hidden" name="ItemName" value={{ItemName}}>
 						   	<input type = "text" name = "price" placeholder = {{Price}} /><br>
 						   	<input type = "text" name = "quantity" placeholder = {{Quantity}} /><br>
-					       	<input type = "submit" value = "Edit" />
+					       	<input type = "submit" value = "Submit" />
 			    		</form> 	
 		    	</div>
 		    </div>

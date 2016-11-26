@@ -289,7 +289,7 @@ def create_bill():
 
   # add bill to Bill_Users table
   cursor2 = conn.cursor()
-  cursor2.execute("INSERT INTO Bill_Users VALUES (%d, %s)", (randomNum, username))
+  cursor2.execute("INSERT INTO Bill_Users VALUES (%d, %s, %s)", (randomNum, '--', username))
   cursor2.close()
   
   conn.commit()
@@ -404,9 +404,9 @@ def add_item():
 
 @app.route('/display_edit', methods=['GET', 'POST'])
 def display_edit():
-  item_name = request.form['item'].strip()
-  quantity = request.form['quantity'].strip()
-  price = request.form['price'].strip()
+  item_name = request.form['ItemName'].strip()
+  quantity = request.form['Quantity'].strip()
+  price = request.form['Price'].strip()
 
   # shows item being edited, populated with current values
   return render_template('display_edit.html', ItemName=item_name, Quantity=quantity, Price=price)
@@ -417,6 +417,7 @@ def display_edit():
 def edit_item():
   global bill_id
 
+  item_name = request.form['ItemName'].strip()
   quantity = request.form['quantity'].strip()
   price = request.form['price'].strip()
 
@@ -434,7 +435,7 @@ def edit_item():
     return render_template("400.html", message="INVALID INPUT VALUES (Price and Quantity have to be positive values)")
 
   cursor = conn.cursor()
-  cursor.execute("UPDATE Items SET Quantity=%d, Price=%f WHERE ItemName=%s AND billId=%d AND email=%s", (quantity, price, item_name, bill_id, userName))
+  cursor.execute("UPDATE Items SET Quantity=%d, Price=%d WHERE ItemName=%s AND billId=%d AND email=%s", (quantity, price, item_name, bill_id, username))
   conn.commit()
 
   # retrieve all items in Items table associated with email and bill
@@ -559,7 +560,7 @@ def add_friend():
   
   # add friend's email into Bill_Users table
   cursor = conn.cursor()
-  cursor.execute("INSERT INTO Bill_Users VALUES (%d, %s)", (billid, Femail))
+  cursor.execute("INSERT INTO Bill_Users VALUES (%d, %s, %s)", (billid, '--', Femail))
   conn.commit()
 
 
@@ -648,7 +649,6 @@ def split_cost():
 
   cursor1 = conn.cursor()
   cursor1.execute("UPDATE Bill_Users SET amtOwed=%s WHERE billId=%d AND email=%s", (str(user_total), bill_id, username))
-  data = cursor1.fetchall()
 
   return render_template('split_cost.html', Cost=user_total)
 

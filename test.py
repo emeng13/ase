@@ -57,8 +57,8 @@ class MyTest(unittest.TestCase):
 		"""Successful split cost"""
 		with self.app.session_transaction() as sess:
 			sess['username']='test@test'
-		rv = self.app.post('/split_cost', data={'Tip':'0.2', 'Total': '7.20'}, follow_redirects=True)
-		assert '8.64' in rv.data
+		rv = self.app.post('/split_cost', data={'Tip':'0.1', 'Total': '8.00'}, follow_redirects=True)
+		assert '8.80' in rv.data
 		print "test_split_cost passes!"
 
 
@@ -112,6 +112,7 @@ class MyTest(unittest.TestCase):
 		
 		rv = self.app.get('/bill', data={}, follow_redirects=True)
 		assert '364' in rv.data
+		assert '8.80' in rv.data
 		assert '365' not in rv.data
 		print "test_display_bill passes!"
 
@@ -195,19 +196,6 @@ class MyTest(unittest.TestCase):
 		assert "NUMERICAL INPUTS ONLY" in rv.data
 		print "test_split_cost_invalid_tip passes!"
 
-	# def test_login_invalid_email(self):
-	# 	"""Login with invalid email"""
-	# 	rv = self.app.post('/login', data={'email': "test", 'password': 'test'}, follow_redirects=True)
-	# 	assert 'Invalid email!' in rv.data
-	# 	assert 'test' not in rv.data
-
-	# def test_signup_invalid_email(self):
-	# 	"""Sign up with invalid email"""
-	# 	rv = self.app.post('/signUp', data={'firstName': 'Test', 'lastName': 'Test', 'email': "random", \
-	# 		'password': 'test'}, follow_redirects=True)
-	# 	assert 'Invalid email!' in rv.data
-	# 	assert 'random' not in rv.data
-
 	@patch('app.bill_id', 221)
 	def test_add_item_invalid_item(self):
 		"""Add item with invalid name"""
@@ -218,6 +206,28 @@ class MyTest(unittest.TestCase):
 		assert 'INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)' in rv.data
 		assert '???' not in rv.data
 		print "test_add_item_invalid_item passes!"
+
+	@patch('app.bill_id', 221)
+	def test_edit_item_invalid_item(self):
+		"""Edit item with invalid name"""
+		with self.app.session_transaction() as sess:
+			sess['username']='test@test'
+			
+		rv = self.app.post('/edit_item', data={'item': '???', 'quantity': '1', 'price': '1.00'}, follow_redirects=True)
+		assert 'INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)' in rv.data
+		assert '???' not in rv.data
+		print "test_edit_item_invalid_item passes!"
+
+	@patch('app.bill_id', 221)
+	def test_edit_item_invalid_price_quantity(self):
+		"""Edit item with invalid input values"""
+		with self.app.session_transaction() as sess:
+			sess['username']='test@test'
+
+		rv = self.app.post('/edit_item', data={'item': 'bbb', 'quantity': '-1', 'price': '0.00'}, follow_redirects=True)
+		assert 'INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)' in rv.data
+		assert 'bbb' not in rv.data
+		print "test_add_item_invalid_price_quantity passes!"
 
 
 if __name__ == '__main__':
