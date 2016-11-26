@@ -31,8 +31,8 @@ class MyTest(unittest.TestCase):
 		 cursor = conn.cursor()
   		 cursor.execute("SELECT * FROM Users WHERE Email=%s", test_user2)
   		 if cursor.rowcount == 0:
-  		 	cursor.execute("DELETE FROM Bill_Users WHERE Email=%s AND amtOwed=%s AND billID=%d", (test_user2, '--', 221))
 		 	cursor.execute("INSERT INTO Users VALUES (%s, %s, %s, %s)", ("test","test", test_user2, "test"))
+		 	cursor.execute("DELETE FROM Bill_Users WHERE Email=%s AND amtOwed=%s AND billID=%d", (test_user2, '--', 221))
 		 	self.conn.commit()
 
 		 cursor.execute("SELECT * FROM Users WHERE Email=%s", test_user1)
@@ -215,7 +215,7 @@ class MyTest(unittest.TestCase):
 			sess['username']='test@test'
 
 		self.app.post('/add_item', data={'item': 'aaa', 'quantity': '1', 'price': '7.00'}, follow_redirects=True)
-		rv = self.app.post('/edit_item', data={'item': 'aaa', 'quantity': '-1', 'price': '0.00'}, follow_redirects=True)
+		rv = self.app.post('/edit_item', data={'ItemName': 'aaa', 'quantity': '-1', 'price': '0.00'}, follow_redirects=True)
 		assert 'INVALID INPUT VALUES (Price and Quantity have to be positive values)' in rv.data
 		self.app.post('/remove_item', data={'ItemName': 'aaa'}, follow_redirects=True)
 		print "test_edit_item_invalid_price_quantity passes!"
@@ -227,7 +227,7 @@ class MyTest(unittest.TestCase):
 			sess['username']='test@test'
 
 		self.app.post('/add_item', data={'item': 'bbb', 'quantity': '1', 'price': '7.00'}, follow_redirects=True)
-		rv = self.app.post('/edit_item', data={'item': 'bbb', 'quantity': '100', 'price': '7.00'}, follow_redirects=True)
+		rv = self.app.post('/edit_item', data={'ItemName': 'bbb', 'quantity': '100', 'price': '7.00'}, follow_redirects=True)
 		assert '100' in rv.data
 		self.app.post('/remove_item', data={'ItemName': 'bbb'}, follow_redirects=True)
 		print "test_edit_item_successful passes!"

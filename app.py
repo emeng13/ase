@@ -236,7 +236,7 @@ def bill():
   #   CREATE TABLE Bill_Users (
   #     billID INT NOT NULL,
   #     amtOwed varchar(255) NOT NULL,
-  #     Email varchar(255) NOT NULL DEFAULT '--",
+  #     Email varchar(255) NOT NULL,
   #     PRIMARY KEY (billID, Email)
   #   )
   #   """)
