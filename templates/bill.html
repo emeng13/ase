@@ -48,6 +48,7 @@
 						<tr>
 							<th>Bill ID</th>
 							<th>Email</th>
+							<th>Amount Owed</th>
 							<th> </th>
 						</tr>
 					</thead>
@@ -57,6 +58,7 @@
 					    <tr>
 					        <td>{{n.BillID}}</td>
 					        <td>{{n.Email}}</td>
+					        <td>{{n.amtOwed}}
 					        <td>
 					        	<form action="/display_bill" method="POST">
 					        		<input type="hidden" name="billId" value={{n.BillID}}>

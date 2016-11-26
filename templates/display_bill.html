@@ -47,6 +47,7 @@
 					               <th>Item</th>
 					               <th>Cost</th>
 					               <th>Quantity</th>
+					               <th>Edit</th>
 					               <th>Delete</th>
 					            </tr>
 					         </thead>
@@ -54,10 +55,18 @@
 					         <tbody>
 					            {% for n in Userbill %}
 					               <tr>
-					               		<td>{{ n.Email }}</td>
+					               	  <td>{{ n.Email }}</td>
 					                  <td>{{ n.ItemName }}</td>
 					                  <td>{{ n.Price }}</td>
 					                  <td>{{ n.Quantity }}</td>
+					                  <td>
+					                  	<form action="/edit_item" method="post">
+					                  	<input type="hidden" name="ItemName" value={{n.ItemName}}>
+					                  	<input type="hidden" name="Quantity" value={{n.Quantity}}>
+					                  	<input type="hidden" name="Price" value={{n.Value}}>
+					                  	<input type="submit" name="button" value="Edit">
+					                  	</form>
+					                  </td>
 					                  <td>
 						        		<form action="/remove_item" method="post">
 						        		<input type="hidden" name="ItemName" value={{n.ItemName}}>
