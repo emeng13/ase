@@ -47,25 +47,67 @@ def is_positive(price):
 @app.route("/")
 def main():
 
+  # cursor = conn.cursor()
+
   # # cursor.execute("""
-  # #   CREATE TABLE Test_Users (
+  # # IF OBJECT_ID('Users', 'U') IS NOT NULL
+  # #   DROP TABLE Users
+
+  # #   CREATE TABLE Users (
   # #     FirstName VARCHAR(255) NOT NULL,
   # #     LastName VARCHAR(255) NOT NULL,
   # #     Email varchar(255) NOT NULL PRIMARY KEY,
-  # #     Password varchar(255) NOT NULL 
+  # #     Password varchar(255) NOT NULL
   # #   )
   # #   """)
-  # cursor.execute("SELECT * FROM Test_Users")
-  # data = cursor.fetchall()
+  # # conn.commit()
 
-  # print data # debug print User table
+  # cursor.execute("SELECT * FROM Users")
+  # data = cursor.fetchall()
+  # print data
+
+  # cursor.execute("""
+  # IF OBJECT_ID('Items', 'U') IS NOT NULL
+  #   DROP TABLE Items
+
+  #   CREATE TABLE Items(
+  #   Email varchar(255) NOT NULL, 
+  #   ItemName varchar(255) NOT NULL,
+  #   Quantity INT NOT NULL,
+  #   Price DECIMAL(10,2) NOT NULL,     
+  #   BillId INT NOT NULL,
+  #   PRIMARY KEY (Email, ItemName, BillId),
+  #   FOREIGN KEY (Email) REFERENCES Users(Email) ON UPDATE CASCADE ON DELETE CASCADE
+
+  # )
+  # """)
+  
+  # conn.commit()
+
+  # cursor.execute("""
+  # IF OBJECT_ID('Bill_Users', 'U') IS NOT NULL
+  #   DROP TABLE Bill_Users
+
+  #   CREATE TABLE Bill_Users (
+  #     billID INT NOT NULL,
+  #     Email varchar(255) NOT NULL,
+  #     amtOwed varchar(255) NOT NULL,
+  #     PRIMARY KEY (billID, Email),
+  #     FOREIGN KEY (Email) REFERENCES Users(Email) ON UPDATE CASCADE ON DELETE CASCADE
+  #   )
+  #   """)
+  
+  # conn.commit()
+  # cursor.close()
+
+    
 
   if 'username' in session:
     username = session['username']
     print ("Logged in as " + username)
     return redirect (url_for('bill'))
 
-  # cursor = conn.cursor()
+  
 
   # #create Item table
   # # cursor.execute("""
@@ -90,23 +132,6 @@ def main():
   # # conn.commit()
   # cursor.close()
 
-
-  # cursor = conn.cursor()
-  # # cursor.execute("""
-  # #   CREATE TABLE Test_Users (
-  # #     FirstName VARCHAR(255) NOT NULL,
-  # #     LastName VARCHAR(255) NOT NULL,
-  # #     Email varchar(255) NOT NULL PRIMARY KEY,
-  # #     Password varchar(255) NOT NULL 
-  # #   )
-  # #   """)
-  # cursor.execute("SELECT * FROM Test_Users")
-  # data = cursor.fetchall()
-
-  # print data # debug print User table
-
-  # # # conn.commit()
-  # # cursor.close()
 
   # # cursor = conn.cursor()
   # # cursor.execute("""

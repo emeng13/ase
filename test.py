@@ -47,19 +47,18 @@ class MyTest(unittest.TestCase):
 		 global test_user2
 		 conn = self.conn
 		 cursor = conn.cursor()	 
-		 cursor.execute("DELETE FROM Bill_Users WHERE Email=%s AND billID=%d", (test_user2, 221))
+		 # cursor.execute("DELETE FROM Bill_Users WHERE Email=%s AND billID=%d", (test_user2, 326))
 		 cursor.execute("DELETE FROM Users WHERE Email=%s", (test_user2))
 		 self.conn.commit()
 		 self.conn.close()
 
-
-	@patch('app.bill_id', 364)
-	def test_split_cost(self): #not working
+	@patch('app.bill_id', 326)
+	def test_split_cost(self): 
 		"""Successful split cost"""
 		with self.app.session_transaction() as sess:
 			sess['username']='test@test'
-		rv = self.app.post('/split_cost', data={'Tip':'0.1', 'Total': '8.00'}, follow_redirects=True)
-		assert '8.80' in rv.data
+		rv = self.app.post('/split_cost', data={'Tip':'0.15', 'Total': '20.00'}, follow_redirects=True)
+		assert '23.0' in rv.data
 		print "test_split_cost passes!"
 
 
@@ -112,32 +111,29 @@ class MyTest(unittest.TestCase):
 			sess['username']='test@test'
 		
 		rv = self.app.get('/bill', data={}, follow_redirects=True)
-		assert '364' in rv.data
-		assert '8.80' in rv.data
-		assert '365' not in rv.data
+		assert '326' in rv.data
 		print "test_display_bill passes!"
 
 	def test_display_bill_items(self): 
 		"""Check items displayed are correct"""
-		rv = self.app.post('/display_bill', data={'billId': '221'}, follow_redirects=True)
+		rv = self.app.post('/display_bill', data={'billId': '326'}, follow_redirects=True)
 		assert 'test' in rv.data
 		assert 'def' not in rv.data
 		print "test_display_bill_items passes!"
 
 	def test_display_bill_people(self): 
 		"""Check people associated with bill are correct"""
-		rv = self.app.post('/display_bill', data={'billId': '221'}, follow_redirects=True)
+		rv = self.app.post('/display_bill', data={'billId': '326'}, follow_redirects=True)
 		assert 'test@test' in rv.data
 		assert 'hello' not in rv.data
 		print "test_display_bill_people passes!"
 
-	@patch('app.bill_id', 221)
+	@patch('app.bill_id', 326)
 	def test_add_item_successful(self): 
 		"""Check item added successfully"""
 		with self.app.session_transaction() as sess:
 			sess['username']='test@test'
 
-		# with patch('self.app.bill_id', 364):
 		rv = self.app.post('/add_item', data={'item': 'chicken', 'quantity': '1', 'price': '7.00'}, follow_redirects=True)
 		assert 'chicken' in rv.data
 		print "test_add_item_successful passes!"
@@ -150,7 +146,7 @@ class MyTest(unittest.TestCase):
 		assert 'chicken' not in rv.data
 		print "test_remove_item passes!"
 
-	@patch('app.bill_id', 221)
+	@patch('app.bill_id', 326)
 	def test_add_item_invalid_price_quantity(self):
 		"""Add item with invalid input values"""
 		with self.app.session_transaction() as sess:
@@ -163,21 +159,21 @@ class MyTest(unittest.TestCase):
 
 	def test_add_friend_not_exist(self): 
 		"""Add user to bill -- user doesn't exist"""
-		rv = self.app.post('/add_friend', data= {'Friend_email': 'random@email.com', 'Billid': '221'}, follow_redirects=True)
+		rv = self.app.post('/add_friend', data= {'Friend_email': 'random@email.com', 'Billid': '326'}, follow_redirects=True)
 		assert 'NO ACCOUNT WITH THIS EMAIL EXISTS' in rv.data
 		print "test_add_friend_not_exist passes!"
 
-	@patch('app.bill_id', 221)
+	@patch('app.bill_id', 326)
 	def test_add_friend_successful(self): 
 		"""Successful adding friend to bill"""
 		global test_user2
-		rv = self.app.post('/add_friend', data={'Friend_email': test_user2, 'Billid': '221'}, follow_redirects=True)
+		rv = self.app.post('/add_friend', data={'Friend_email': test_user2, 'Billid': '326'}, follow_redirects=True)
 		assert test_user2 in rv.data
 		print "test_add_friend_successful passes!"
 
 	def test_add_friend_same_email(self): 
 		"""Add user to bill twice"""
-		rv = self.app.post('/add_friend', data={'Friend_email': "test@test", 'Billid': '221'}, follow_redirects=True)
+		rv = self.app.post('/add_friend', data={'Friend_email': "test@test", 'Billid': '326'}, follow_redirects=True)
 		assert "THIS EMAIL WAS ALREADY IN THE BILL." in rv.data
 		print "test_add_friend_same_email passes!"
 
@@ -197,7 +193,7 @@ class MyTest(unittest.TestCase):
 		assert "NUMERICAL INPUTS ONLY" in rv.data
 		print "test_split_cost_invalid_tip passes!"
 
-	@patch('app.bill_id', 221)
+	@patch('app.bill_id', 326)
 	def test_add_item_invalid_item(self):
 		"""Add item with invalid name"""
 		with self.app.session_transaction() as sess:
@@ -208,7 +204,7 @@ class MyTest(unittest.TestCase):
 		assert '???' not in rv.data
 		print "test_add_item_invalid_item passes!"
 
-	@patch('app.bill_id', 221)
+	@patch('app.bill_id', 326)
 	def test_edit_item_invalid_price_quantity(self):
 		"""Edit item with invalid input values"""
 		with self.app.session_transaction() as sess:
@@ -220,7 +216,7 @@ class MyTest(unittest.TestCase):
 		self.app.post('/remove_item', data={'ItemName': 'aaa'}, follow_redirects=True)
 		print "test_edit_item_invalid_price_quantity passes!"
 
-	@patch('app.bill_id', 221)
+	@patch('app.bill_id', 326)
 	def test_edit_item_successful(self):
 		"""Edit item with invalid input values"""
 		with self.app.session_transaction() as sess:
@@ -231,6 +227,32 @@ class MyTest(unittest.TestCase):
 		assert '100' in rv.data
 		self.app.post('/remove_item', data={'ItemName': 'bbb'}, follow_redirects=True)
 		print "test_edit_item_successful passes!"
+
+	def test_forgot_password_unregisteredEmail(self):
+		"""Do Forgot Password? with unregistered email"""
+		rv = self.app.post('/checkEmail', data={'email': 'random@email.com'}, follow_redirects=True)
+		assert 'There is no account with this email address.' in rv.data
+		assert 'random@email.com' not in rv.data
+		print "test_forgot_password_unregisteredEmail passes!"
+
+	def test_forgot_password_registeredEmail(self):
+		"""Do Forgot Password? with registered email"""
+		rv = self.app.post('/checkEmail', data={'email': 'test@test'}, follow_redirects=True)
+		assert "test@test" in rv.data
+		print "test_forgot_password_registeredEmail passes!"
+
+	def test_change_password(self):
+		"""Successful change of password"""
+		global test_user2
+		rv = self.app.post('/changePassword', data={'email':test_user2, 'password': 'not_test'}, follow_redirects=True)
+		assert "Password was successfully reset!" in rv.data
+
+		"""Successful login"""
+		rv = self.app.post('/login', data={'email': test_user2, 'password': 'not_test'}, follow_redirects=True)
+		assert 'Bill' in rv.data
+		
+		print "test_change_password passes!"
+
 
 
 if __name__ == '__main__':
