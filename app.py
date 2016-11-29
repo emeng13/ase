@@ -24,7 +24,7 @@ conn = pymssql.connect(server='eats.database.windows.net', \
 bill_id = -1
 
 def validate_name(name):
-  if not re.match("^[A-Za-z0-9 ]*$", name):
+  if not re.match("^[A-Za-z0-9]*$", name):
     return False
   return True
 
@@ -705,6 +705,67 @@ def split_cost():
 
   return render_template('split_cost.html', Cost=user_total)
 
+#SETTINGS
+@app.route('/settings', methods=['GET', 'POST'])
+def setting():
+  if 'username' in session:
+    username = session['username']
+  else:
+    return redirect(url_for('main'))
+
+  cursor = conn.cursor()
+  cursor.execute("SELECT FirstName, LastName FROM Users WHERE Email=%s", username)
+  data = cursor.fetchall()
+  for result in data:
+    firstName = str(result[0])
+    lastName = str(result[1])
+
+  cursor1 = conn.cursor()
+  cursor1.execute("SELECT Password FROM Users WHERE Email=%s", username)
+  data = cursor1.fetchall()
+  for result in data:
+    password = (str(result[0]))
+
+  conn.commit()
+
+  return render_template('settings.html', firstName = firstName, lastName = lastName, username = username, password = password)
+
+@app.route('/edit_user_setting', methods=['GET', 'POST'])
+def edit_user_setting():
+  return render_template('edit-settings.html')
+
+
+#MODIFY USER INFORMATION
+@app.route('/edit_setting', methods=['GET', 'POST'])
+def edit_setting():
+  if 'username' in session:
+    username = session['username']
+  else:
+    return redirect(url_for('main'))
+
+  firstName = request.form['firstName'].strip()
+  lastName = request.form['lastName'].strip()
+  email = request.form['email'].strip()
+
+  # if not validate_email(email):
+  #   message = "Invalid email!"
+  #   return render_template('edit-settings.html', response=message)
+
+  if validate_name(firstName):
+    cursor = conn.cursor()
+    cursor.execute("UPDATE Users SET firstName=%s WHERE Email=%s", (firstName, username))
+    print("done")
+
+  if validate_name(lastName):
+    cursor1 = conn.cursor()
+    cursor1.execute("UPDATE Users SET lastName=%s WHERE Email=%s", (lastName, username))
+
+  if validate_email(email):
+    cursor2 = conn.cursor()
+    cursor2.execute("UPDATE Users SET Email=%s WHERE Email=%s", (email, username))
+    return redirect(url_for('logout'))
+
+  return render_template('edit-settings.html')
 
 # LOG OUT USER
 @app.route('/logout', methods=['GET', 'POST'])
