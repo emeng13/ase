@@ -21,21 +21,29 @@
 
   <body>
     <div class="row">
-        <div id="sidebar" style="background-color:black; height:100vh" class="col-xs-2">
-          <img id="logo" src="static/img/logo.png"> 
-          </br>
+      <div id="sidebar" style="background-color:black; height:100vh" class="col-xs-2">
+        <img id="logo" src="static/img/logo.png"> 
+        </br>
 
-          <a style="margin-bottom: 10px;margin-top:50px;" href="{{ url_for('bill') }}">Your Bills</a>
-          &nbsp;
-          &nbsp;
-          <form method="POST" action="/logout">
+        <a style="margin-bottom: 10px;margin-top:50px;" href="{{ url_for('bill') }}">Your Bills</a>
+        &nbsp;
+        &nbsp;
+        <form method="POST" action="/logout">
             <input type="submit" value="logout">
-          </form>
-        </div>
+        </form>
+        &nbsp;
+        &nbsp;
+        <a style="margin-bottom: 10px;margin-top:50px;" href="{{ url_for('setting') }}">Settings</a>
+      </div>
 
-        <div style="height: 100vh;"class="col-xs-10">
-          <h1>You owe ${{Cost}}</h1>
-        </div>
+      <div style="height: 100vh;"class="col-xs-10">
+        <h1>Name: {{firstName}} {{lastName}}</h1>
+        <h1>Email: {{username}}</h1>
+        <h1>Password: {{password}}</h1>
+
+
+        <a style="margin-bottom: 10px;margin-top:50px;" href="{{ url_for('setting') }}">Edit</a>
+      </div>
     </div>
 
   </body>
