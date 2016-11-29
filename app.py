@@ -47,12 +47,6 @@ def is_positive(price):
 @app.route("/")
 def main():
 
-  cursor = conn.cursor()
-  cursor.execute("SELECT * FROM Bill_Users")
-  data = cursor.fetchall()
-
-  print data # debug print User table
-
   # # cursor.execute("""
   # #   CREATE TABLE Test_Users (
   # #     FirstName VARCHAR(255) NOT NULL,
@@ -223,8 +217,42 @@ def signup():
     cursor.close()
     return render_template('index.html', response=message)
 
+# Forgot Password PAGE
+@app.route('/reset')
+def reset():
+  return render_template('reset.html')
 
+# check reset email 
+@app.route('/checkEmail', methods=['POST'])
+def checkEmail():
+  email = request.form['email'].strip()
+  # validate email
+  if not validate_email(email):
+    message = "Invalid email!"
+    return render_template('index.html', response=message)
 
+  cursor = conn.cursor()
+  cursor.execute("SELECT Password FROM Users WHERE Email=%s", email)
+
+  if cursor.rowcount == 0: 
+    message= "There is no account with this email address."
+    cursor.close()
+    return render_template('reset.html', response=message)
+  else:
+    cursor.close()
+    return render_template('checkEmail.html', response = email)
+
+# change password
+@app.route('/changePassword', methods=['POST'])
+def changePassword():
+  email = request.form['email'].strip()
+  password = sha256_crypt.encrypt(request.form['password'])
+
+  cursor = conn.cursor()
+  cursor.execute("UPDATE Users SET Password=%s WHERE Email=%s", (password, email))
+  cursor.close()
+
+  return render_template('index.html', response="Password was successfully reset!")
 # BILL PAGE
 @app.route('/bill', methods=['GET', 'POST'])
 def bill():

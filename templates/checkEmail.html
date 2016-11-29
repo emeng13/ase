@@ -1,0 +1,17 @@
+<!DOCTYPE>
+<html>
+  <head> 
+    <title> AERIS </title>
+    <link href="static/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body> 
+    <h2> Reset Password </h2>
+    <a href="{{ url_for('main') }}">Home</a>
+    <p> Email: {{response}} </p>
+    <form method="POST" action="/changePassword">
+      New Password: <input type="password" placeholder= "Password" name="password" required>
+      <input type="submit" value="Reset" >
+      <input type="hidden" name="email" value={{response}} >
+    </form>
+  </body>
+</html>
