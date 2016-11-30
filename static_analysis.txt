@@ -1,47 +1,40 @@
 ************* Module app
 W: 34, 0: Anomalous backslash in string: '\.'. String constant might be missing an r prefix. (anomalous-backslash-in-string)
-W: 35, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C: 47, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
-C:119, 0: Unnecessary parens after 'print' keyword (superfluous-parens)
-C:120, 0: No space allowed before bracket
-		return redirect (url_for('bill'))
-                  ^ (bad-whitespace)
-C:196, 0: Trailing whitespace (trailing-whitespace)
-C:197, 0: Exactly one space required before assignment
-		message= "Sign up first!"
-         ^ (bad-whitespace)
-C:245, 0: Exactly one space required after comma
-		cursor.execute("INSERT INTO Users VALUES(%s, %s, %s, %s)", (firstName,lastName, email, password))
-                                                                       ^ (bad-whitespace)
-C:263, 0: Trailing whitespace (trailing-whitespace)
-C:277, 0: Exactly one space required before assignment
-		message= "There is no account with this email address."
-         ^ (bad-whitespace)
-C:282, 0: No space allowed around keyword argument assignment
-		return render_template('checkEmail.html', response = email)
-                                                     ^ (bad-whitespace)
-C:337, 0: No space allowed after keyword argument assignment
-	return render_template('bill.html', Userbill=Userbill, response= request.args.get('response'))
-                                                                ^ (bad-whitespace)
-C:353, 0: Unnecessary parens after 'while' keyword (superfluous-parens)
-C:354, 0: Exactly one space required after comma
-		randomNum = (randint(0,1000))
-                        ^ (bad-whitespace)
-C:357, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
-C:444, 0: Line too long (112/100) (line-too-long)
-C:513, 0: Line too long (116/100) (line-too-long)
-C:515, 0: Line too long (116/100) (line-too-long)
-C:518, 0: Line too long (115/100) (line-too-long)
-C:571, 0: Line too long (113/100) (line-too-long)
-C:590, 0: Trailing whitespace (trailing-whitespace)
-C:643, 0: Trailing whitespace (trailing-whitespace)
-W:673, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:680, 0: Line too long (106/100) (line-too-long)
-C:728, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
-C:735, 0: Line too long (119/100) (line-too-long)
-C:763, 0: Line too long (118/100) (line-too-long)
-C:792, 0: Unnecessary parens after 'print' keyword (superfluous-parens)
-C:813, 0: Final newline missing (missing-final-newline)
+C: 34, 0: Trailing whitespace (trailing-whitespace)
+C: 79, 0: Trailing whitespace (trailing-whitespace)
+C: 82, 0: Trailing whitespace (trailing-whitespace)
+C: 89, 0: Trailing whitespace (trailing-whitespace)
+C:107, 0: Trailing whitespace (trailing-whitespace)
+C:125, 0: Trailing whitespace (trailing-whitespace)
+C:128, 0: Trailing whitespace (trailing-whitespace)
+C:153, 0: Trailing whitespace (trailing-whitespace)
+C:159, 0: Trailing whitespace (trailing-whitespace)
+C:192, 0: Trailing whitespace (trailing-whitespace)
+C:241, 0: Line too long (106/100) (line-too-long)
+C:259, 0: Trailing whitespace (trailing-whitespace)
+C:363, 0: Trailing whitespace (trailing-whitespace)
+C:365, 0: Trailing whitespace (trailing-whitespace)
+C:415, 0: Line too long (117/100) (line-too-long)
+C:440, 0: Line too long (174/100) (line-too-long)
+C:442, 0: Line too long (174/100) (line-too-long)
+C:445, 0: Line too long (115/100) (line-too-long)
+C:479, 0: Line too long (117/100) (line-too-long)
+C:515, 0: Line too long (122/100) (line-too-long)
+C:517, 0: Line too long (122/100) (line-too-long)
+C:520, 0: Line too long (118/100) (line-too-long)
+C:555, 0: Line too long (117/100) (line-too-long)
+C:556, 0: Trailing whitespace (trailing-whitespace)
+C:574, 0: Line too long (116/100) (line-too-long)
+C:593, 0: Trailing whitespace (trailing-whitespace)
+C:607, 0: Line too long (117/100) (line-too-long)
+C:608, 0: Trailing whitespace (trailing-whitespace)
+C:651, 0: Trailing whitespace (trailing-whitespace)
+C:687, 0: Line too long (125/100) (line-too-long)
+C:707, 0: Line too long (102/100) (line-too-long)
+C:709, 0: Line too long (102/100) (line-too-long)
+C:742, 0: Line too long (122/100) (line-too-long)
+C:770, 0: Line too long (121/100) (line-too-long)
+C:820, 0: Final newline missing (missing-final-newline)
 C:  1, 0: Missing module docstring (missing-docstring)
 E:  3, 0: No name 'sha256_crypt' in module 'passlib.hash' (no-name-in-module)
 C: 11, 0: Invalid constant name "app" (invalid-name)
@@ -49,52 +42,53 @@ C: 12, 0: Invalid constant name "login_manager" (invalid-name)
 C: 17, 0: Invalid constant name "conn" (invalid-name)
 E: 17, 7: Module 'pymssql' has no 'connect' member (no-member)
 C: 24, 0: Invalid constant name "bill_id" (invalid-name)
-W: 35, 3: Statement seems to have no effect (pointless-statement)
-W:169, 2: Unused variable 'username' (unused-variable)
-W:180, 1: Unused variable 'is_valid' (unused-variable)
-C:224, 1: Invalid variable name "firstName" (invalid-name)
-C:225, 1: Invalid variable name "lastName" (invalid-name)
-C:265, 0: Invalid function name "checkEmail" (invalid-name)
-C:286, 0: Invalid function name "changePassword" (invalid-name)
-C:333, 1: Invalid variable name "Userbill" (invalid-name)
-C:352, 1: Invalid variable name "isUnique" (invalid-name)
-C:353, 7: Comparison to False should be 'not expr' or 'expr is False' (singleton-comparison)
-C:354, 2: Invalid variable name "randomNum" (invalid-name)
-C:358, 3: Invalid variable name "isUnique" (invalid-name)
-W:379, 1: Using the global statement (global-statement)
-C:379, 1: Invalid constant name "bill_id" (invalid-name)
-C:389, 1: Invalid variable name "Userbill" (invalid-name)
-C:398, 1: Invalid variable name "Userlist" (invalid-name)
-C:404, 2: Invalid variable name "Userdict" (invalid-name)
-W:422, 1: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
-C:422, 1: Invalid constant name "bill_id" (invalid-name)
-C:452, 1: Invalid variable name "Userbill" (invalid-name)
-C:459, 1: Invalid variable name "Userlist" (invalid-name)
-C:469, 2: Invalid variable name "Userdict" (invalid-name)
-W:498, 1: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
-C:498, 1: Invalid constant name "bill_id" (invalid-name)
-C:527, 1: Invalid variable name "Userbill" (invalid-name)
-C:534, 1: Invalid variable name "Userlist" (invalid-name)
-C:544, 2: Invalid variable name "Userdict" (invalid-name)
-W:559, 1: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
-C:559, 1: Invalid constant name "bill_id" (invalid-name)
-C:580, 1: Invalid variable name "Userbill" (invalid-name)
-C:587, 1: Invalid variable name "Userlist" (invalid-name)
-C:595, 2: Invalid variable name "Userdict" (invalid-name)
-W:612, 1: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
-C:612, 1: Invalid constant name "bill_id" (invalid-name)
-C:614, 1: Invalid variable name "Femail" (invalid-name)
-C:655, 1: Invalid variable name "Userbill" (invalid-name)
-C:662, 1: Invalid variable name "Userlist" (invalid-name)
-C:671, 2: Invalid variable name "Userdict" (invalid-name)
-W:688, 1: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
-C:688, 1: Invalid constant name "bill_id" (invalid-name)
-C:718, 1: Invalid variable name "Userbill" (invalid-name)
-R:686, 0: Too many return statements (8/6) (too-many-return-statements)
-C:752, 2: Invalid variable name "firstName" (invalid-name)
-C:753, 2: Invalid variable name "lastName" (invalid-name)
-C:781, 1: Invalid variable name "firstName" (invalid-name)
-C:782, 1: Invalid variable name "lastName" (invalid-name)
+C: 52, 0: Missing function docstring (missing-docstring)
+W:165, 8: Unused variable 'username' (unused-variable)
+W:176, 4: Unused variable 'is_valid' (unused-variable)
+C:220, 4: Invalid variable name "firstName" (invalid-name)
+C:221, 4: Invalid variable name "lastName" (invalid-name)
+C:261, 0: Invalid function name "checkEmail" (invalid-name)
+C:282, 0: Invalid function name "changePassword" (invalid-name)
+C:329, 4: Invalid variable name "Userbill" (invalid-name)
+C:349, 4: Invalid variable name "isUnique" (invalid-name)
+C:350,10: Comparison to False should be 'not expr' or 'expr is False' (singleton-comparison)
+C:351, 8: Invalid variable name "randomNum" (invalid-name)
+C:355,12: Invalid variable name "isUnique" (invalid-name)
+W:382, 4: Using the global statement (global-statement)
+C:382, 4: Invalid constant name "bill_id" (invalid-name)
+C:392, 4: Invalid variable name "Userbill" (invalid-name)
+C:401, 4: Invalid variable name "Userlist" (invalid-name)
+C:407, 8: Invalid variable name "Userdict" (invalid-name)
+W:416, 4: Unreachable code (unreachable)
+W:425, 4: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
+C:425, 4: Invalid constant name "bill_id" (invalid-name)
+C:453, 4: Invalid variable name "Userbill" (invalid-name)
+C:460, 4: Invalid variable name "Userlist" (invalid-name)
+C:470, 8: Invalid variable name "Userdict" (invalid-name)
+W:500, 4: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
+C:500, 4: Invalid constant name "bill_id" (invalid-name)
+C:529, 4: Invalid variable name "Userbill" (invalid-name)
+C:536, 4: Invalid variable name "Userlist" (invalid-name)
+C:546, 8: Invalid variable name "Userdict" (invalid-name)
+W:562, 4: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
+C:562, 4: Invalid constant name "bill_id" (invalid-name)
+C:583, 4: Invalid variable name "Userbill" (invalid-name)
+C:590, 4: Invalid variable name "Userlist" (invalid-name)
+C:598, 8: Invalid variable name "Userdict" (invalid-name)
+W:615, 4: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
+C:615, 4: Invalid constant name "bill_id" (invalid-name)
+C:622, 4: Invalid variable name "Femail" (invalid-name)
+C:663, 4: Invalid variable name "Userbill" (invalid-name)
+C:670, 4: Invalid variable name "Userlist" (invalid-name)
+C:678, 8: Invalid variable name "Userdict" (invalid-name)
+W:695, 4: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
+C:695, 4: Invalid constant name "bill_id" (invalid-name)
+C:725, 4: Invalid variable name "Userbill" (invalid-name)
+R:693, 0: Too many return statements (8/6) (too-many-return-statements)
+C:759, 8: Invalid variable name "firstName" (invalid-name)
+C:760, 8: Invalid variable name "lastName" (invalid-name)
+C:788, 4: Invalid variable name "firstName" (invalid-name)
+C:789, 4: Invalid variable name "lastName" (invalid-name)
 W:  2, 0: Unused UserMixin imported from flask_login (unused-import)
 W:  2, 0: Unused login_required imported from flask_login (unused-import)
 W:  8, 0: Unused import sys (unused-import)
@@ -105,7 +99,7 @@ C:  9, 0: standard import "import re" comes before "from flask import Flask, ren
 
 Report
 ======
-384 statements analysed.
+391 statements analysed.
 
 Statistics by type
 ------------------
@@ -119,7 +113,7 @@ Statistics by type
 +---------+-------+-----------+-----------+------------+---------+
 |method   |0      |0          |=          |0           |0        |
 +---------+-------+-----------+-----------+------------+---------+
-|function |23     |23         |=          |100.00      |8.70     |
+|function |23     |23         |=          |95.65       |8.70     |
 +---------+-------+-----------+-----------+------------+---------+
 
 
@@ -142,13 +136,13 @@ Raw metrics
 +----------+-------+------+---------+-----------+
 |type      |number |%     |previous |difference |
 +==========+=======+======+=========+===========+
-|code      |424    |52.02 |424      |=          |
+|code      |429    |52.32 |429      |=          |
 +----------+-------+------+---------+-----------+
-|docstring |23     |2.82  |23       |=          |
+|docstring |22     |2.68  |22       |=          |
 +----------+-------+------+---------+-----------+
-|comment   |163    |20.00 |163      |=          |
+|comment   |163    |19.88 |163      |=          |
 +----------+-------+------+---------+-----------+
-|empty     |205    |25.15 |205      |=          |
+|empty     |206    |25.12 |206      |=          |
 +----------+-------+------+---------+-----------+
 
 
@@ -172,11 +166,11 @@ Messages by category
 +-----------+-------+---------+-----------+
 |type       |number |previous |difference |
 +===========+=======+=========+===========+
-|convention |70     |70       |=          |
+|convention |80     |80       |=          |
 +-----------+-------+---------+-----------+
 |refactor   |1      |1        |=          |
 +-----------+-------+---------+-----------+
-|warning    |15     |15       |=          |
+|warning    |13     |13       |=          |
 +-----------+-------+---------+-----------+
 |error      |2      |2        |=          |
 +-----------+-------+---------+-----------+
@@ -191,15 +185,11 @@ Messages
 +==============================+============+
 |invalid-name                  |39          |
 +------------------------------+------------+
-|line-too-long                 |8           |
+|trailing-whitespace           |17          |
 +------------------------------+------------+
-|bad-whitespace                |7           |
-+------------------------------+------------+
-|superfluous-parens            |6           |
+|line-too-long                 |17          |
 +------------------------------+------------+
 |global-variable-not-assigned  |5           |
-+------------------------------+------------+
-|trailing-whitespace           |4           |
 +------------------------------+------------+
 |wrong-import-order            |3           |
 +------------------------------+------------+
@@ -207,21 +197,19 @@ Messages
 +------------------------------+------------+
 |unused-variable               |2           |
 +------------------------------+------------+
-|mixed-indentation             |2           |
+|missing-docstring             |2           |
++------------------------------+------------+
+|unreachable                   |1           |
 +------------------------------+------------+
 |too-many-return-statements    |1           |
 +------------------------------+------------+
 |singleton-comparison          |1           |
-+------------------------------+------------+
-|pointless-statement           |1           |
 +------------------------------+------------+
 |no-name-in-module             |1           |
 +------------------------------+------------+
 |no-member                     |1           |
 +------------------------------+------------+
 |missing-final-newline         |1           |
-+------------------------------+------------+
-|missing-docstring             |1           |
 +------------------------------+------------+
 |global-statement              |1           |
 +------------------------------+------------+
@@ -232,7 +220,7 @@ Messages
 
 Global evaluation
 -----------------
-Your code has been rated at 7.50/10 (previous run: 7.50/10, +0.00)
+Your code has been rated at 7.34/10 (previous run: 7.34/10, +0.00)
 
 ************* Module app
 W: 32, 0: Anomalous backslash in string: '\.'. String constant might be missing an r prefix. (anomalous-backslash-in-string)

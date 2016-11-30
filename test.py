@@ -98,7 +98,7 @@ class MyTest(unittest.TestCase):
 
 
 		rv = self.app.post('/create_bill', data={}, follow_redirects=True)
-		assert 'Bill created!' in rv.data
+		assert 'is created!' in rv.data
 		print "test_create_bill passes!"
 		
 	def test_display_bills(self): 
@@ -112,13 +112,19 @@ class MyTest(unittest.TestCase):
 
 	def test_display_bill_items(self): 
 		"""Check items displayed are correct"""
+		with self.app.session_transaction() as sess:
+			sess['username']='test@test'
+
 		rv = self.app.post('/display_bill', data={'billId': '182'}, follow_redirects=True)
-		assert 'test' in rv.data
+		assert 'test@test' in rv.data
 		assert 'def' not in rv.data
 		print "test_display_bill_items passes!"
 
 	def test_display_bill_people(self): 
 		"""Check people associated with bill are correct"""
+		with self.app.session_transaction() as sess:
+			sess['username']='test@test'
+
 		rv = self.app.post('/display_bill', data={'billId': '182'}, follow_redirects=True)
 		assert 'test@test' in rv.data
 		assert 'hello' not in rv.data
@@ -155,6 +161,9 @@ class MyTest(unittest.TestCase):
 
 	def test_add_friend_not_exist(self): 
 		"""Add user to bill -- user doesn't exist"""
+		with self.app.session_transaction() as sess:
+			sess['username']='test@test'
+
 		rv = self.app.post('/add_friend', data= {'Friend_email': 'random@email.com', 'Billid': '182'}, follow_redirects=True)
 		assert 'NO ACCOUNT WITH THIS EMAIL EXISTS' in rv.data
 		print "test_add_friend_not_exist passes!"
@@ -163,12 +172,19 @@ class MyTest(unittest.TestCase):
 	def test_add_friend_successful(self): 
 		"""Successful adding friend to bill"""
 		global test_user2
+
+		with self.app.session_transaction() as sess:
+			sess['username']='test@test'
+
 		rv = self.app.post('/add_friend', data={'Friend_email': test_user2, 'Billid': '182'}, follow_redirects=True)
 		assert test_user2 in rv.data
 		print "test_add_friend_successful passes!"
 
 	def test_add_friend_same_email(self): 
 		"""Add user to bill twice"""
+		with self.app.session_transaction() as sess:
+			sess['username']='test@test'
+			
 		rv = self.app.post('/add_friend', data={'Friend_email': "test@test", 'Billid': '182'}, follow_redirects=True)
 		assert "THIS EMAIL WAS ALREADY IN THE BILL." in rv.data
 		print "test_add_friend_same_email passes!"
@@ -179,8 +195,8 @@ class MyTest(unittest.TestCase):
 		with self.app.session_transaction() as sess:
 			sess['username']='test@test'
 			
-		rv = self.app.post('/split_cost', data={'Tip':'0.15', 'Total': '20'}, follow_redirects=True)
-		assert '13.80' in rv.data
+		rv = self.app.post('/split_cost', data={'Tip':'0.10', 'Total': '12'}, follow_redirects=True)
+		assert '8.07' in rv.data
 		print "test_split_cost passes!"
 
 	@patch('app.bill_id', 182)
