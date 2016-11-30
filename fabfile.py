@@ -8,7 +8,7 @@ import os
 def static_analysis():
 	# ignore error from static analysis so files can be pushed to git
 	try:
-		local("pylint app.py >> static_analysis.txt")
+		local("pylint app.py > static_analysis.txt")
 	except:
 		pass
 

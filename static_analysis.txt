@@ -1,755 +1,47 @@
 ************* Module app
-W: 25, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C: 34, 0: Trailing whitespace (trailing-whitespace)
-W: 37, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 38, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 40, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 42, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 43, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 45, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C: 49, 0: Trailing whitespace (trailing-whitespace)
-C: 52, 0: Trailing whitespace (trailing-whitespace)
-W: 58, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 59, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 61, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C: 62, 0: Trailing whitespace (trailing-whitespace)
-W: 67, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 68, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C: 71, 0: Trailing whitespace (trailing-whitespace)
-W: 71, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 72, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 74, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 75, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 77, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 78, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 79, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 80, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 81, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 83, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C: 84, 0: Trailing whitespace (trailing-whitespace)
-W: 85, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 86, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 87, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 88, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C: 89, 0: Trailing whitespace (trailing-whitespace)
-W: 90, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 91, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 97, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 98, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 99, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:100, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:103, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:104, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:106, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:107, 0: Line too long (102/100) (line-too-long)
-W:107, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:107, 0: Exactly one space required after comma
-    cursor.execute("INSERT INTO Users VALUES (%s, %s, %s, %s)", (firstName,lastName, email, password))
-                                                                          ^ (bad-whitespace)
-W:108, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:109, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:110, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:111, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:112, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:113, 0: Trailing whitespace (trailing-whitespace)
-W:114, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:115, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:135, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:138, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:139, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:140, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:142, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:145, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:147, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:154, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:155, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:155, 0: Unnecessary parens after 'while' keyword (superfluous-parens)
-W:156, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:156, 0: Exactly one space required after comma
-    randomNum = (randint(0,1000))
-                          ^ (bad-whitespace)
-W:157, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:158, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:159, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:159, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
-W:160, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:161, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:162, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:165, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:166, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:167, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:168, 0: Trailing whitespace (trailing-whitespace)
-W:169, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:170, 0: Trailing whitespace (trailing-whitespace)
-W:171, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:178, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:179, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:182, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:183, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:186, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:187, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:188, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:190, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:193, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:194, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:195, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:197, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:199, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:202, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:203, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:204, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:205, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:206, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:207, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:208, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:210, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:213, 0: Line too long (101/100) (line-too-long)
-W:213, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:218, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:219, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:220, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:222, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:223, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:224, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:226, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:226, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
-W:227, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:229, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:229, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
-W:230, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:232, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:233, 0: Line too long (118/100) (line-too-long)
-W:233, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:234, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:237, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:238, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:239, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:241, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:244, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:245, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:246, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:248, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:250, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:253, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:254, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:255, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:256, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:257, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:258, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:259, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:261, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:264, 0: Line too long (101/100) (line-too-long)
-W:264, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:270, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:271, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:272, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:274, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:276, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:277, 0: Line too long (118/100) (line-too-long)
-W:277, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:278, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:281, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:282, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:283, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:285, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:288, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:289, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:290, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:292, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:294, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:297, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:298, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:299, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:300, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:301, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:302, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:303, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:305, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:308, 0: Line too long (101/100) (line-too-long)
-W:308, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:315, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:316, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:317, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:319, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:320, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:323, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:324, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:325, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:326, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:329, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:330, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:331, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:334, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:335, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:336, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:338, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:341, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:342, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:343, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:345, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:347, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:350, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:351, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:352, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:353, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:354, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:355, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:356, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:358, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:361, 0: Line too long (101/100) (line-too-long)
-W:361, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:368, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:369, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:370, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:372, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:373, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:374, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:377, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:378, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:379, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:381, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:383, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:384, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:385, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:386, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:387, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:388, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:389, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:391, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:391, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
-W:392, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:394, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:395, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:396, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:398, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:398, 0: No space allowed around keyword argument assignment
-    return render_template('split_cost.html', Cost = user_total)
-                                                   ^ (bad-whitespace)
-C:401, 0: Final newline missing (missing-final-newline)
-C:401, 0: No space allowed around keyword argument assignment
-	app.run(debug = True)
-               ^ (bad-whitespace)
-C:  1, 0: Missing module docstring (missing-docstring)
-E:  2, 0: No name 'sha256_crypt' in module 'passlib.hash' (no-name-in-module)
-C:  8, 0: Invalid constant name "app" (invalid-name)
-C: 11, 0: Invalid constant name "conn" (invalid-name)
-E: 11, 7: Module 'pymssql' has no 'connect' member (no-member)
-C: 18, 0: Invalid constant name "user_email" (invalid-name)
-C: 19, 0: Invalid constant name "bill_id" (invalid-name)
-C: 24, 0: Missing function docstring (missing-docstring)
-C: 66, 0: Missing function docstring (missing-docstring)
-W: 71, 2: Using the global statement (global-statement)
-C: 71, 2: Invalid constant name "user_email" (invalid-name)
-C: 96, 0: Missing function docstring (missing-docstring)
-C: 97, 2: Invalid variable name "firstName" (invalid-name)
-C: 98, 2: Invalid variable name "lastName" (invalid-name)
-C:121, 0: Missing function docstring (missing-docstring)
-W:135, 2: Using global for 'user_email' but no assignment is done (global-variable-not-assigned)
-C:135, 2: Invalid constant name "user_email" (invalid-name)
-C:142, 2: Invalid variable name "Userbill" (invalid-name)
-C:151, 0: Missing function docstring (missing-docstring)
-C:154, 2: Invalid variable name "isUnique" (invalid-name)
-C:155, 8: Comparison to False should be 'not expr' or 'expr is False' (singleton-comparison)
-C:156, 4: Invalid variable name "randomNum" (invalid-name)
-C:161, 6: Invalid variable name "isUnique" (invalid-name)
-C:177, 0: Missing function docstring (missing-docstring)
-W:179, 4: Using global for 'user_email' but no assignment is done (global-variable-not-assigned)
-C:179, 4: Invalid constant name "user_email" (invalid-name)
-W:182, 4: Using the global statement (global-statement)
-C:182, 4: Invalid constant name "bill_id" (invalid-name)
-C:190, 4: Invalid variable name "Userbill" (invalid-name)
-C:199, 4: Invalid variable name "Userlist" (invalid-name)
-C:205, 6: Invalid variable name "Userdict" (invalid-name)
-C:217, 0: Missing function docstring (missing-docstring)
-W:219, 4: Using global for 'user_email' but no assignment is done (global-variable-not-assigned)
-C:219, 4: Invalid constant name "user_email" (invalid-name)
-W:220, 4: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
-C:220, 4: Invalid constant name "bill_id" (invalid-name)
-C:241, 4: Invalid variable name "Userbill" (invalid-name)
-C:250, 4: Invalid variable name "Userlist" (invalid-name)
-C:256, 6: Invalid variable name "Userdict" (invalid-name)
-C:269, 0: Missing function docstring (missing-docstring)
-W:271, 4: Using global for 'user_email' but no assignment is done (global-variable-not-assigned)
-C:271, 4: Invalid constant name "user_email" (invalid-name)
-W:272, 4: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
-C:272, 4: Invalid constant name "bill_id" (invalid-name)
-C:285, 4: Invalid variable name "Userbill" (invalid-name)
-C:294, 4: Invalid variable name "Userlist" (invalid-name)
-C:300, 6: Invalid variable name "Userdict" (invalid-name)
-C:314, 0: Missing function docstring (missing-docstring)
-W:316, 4: Using global for 'user_email' but no assignment is done (global-variable-not-assigned)
-C:316, 4: Invalid constant name "user_email" (invalid-name)
-W:317, 4: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
-C:317, 4: Invalid constant name "bill_id" (invalid-name)
-C:319, 4: Invalid variable name "Femail" (invalid-name)
-C:338, 4: Invalid variable name "Userbill" (invalid-name)
-C:347, 4: Invalid variable name "Userlist" (invalid-name)
-C:353, 6: Invalid variable name "Userdict" (invalid-name)
-C:367, 0: Missing function docstring (missing-docstring)
-W:369, 4: Using global for 'user_email' but no assignment is done (global-variable-not-assigned)
-C:369, 4: Invalid constant name "user_email" (invalid-name)
-W:370, 4: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
-C:370, 4: Invalid constant name "bill_id" (invalid-name)
-C:381, 4: Invalid variable name "Userbill" (invalid-name)
-W:373, 4: Unused variable 'billid' (unused-variable)
-C:  3, 0: standard import "from random import randint" comes before "from flask import Flask, render_template, request, redirect" (wrong-import-order)
-C:  6, 0: standard import "import sys" comes before "from flask import Flask, render_template, request, redirect" (wrong-import-order)
-
-
-Report
-======
-213 statements analysed.
-
-Statistics by type
-------------------
-
-+---------+-------+-----------+-----------+------------+---------+
-|type     |number |old number |difference |%documented |%badname |
-+=========+=======+===========+===========+============+=========+
-|module   |1      |NC         |NC         |0.00        |0.00     |
-+---------+-------+-----------+-----------+------------+---------+
-|class    |0      |NC         |NC         |0           |0        |
-+---------+-------+-----------+-----------+------------+---------+
-|method   |0      |NC         |NC         |0           |0        |
-+---------+-------+-----------+-----------+------------+---------+
-|function |10     |NC         |NC         |0.00        |0.00     |
-+---------+-------+-----------+-----------+------------+---------+
-
-
-
-External dependencies
----------------------
-::
-
-    flask (app)
-    passlib 
-      \-hash (app)
-    pymssql (app)
-
-
-
-Raw metrics
------------
-
-+----------+-------+------+---------+-----------+
-|type      |number |%     |previous |difference |
-+==========+=======+======+=========+===========+
-|code      |230    |57.36 |NC       |NC         |
-+----------+-------+------+---------+-----------+
-|docstring |0      |0.00  |NC       |NC         |
-+----------+-------+------+---------+-----------+
-|comment   |68     |16.96 |NC       |NC         |
-+----------+-------+------+---------+-----------+
-|empty     |103    |25.69 |NC       |NC         |
-+----------+-------+------+---------+-----------+
-
-
-
-Duplication
------------
-
-+-------------------------+------+---------+-----------+
-|                         |now   |previous |difference |
-+=========================+======+=========+===========+
-|nb duplicated lines      |0     |NC       |NC         |
-+-------------------------+------+---------+-----------+
-|percent duplicated lines |0.000 |NC       |NC         |
-+-------------------------+------+---------+-----------+
-
-
-
-Messages by category
---------------------
-
-+-----------+-------+---------+-----------+
-|type       |number |previous |difference |
-+===========+=======+=========+===========+
-|convention |77     |NC       |NC         |
-+-----------+-------+---------+-----------+
-|refactor   |0      |NC       |NC         |
-+-----------+-------+---------+-----------+
-|warning    |208    |NC       |NC         |
-+-----------+-------+---------+-----------+
-|error      |2      |NC       |NC         |
-+-----------+-------+---------+-----------+
-
-
-
-Messages
---------
-
-+-----------------------------+------------+
-|message id                   |occurrences |
-+=============================+============+
-|mixed-indentation            |195         |
-+-----------------------------+------------+
-|invalid-name                 |36          |
-+-----------------------------+------------+
-|missing-docstring            |11          |
-+-----------------------------+------------+
-|trailing-whitespace          |10          |
-+-----------------------------+------------+
-|global-variable-not-assigned |10          |
-+-----------------------------+------------+
-|line-too-long                |7           |
-+-----------------------------+------------+
-|superfluous-parens           |5           |
-+-----------------------------+------------+
-|bad-whitespace               |4           |
-+-----------------------------+------------+
-|wrong-import-order           |2           |
-+-----------------------------+------------+
-|global-statement             |2           |
-+-----------------------------+------------+
-|unused-variable              |1           |
-+-----------------------------+------------+
-|singleton-comparison         |1           |
-+-----------------------------+------------+
-|no-name-in-module            |1           |
-+-----------------------------+------------+
-|no-member                    |1           |
-+-----------------------------+------------+
-|missing-final-newline        |1           |
-+-----------------------------+------------+
-
-
-
-Global evaluation
------------------
-Your code has been rated at -3.85/10
-
-************* Module app
-W: 32, 0: Anomalous backslash in string: '\.'. String constant might be missing an r prefix. (anomalous-backslash-in-string)
-W: 27, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 28, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 29, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 32, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 33, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 34, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 37, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 38, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 39, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 42, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 43, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C: 43, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
-W: 44, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 45, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 50, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 51, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 52, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 54, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C: 61, 0: Trailing whitespace (trailing-whitespace)
-W: 69, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 70, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W: 71, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C: 71, 0: Unnecessary parens after 'print' keyword (superfluous-parens)
-W: 72, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C: 72, 0: No space allowed before bracket
-    return redirect (url_for('bill'))
-                    ^ (bad-whitespace)
-C: 81, 0: Trailing whitespace (trailing-whitespace)
-C: 84, 0: Trailing whitespace (trailing-whitespace)
-C:106, 0: Trailing whitespace (trailing-whitespace)
-C:126, 0: Trailing whitespace (trailing-whitespace)
-W:132, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:133, 0: Trailing whitespace (trailing-whitespace)
-W:138, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:139, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:140, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:140, 0: No space allowed before bracket
-    return redirect (url_for('bill'))
-                    ^ (bad-whitespace)
-W:142, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:143, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:144, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:147, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:148, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:150, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:153, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:154, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:155, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:158, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:159, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:160, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:162, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:163, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:166, 0: Trailing whitespace (trailing-whitespace)
-W:166, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:167, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:167, 0: Exactly one space required before assignment
-    message= "Sign up first!"
-           ^ (bad-whitespace)
-W:168, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:169, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:170, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:171, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:172, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:173, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:174, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:177, 0: Trailing whitespace (trailing-whitespace)
-W:177, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:182, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:185, 0: Trailing whitespace (trailing-whitespace)
-W:185, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:186, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:187, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:193, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:194, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:195, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:196, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:199, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:200, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:201, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:204, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:205, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:206, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:209, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:210, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:213, 0: Trailing whitespace (trailing-whitespace)
-W:213, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:214, 0: Line too long (102/100) (line-too-long)
-W:214, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:214, 0: Exactly one space required after comma
-    cursor.execute("INSERT INTO Users VALUES (%s, %s, %s, %s)", (firstName,lastName, email, password))
-                                                                          ^ (bad-whitespace)
-W:215, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:216, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:217, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:218, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:221, 0: Trailing whitespace (trailing-whitespace)
-W:221, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:222, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:223, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:224, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:251, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:252, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:253, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:254, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:257, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:258, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:259, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:261, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:263, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:265, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:265, 0: No space allowed after keyword argument assignment
-  return render_template('bill.html', Userbill=Userbill, response= request.args.get('response'))
-                                                                 ^ (bad-whitespace)
-W:273, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:274, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:275, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:276, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:279, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:280, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:280, 0: Unnecessary parens after 'while' keyword (superfluous-parens)
-W:281, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:281, 0: Exactly one space required after comma
-    randomNum = (randint(0,1000))
-                          ^ (bad-whitespace)
-W:282, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:283, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:284, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:284, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
-W:285, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:286, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:290, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:291, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:292, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:293, 0: Trailing whitespace (trailing-whitespace)
-W:294, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:295, 0: Trailing whitespace (trailing-whitespace)
-W:296, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:304, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:305, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:309, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:310, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:311, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:314, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:317, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:318, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:319, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:321, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:323, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:326, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:327, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:328, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:329, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:331, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:332, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:333, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:334, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:336, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:339, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:346, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:348, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:349, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:350, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:352, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:353, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:354, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:355, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:358, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:359, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:360, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:361, 0: Line too long (170/100) (line-too-long)
-W:361, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:362, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:363, 0: Line too long (170/100) (line-too-long)
-W:363, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:365, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:366, 0: Line too long (114/100) (line-too-long)
-W:366, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:367, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:370, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:371, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:372, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:374, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:377, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:378, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:379, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:381, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:383, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:386, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:387, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:388, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:391, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:392, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:393, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:394, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:395, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:397, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:400, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:407, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:409, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:412, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:413, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:414, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:415, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:418, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:419, 0: Line too long (114/100) (line-too-long)
-W:419, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:420, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:423, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:424, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:425, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:428, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:431, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:432, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:433, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:435, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:437, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:438, 0: Trailing whitespace (trailing-whitespace)
-W:440, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:441, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:442, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:443, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:444, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:445, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:446, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:447, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:449, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:452, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:459, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:461, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:462, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:465, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:466, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:467, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:468, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:472, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:473, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:474, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:475, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:477, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:478, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:482, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:483, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:484, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:486, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:487, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:488, 0: Trailing whitespace (trailing-whitespace)
-C:490, 0: Trailing whitespace (trailing-whitespace)
-W:492, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:493, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:494, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:498, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:499, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:500, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:502, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:505, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:506, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:507, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:509, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:511, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:514, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:515, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:516, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:518, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:519, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:520, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:521, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:522, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:524, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:527, 0: Line too long (107/100) (line-too-long)
-W:527, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:534, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:536, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:537, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:539, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:540, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:540, 0: No space allowed around keyword argument assignment
-    return render_template("400.html", message = "PLEASE FILL IN ALL VALUES")
-                                               ^ (bad-whitespace)
-W:541, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:542, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:542, 0: No space allowed around keyword argument assignment
-    return render_template("400.html", message = "NUMERICAL INPUTS ONLY")
-                                               ^ (bad-whitespace)
-W:543, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:544, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:544, 0: No space allowed around keyword argument assignment
-    return render_template("400.html", message = "NUMERICAL INPUTS ONLY")
-                                               ^ (bad-whitespace)
-W:545, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:546, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:546, 0: No space allowed around keyword argument assignment
-    return render_template("400.html", message = "TIP AND POST TAX COST HAVE TO BE POSITIVE VALUES")
-                                               ^ (bad-whitespace)
-W:547, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:548, 0: Trailing whitespace (trailing-whitespace)
-W:548, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:548, 0: No space allowed around keyword argument assignment
-    return render_template("400.html", message = "TIP AND POST TAX COST HAVE TO BE POSITIVE VALUES")  
-                                               ^ (bad-whitespace)
-C:549, 0: Trailing whitespace (trailing-whitespace)
-W:551, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:552, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:553, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:554, 0: Trailing whitespace (trailing-whitespace)
-W:554, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:556, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:557, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:560, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:561, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:562, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:564, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:566, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:567, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:568, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:569, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:570, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:571, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:574, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:574, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
-W:575, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:575, 0: No space allowed around keyword argument assignment
-    return render_template("400.html", message = "USER BILL GREATER THAN TOTAL BILL")
-                                               ^ (bad-whitespace)
-W:577, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:578, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:580, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:586, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-W:587, 0: Found indentation with spaces instead of tabs (mixed-indentation)
-C:590, 0: Final newline missing (missing-final-newline)
+W: 34, 0: Anomalous backslash in string: '\.'. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W: 35, 0: Found indentation with spaces instead of tabs (mixed-indentation)
+C: 47, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C:119, 0: Unnecessary parens after 'print' keyword (superfluous-parens)
+C:120, 0: No space allowed before bracket
+		return redirect (url_for('bill'))
+                  ^ (bad-whitespace)
+C:196, 0: Trailing whitespace (trailing-whitespace)
+C:197, 0: Exactly one space required before assignment
+		message= "Sign up first!"
+         ^ (bad-whitespace)
+C:245, 0: Exactly one space required after comma
+		cursor.execute("INSERT INTO Users VALUES(%s, %s, %s, %s)", (firstName,lastName, email, password))
+                                                                       ^ (bad-whitespace)
+C:263, 0: Trailing whitespace (trailing-whitespace)
+C:277, 0: Exactly one space required before assignment
+		message= "There is no account with this email address."
+         ^ (bad-whitespace)
+C:282, 0: No space allowed around keyword argument assignment
+		return render_template('checkEmail.html', response = email)
+                                                     ^ (bad-whitespace)
+C:337, 0: No space allowed after keyword argument assignment
+	return render_template('bill.html', Userbill=Userbill, response= request.args.get('response'))
+                                                                ^ (bad-whitespace)
+C:353, 0: Unnecessary parens after 'while' keyword (superfluous-parens)
+C:354, 0: Exactly one space required after comma
+		randomNum = (randint(0,1000))
+                        ^ (bad-whitespace)
+C:357, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C:444, 0: Line too long (112/100) (line-too-long)
+C:513, 0: Line too long (116/100) (line-too-long)
+C:515, 0: Line too long (116/100) (line-too-long)
+C:518, 0: Line too long (115/100) (line-too-long)
+C:571, 0: Line too long (113/100) (line-too-long)
+C:590, 0: Trailing whitespace (trailing-whitespace)
+C:643, 0: Trailing whitespace (trailing-whitespace)
+W:673, 0: Found indentation with spaces instead of tabs (mixed-indentation)
+C:680, 0: Line too long (106/100) (line-too-long)
+C:728, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+C:735, 0: Line too long (119/100) (line-too-long)
+C:763, 0: Line too long (118/100) (line-too-long)
+C:792, 0: Unnecessary parens after 'print' keyword (superfluous-parens)
+C:813, 0: Final newline missing (missing-final-newline)
 C:  1, 0: Missing module docstring (missing-docstring)
 E:  3, 0: No name 'sha256_crypt' in module 'passlib.hash' (no-name-in-module)
 C: 11, 0: Invalid constant name "app" (invalid-name)
@@ -757,55 +49,52 @@ C: 12, 0: Invalid constant name "login_manager" (invalid-name)
 C: 17, 0: Invalid constant name "conn" (invalid-name)
 E: 17, 7: Module 'pymssql' has no 'connect' member (no-member)
 C: 24, 0: Invalid constant name "bill_id" (invalid-name)
-C: 26, 0: Missing function docstring (missing-docstring)
-C: 31, 0: Missing function docstring (missing-docstring)
-C: 36, 0: Missing function docstring (missing-docstring)
-C: 41, 0: Missing function docstring (missing-docstring)
-C: 48, 0: Missing function docstring (missing-docstring)
-C:137, 0: Missing function docstring (missing-docstring)
-W:139, 4: Unused variable 'username' (unused-variable)
-W:150, 2: Unused variable 'is_valid' (unused-variable)
-C:192, 0: Missing function docstring (missing-docstring)
-C:193, 2: Invalid variable name "firstName" (invalid-name)
-C:194, 2: Invalid variable name "lastName" (invalid-name)
-C:230, 0: Missing function docstring (missing-docstring)
-C:261, 2: Invalid variable name "Userbill" (invalid-name)
-C:271, 0: Missing function docstring (missing-docstring)
-C:279, 2: Invalid variable name "isUnique" (invalid-name)
-C:280, 8: Comparison to False should be 'not expr' or 'expr is False' (singleton-comparison)
-C:281, 4: Invalid variable name "randomNum" (invalid-name)
-C:285, 6: Invalid variable name "isUnique" (invalid-name)
-C:302, 0: Missing function docstring (missing-docstring)
-W:304, 2: Using the global statement (global-statement)
-C:304, 2: Invalid constant name "bill_id" (invalid-name)
-C:314, 2: Invalid variable name "Userbill" (invalid-name)
-C:323, 2: Invalid variable name "Userlist" (invalid-name)
-C:329, 4: Invalid variable name "Userdict" (invalid-name)
-C:345, 0: Missing function docstring (missing-docstring)
-W:346, 2: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
-C:346, 2: Invalid constant name "bill_id" (invalid-name)
-C:374, 2: Invalid variable name "Userbill" (invalid-name)
-C:381, 2: Invalid variable name "Userlist" (invalid-name)
-C:391, 4: Invalid variable name "Userdict" (invalid-name)
-C:406, 0: Missing function docstring (missing-docstring)
-W:407, 2: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
-C:407, 2: Invalid constant name "bill_id" (invalid-name)
-C:428, 2: Invalid variable name "Userbill" (invalid-name)
-C:435, 2: Invalid variable name "Userlist" (invalid-name)
-C:443, 4: Invalid variable name "Userdict" (invalid-name)
-C:458, 0: Missing function docstring (missing-docstring)
-W:459, 2: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
-C:459, 2: Invalid constant name "bill_id" (invalid-name)
-C:461, 2: Invalid variable name "Femail" (invalid-name)
-C:502, 2: Invalid variable name "Userbill" (invalid-name)
-C:509, 2: Invalid variable name "Userlist" (invalid-name)
-C:518, 4: Invalid variable name "Userdict" (invalid-name)
-C:533, 0: Missing function docstring (missing-docstring)
-W:534, 2: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
-C:534, 2: Invalid constant name "bill_id" (invalid-name)
-C:564, 2: Invalid variable name "Userbill" (invalid-name)
-R:533, 0: Too many return statements (8/6) (too-many-return-statements)
-C:585, 0: Missing function docstring (missing-docstring)
+W: 35, 3: Statement seems to have no effect (pointless-statement)
+W:169, 2: Unused variable 'username' (unused-variable)
+W:180, 1: Unused variable 'is_valid' (unused-variable)
+C:224, 1: Invalid variable name "firstName" (invalid-name)
+C:225, 1: Invalid variable name "lastName" (invalid-name)
+C:265, 0: Invalid function name "checkEmail" (invalid-name)
+C:286, 0: Invalid function name "changePassword" (invalid-name)
+C:333, 1: Invalid variable name "Userbill" (invalid-name)
+C:352, 1: Invalid variable name "isUnique" (invalid-name)
+C:353, 7: Comparison to False should be 'not expr' or 'expr is False' (singleton-comparison)
+C:354, 2: Invalid variable name "randomNum" (invalid-name)
+C:358, 3: Invalid variable name "isUnique" (invalid-name)
+W:379, 1: Using the global statement (global-statement)
+C:379, 1: Invalid constant name "bill_id" (invalid-name)
+C:389, 1: Invalid variable name "Userbill" (invalid-name)
+C:398, 1: Invalid variable name "Userlist" (invalid-name)
+C:404, 2: Invalid variable name "Userdict" (invalid-name)
+W:422, 1: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
+C:422, 1: Invalid constant name "bill_id" (invalid-name)
+C:452, 1: Invalid variable name "Userbill" (invalid-name)
+C:459, 1: Invalid variable name "Userlist" (invalid-name)
+C:469, 2: Invalid variable name "Userdict" (invalid-name)
+W:498, 1: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
+C:498, 1: Invalid constant name "bill_id" (invalid-name)
+C:527, 1: Invalid variable name "Userbill" (invalid-name)
+C:534, 1: Invalid variable name "Userlist" (invalid-name)
+C:544, 2: Invalid variable name "Userdict" (invalid-name)
+W:559, 1: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
+C:559, 1: Invalid constant name "bill_id" (invalid-name)
+C:580, 1: Invalid variable name "Userbill" (invalid-name)
+C:587, 1: Invalid variable name "Userlist" (invalid-name)
+C:595, 2: Invalid variable name "Userdict" (invalid-name)
+W:612, 1: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
+C:612, 1: Invalid constant name "bill_id" (invalid-name)
+C:614, 1: Invalid variable name "Femail" (invalid-name)
+C:655, 1: Invalid variable name "Userbill" (invalid-name)
+C:662, 1: Invalid variable name "Userlist" (invalid-name)
+C:671, 2: Invalid variable name "Userdict" (invalid-name)
+W:688, 1: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
+C:688, 1: Invalid constant name "bill_id" (invalid-name)
+C:718, 1: Invalid variable name "Userbill" (invalid-name)
+R:686, 0: Too many return statements (8/6) (too-many-return-statements)
+C:752, 2: Invalid variable name "firstName" (invalid-name)
+C:753, 2: Invalid variable name "lastName" (invalid-name)
+C:781, 1: Invalid variable name "firstName" (invalid-name)
+C:782, 1: Invalid variable name "lastName" (invalid-name)
 W:  2, 0: Unused UserMixin imported from flask_login (unused-import)
 W:  2, 0: Unused login_required imported from flask_login (unused-import)
 W:  8, 0: Unused import sys (unused-import)
@@ -816,7 +105,7 @@ C:  9, 0: standard import "import re" comes before "from flask import Flask, ren
 
 Report
 ======
-285 statements analysed.
+384 statements analysed.
 
 Statistics by type
 ------------------
@@ -830,7 +119,7 @@ Statistics by type
 +---------+-------+-----------+-----------+------------+---------+
 |method   |0      |0          |=          |0           |0        |
 +---------+-------+-----------+-----------+------------+---------+
-|function |15     |10         |+5.00      |0.00        |0.00     |
+|function |23     |23         |=          |100.00      |8.70     |
 +---------+-------+-----------+-----------+------------+---------+
 
 
@@ -853,13 +142,13 @@ Raw metrics
 +----------+-------+------+---------+-----------+
 |type      |number |%     |previous |difference |
 +==========+=======+======+=========+===========+
-|code      |308    |52.20 |230      |+78.00     |
+|code      |424    |52.02 |424      |=          |
 +----------+-------+------+---------+-----------+
-|docstring |0      |0.00  |0        |=          |
+|docstring |23     |2.82  |23       |=          |
 +----------+-------+------+---------+-----------+
-|comment   |125    |21.19 |68       |+57.00     |
+|comment   |163    |20.00 |163      |=          |
 +----------+-------+------+---------+-----------+
-|empty     |157    |26.61 |103      |+54.00     |
+|empty     |205    |25.15 |205      |=          |
 +----------+-------+------+---------+-----------+
 
 
@@ -883,11 +172,11 @@ Messages by category
 +-----------+-------+---------+-----------+
 |type       |number |previous |difference |
 +===========+=======+=========+===========+
-|convention |92     |77       |+15.00     |
+|convention |70     |70       |=          |
 +-----------+-------+---------+-----------+
-|refactor   |1      |0        |+1.00      |
+|refactor   |1      |1        |=          |
 +-----------+-------+---------+-----------+
-|warning    |274    |208      |+66.00     |
+|warning    |15     |15       |=          |
 +-----------+-------+---------+-----------+
 |error      |2      |2        |=          |
 +-----------+-------+---------+-----------+
@@ -900,21 +189,17 @@ Messages
 +------------------------------+------------+
 |message id                    |occurrences |
 +==============================+============+
-|mixed-indentation             |263         |
+|invalid-name                  |39          |
 +------------------------------+------------+
-|invalid-name                  |29          |
+|line-too-long                 |8           |
 +------------------------------+------------+
-|trailing-whitespace           |19          |
+|bad-whitespace                |7           |
 +------------------------------+------------+
-|missing-docstring             |16          |
+|superfluous-parens            |6           |
 +------------------------------+------------+
-|bad-whitespace                |12          |
+|global-variable-not-assigned  |5           |
 +------------------------------+------------+
-|line-too-long                 |6           |
-+------------------------------+------------+
-|superfluous-parens            |5           |
-+------------------------------+------------+
-|global-variable-not-assigned  |4           |
+|trailing-whitespace           |4           |
 +------------------------------+------------+
 |wrong-import-order            |3           |
 +------------------------------+------------+
@@ -922,15 +207,21 @@ Messages
 +------------------------------+------------+
 |unused-variable               |2           |
 +------------------------------+------------+
+|mixed-indentation             |2           |
++------------------------------+------------+
 |too-many-return-statements    |1           |
 +------------------------------+------------+
 |singleton-comparison          |1           |
++------------------------------+------------+
+|pointless-statement           |1           |
 +------------------------------+------------+
 |no-name-in-module             |1           |
 +------------------------------+------------+
 |no-member                     |1           |
 +------------------------------+------------+
 |missing-final-newline         |1           |
++------------------------------+------------+
+|missing-docstring             |1           |
 +------------------------------+------------+
 |global-statement              |1           |
 +------------------------------+------------+
@@ -941,5 +232,5 @@ Messages
 
 Global evaluation
 -----------------
-Your code has been rated at -3.23/10 (previous run: -3.85/10, +0.62)
+Your code has been rated at 7.50/10 (previous run: 7.50/10, +0.00)
 
