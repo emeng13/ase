@@ -264,6 +264,24 @@ class MyTest(unittest.TestCase):
 		
 		print "test_change_password passes!"
 
+	def test_change_name(self):
+		"""Successful change of name"""
+		with self.app.session_transaction() as sess:
+			sess['username']='annawen12@gmail.com'
+
+		rv = self.app.post('/edit_setting', data={'firstName': 'Annie', 'lastName': 'Wen'}, follow_redirects=True)
+		assert "Successfully made changes" in rv.data
+		print "test_change_name passes!"
+
+	def test_change_to_existing_email(self):
+		"""Changing to already existing email"""
+		with self.app.session_transaction() as sess:
+			sess['username']='annawen12@gmail.com'
+
+		rv = self.app.post('/edit_setting', data={'email': 'annawen12@gmail.com'}, follow_redirects=True)
+		assert "Email already exists in application!" in rv.data
+		print "test_change_to_existing_email passes!"
+
 
 
 if __name__ == '__main__':

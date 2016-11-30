@@ -234,3 +234,687 @@ Global evaluation
 -----------------
 Your code has been rated at 7.50/10 (previous run: 7.50/10, +0.00)
 
+************* Module app
+W: 32, 0: Anomalous backslash in string: '\.'. String constant might be missing an r prefix. (anomalous-backslash-in-string)
+W: 27, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W: 28, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W: 29, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W: 32, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W: 33, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W: 34, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W: 37, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W: 38, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W: 39, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W: 42, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W: 43, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C: 43, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+W: 44, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W: 45, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C: 74, 0: Trailing whitespace (trailing-whitespace)
+C: 77, 0: Trailing whitespace (trailing-whitespace)
+C: 84, 0: Trailing whitespace (trailing-whitespace)
+C: 99, 0: Trailing whitespace (trailing-whitespace)
+C:103, 0: Trailing whitespace (trailing-whitespace)
+W:105, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:106, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:107, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+C:107, 0: No space allowed before bracket
+    print ("Logged in as " + username)
+          ^ (bad-whitespace)
+W:108, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+C:108, 0: No space allowed before bracket
+    return redirect (url_for('bill'))
+                    ^ (bad-whitespace)
+C:110, 0: Trailing whitespace (trailing-whitespace)
+C:117, 0: Trailing whitespace (trailing-whitespace)
+C:120, 0: Trailing whitespace (trailing-whitespace)
+C:145, 0: Trailing whitespace (trailing-whitespace)
+W:151, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:152, 0: Trailing whitespace (trailing-whitespace)
+W:157, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:158, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:159, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+C:159, 0: No space allowed before bracket
+    return redirect (url_for('bill'))
+                    ^ (bad-whitespace)
+W:161, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:162, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:163, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:166, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:167, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:169, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:172, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:173, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:174, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:177, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:178, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:179, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:181, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:182, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:185, 0: Trailing whitespace (trailing-whitespace)
+W:185, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:186, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+C:186, 0: Exactly one space required before assignment
+    message= "Sign up first!"
+           ^ (bad-whitespace)
+W:187, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:188, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:189, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:190, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:191, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:192, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:193, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+C:196, 0: Trailing whitespace (trailing-whitespace)
+W:196, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:201, 0: Bad indentation. Found 6 spaces, expected 12 (bad-indentation)
+C:204, 0: Trailing whitespace (trailing-whitespace)
+W:204, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:205, 0: Bad indentation. Found 6 spaces, expected 12 (bad-indentation)
+W:206, 0: Bad indentation. Found 6 spaces, expected 12 (bad-indentation)
+W:212, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:213, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:214, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:215, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:218, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:219, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:220, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:223, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:224, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:225, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:228, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:229, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:232, 0: Trailing whitespace (trailing-whitespace)
+W:232, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:233, 0: Line too long (102/100) (line-too-long)
+W:233, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+C:233, 0: Exactly one space required after comma
+    cursor.execute("INSERT INTO Users VALUES (%s, %s, %s, %s)", (firstName,lastName, email, password))
+                                                                          ^ (bad-whitespace)
+W:234, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:235, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:236, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:237, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+C:240, 0: Trailing whitespace (trailing-whitespace)
+W:240, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:241, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:242, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:243, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:248, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:250, 0: Trailing whitespace (trailing-whitespace)
+W:253, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:255, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:256, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:257, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:259, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:260, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:262, 0: Trailing whitespace (trailing-whitespace)
+W:262, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:263, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+C:263, 0: Exactly one space required before assignment
+    message= "There is no account with this email address."
+           ^ (bad-whitespace)
+W:264, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:265, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:266, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:267, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:268, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+C:268, 0: No space allowed around keyword argument assignment
+    return render_template('checkEmail.html', response = email)
+                                                       ^ (bad-whitespace)
+W:273, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:274, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:276, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:277, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:278, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:280, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:305, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:306, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:307, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:308, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:311, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:312, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:313, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:315, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:317, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:319, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:319, 0: No space allowed after keyword argument assignment
+  return render_template('bill.html', Userbill=Userbill, response= request.args.get('response'))
+                                                                 ^ (bad-whitespace)
+W:327, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:328, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:329, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:330, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:333, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:334, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:334, 0: Unnecessary parens after 'while' keyword (superfluous-parens)
+W:335, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+C:335, 0: Exactly one space required after comma
+    randomNum = (randint(0,1000))
+                          ^ (bad-whitespace)
+W:336, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:337, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:338, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+C:338, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+W:339, 0: Bad indentation. Found 6 spaces, expected 12 (bad-indentation)
+W:340, 0: Bad indentation. Found 6 spaces, expected 12 (bad-indentation)
+W:344, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:345, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:346, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:347, 0: Trailing whitespace (trailing-whitespace)
+W:348, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:349, 0: Trailing whitespace (trailing-whitespace)
+W:350, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:358, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:359, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:363, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:364, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:365, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:368, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:371, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:372, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:373, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:375, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:377, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:380, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:381, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:382, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:383, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:385, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:386, 0: Bad indentation. Found 6 spaces, expected 12 (bad-indentation)
+W:387, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:388, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:390, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:393, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:400, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:402, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:403, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:404, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:406, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:407, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:408, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:409, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:412, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:413, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:414, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:415, 0: Line too long (170/100) (line-too-long)
+W:415, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:416, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:417, 0: Line too long (170/100) (line-too-long)
+W:417, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:419, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:420, 0: Line too long (114/100) (line-too-long)
+W:420, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:421, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:424, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:425, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:426, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:428, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:431, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:432, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:433, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:435, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:437, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:440, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:441, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:442, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:445, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:446, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:447, 0: Bad indentation. Found 6 spaces, expected 12 (bad-indentation)
+W:448, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:449, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:451, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:454, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:460, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:461, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:462, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:465, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:471, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:473, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:474, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:475, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:477, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:478, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:479, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:480, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:483, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:484, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:485, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:486, 0: Line too long (118/100) (line-too-long)
+W:486, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:487, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:488, 0: Line too long (118/100) (line-too-long)
+W:488, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:490, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:491, 0: Line too long (152/100) (line-too-long)
+W:491, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:492, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:495, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:496, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:497, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:499, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:502, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:503, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:504, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:506, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:508, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:511, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:512, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:513, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:516, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:517, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:518, 0: Bad indentation. Found 6 spaces, expected 12 (bad-indentation)
+W:519, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:520, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:522, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:525, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:530, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:532, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:535, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:536, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:537, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:538, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:541, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:542, 0: Line too long (114/100) (line-too-long)
+W:542, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:543, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:546, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:547, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:548, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:551, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:554, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:555, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:556, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:558, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:560, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:561, 0: Trailing whitespace (trailing-whitespace)
+W:563, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:564, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:565, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:566, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:567, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:568, 0: Bad indentation. Found 6 spaces, expected 12 (bad-indentation)
+W:569, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:570, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:572, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:575, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:582, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:584, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:585, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:588, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:589, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:590, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:591, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:595, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:596, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:597, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:598, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:600, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:601, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:605, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:606, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:607, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:609, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:610, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+C:611, 0: Trailing whitespace (trailing-whitespace)
+C:613, 0: Trailing whitespace (trailing-whitespace)
+W:615, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:616, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:617, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:621, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:622, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:623, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:625, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:628, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:629, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:630, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:632, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:634, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:637, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:638, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:639, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:641, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:642, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:643, 0: Bad indentation. Found 6 spaces, expected 12 (bad-indentation)
+W:644, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:645, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:647, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:650, 0: Line too long (107/100) (line-too-long)
+W:650, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:657, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:659, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:660, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:662, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:663, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+C:663, 0: No space allowed around keyword argument assignment
+    return render_template("400.html", message = "PLEASE FILL IN ALL VALUES")
+                                               ^ (bad-whitespace)
+W:664, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:665, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+C:665, 0: No space allowed around keyword argument assignment
+    return render_template("400.html", message = "NUMERICAL INPUTS ONLY")
+                                               ^ (bad-whitespace)
+W:666, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:667, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+C:667, 0: No space allowed around keyword argument assignment
+    return render_template("400.html", message = "NUMERICAL INPUTS ONLY")
+                                               ^ (bad-whitespace)
+W:668, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:669, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+C:669, 0: No space allowed around keyword argument assignment
+    return render_template("400.html", message = "TIP AND POST TAX COST HAVE TO BE POSITIVE VALUES")
+                                               ^ (bad-whitespace)
+W:670, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:671, 0: Trailing whitespace (trailing-whitespace)
+W:671, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+C:671, 0: No space allowed around keyword argument assignment
+    return render_template("400.html", message = "TIP AND POST TAX COST HAVE TO BE POSITIVE VALUES")  
+                                               ^ (bad-whitespace)
+C:672, 0: Trailing whitespace (trailing-whitespace)
+W:674, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:675, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:676, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:677, 0: Trailing whitespace (trailing-whitespace)
+W:677, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:679, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:680, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:683, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:684, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:685, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:687, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:689, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:690, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:691, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:692, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:693, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:694, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W:697, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:697, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+W:698, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+C:698, 0: No space allowed around keyword argument assignment
+    return render_template("400.html", message = "USER BILL GREATER THAN TOTAL BILL")
+                                               ^ (bad-whitespace)
+W:700, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:701, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:703, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:704, 0: Line too long (120/100) (line-too-long)
+W:704, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:706, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:711, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:712, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:713, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:714, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:716, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:717, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:718, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:719, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:720, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:721, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:723, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:724, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:725, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:726, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:727, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:729, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:731, 0: Line too long (127/100) (line-too-long)
+W:731, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:731, 0: No space allowed around keyword argument assignment
+  return render_template('settings.html', firstName = firstName, lastName = lastName, username = username, password = password)
+                                                    ^ (bad-whitespace)
+C:731, 0: No space allowed around keyword argument assignment
+  return render_template('settings.html', firstName = firstName, lastName = lastName, username = username, password = password)
+                                                                          ^ (bad-whitespace)
+C:731, 0: No space allowed around keyword argument assignment
+  return render_template('settings.html', firstName = firstName, lastName = lastName, username = username, password = password)
+                                                                                               ^ (bad-whitespace)
+C:731, 0: No space allowed around keyword argument assignment
+  return render_template('settings.html', firstName = firstName, lastName = lastName, username = username, password = password)
+                                                                                                                    ^ (bad-whitespace)
+W:735, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:741, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:742, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:743, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:744, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:746, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:747, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:748, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:754, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:754, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+W:755, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:756, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:757, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:758, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:760, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:760, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+W:761, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:762, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:763, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:765, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:765, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+W:767, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:768, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:769, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+C:769, 0: Unnecessary parens after 'if' keyword (superfluous-parens)
+W:770, 0: Bad indentation. Found 6 spaces, expected 12 (bad-indentation)
+W:771, 0: Bad indentation. Found 6 spaces, expected 12 (bad-indentation)
+W:772, 0: Bad indentation. Found 6 spaces, expected 12 (bad-indentation)
+W:773, 0: Bad indentation. Found 6 spaces, expected 12 (bad-indentation)
+W:774, 0: Bad indentation. Found 4 spaces, expected 8 (bad-indentation)
+W:775, 0: Bad indentation. Found 6 spaces, expected 12 (bad-indentation)
+W:776, 0: Bad indentation. Found 6 spaces, expected 12 (bad-indentation)
+C:776, 0: No space allowed around keyword argument assignment
+      return render_template('edit-settings.html', response = message)
+                                                            ^ (bad-whitespace)
+W:778, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:783, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+W:784, 0: Bad indentation. Found 2 spaces, expected 4 (bad-indentation)
+C:787, 0: Final newline missing (missing-final-newline)
+W:787, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C:  1, 0: Missing module docstring (missing-docstring)
+E:  2, 0: Unable to import 'flask_login' (import-error)
+E:  3, 0: Unable to import 'passlib.hash' (import-error)
+E:  7, 0: Unable to import 'pymssql' (import-error)
+C: 11, 0: Invalid constant name "app" (invalid-name)
+C: 12, 0: Invalid constant name "login_manager" (invalid-name)
+C: 17, 0: Invalid constant name "conn" (invalid-name)
+C: 24, 0: Invalid constant name "bill_id" (invalid-name)
+C: 26, 0: Missing function docstring (missing-docstring)
+C: 31, 0: Missing function docstring (missing-docstring)
+C: 36, 0: Missing function docstring (missing-docstring)
+C: 41, 0: Missing function docstring (missing-docstring)
+C: 48, 0: Missing function docstring (missing-docstring)
+C:156, 0: Missing function docstring (missing-docstring)
+W:158, 4: Unused variable 'username' (unused-variable)
+W:169, 2: Unused variable 'is_valid' (unused-variable)
+C:211, 0: Missing function docstring (missing-docstring)
+C:212, 2: Invalid variable name "firstName" (invalid-name)
+C:213, 2: Invalid variable name "lastName" (invalid-name)
+C:247, 0: Missing function docstring (missing-docstring)
+C:252, 0: Invalid function name "checkEmail" (invalid-name)
+C:252, 0: Missing function docstring (missing-docstring)
+C:272, 0: Invalid function name "changePassword" (invalid-name)
+C:272, 0: Missing function docstring (missing-docstring)
+C:283, 0: Missing function docstring (missing-docstring)
+C:315, 2: Invalid variable name "Userbill" (invalid-name)
+C:325, 0: Missing function docstring (missing-docstring)
+C:333, 2: Invalid variable name "isUnique" (invalid-name)
+C:334, 8: Comparison to False should be 'not expr' or 'expr is False' (singleton-comparison)
+C:335, 4: Invalid variable name "randomNum" (invalid-name)
+C:339, 6: Invalid variable name "isUnique" (invalid-name)
+C:356, 0: Missing function docstring (missing-docstring)
+W:358, 2: Using the global statement (global-statement)
+C:358, 2: Invalid constant name "bill_id" (invalid-name)
+C:368, 2: Invalid variable name "Userbill" (invalid-name)
+C:377, 2: Invalid variable name "Userlist" (invalid-name)
+C:383, 4: Invalid variable name "Userdict" (invalid-name)
+C:399, 0: Missing function docstring (missing-docstring)
+W:400, 2: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
+C:400, 2: Invalid constant name "bill_id" (invalid-name)
+C:428, 2: Invalid variable name "Userbill" (invalid-name)
+C:435, 2: Invalid variable name "Userlist" (invalid-name)
+C:445, 4: Invalid variable name "Userdict" (invalid-name)
+C:459, 0: Missing function docstring (missing-docstring)
+C:470, 0: Missing function docstring (missing-docstring)
+W:471, 2: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
+C:471, 2: Invalid constant name "bill_id" (invalid-name)
+C:499, 2: Invalid variable name "Userbill" (invalid-name)
+C:506, 2: Invalid variable name "Userlist" (invalid-name)
+C:516, 4: Invalid variable name "Userdict" (invalid-name)
+C:529, 0: Missing function docstring (missing-docstring)
+W:530, 2: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
+C:530, 2: Invalid constant name "bill_id" (invalid-name)
+C:551, 2: Invalid variable name "Userbill" (invalid-name)
+C:558, 2: Invalid variable name "Userlist" (invalid-name)
+C:566, 4: Invalid variable name "Userdict" (invalid-name)
+C:581, 0: Missing function docstring (missing-docstring)
+W:582, 2: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
+C:582, 2: Invalid constant name "bill_id" (invalid-name)
+C:584, 2: Invalid variable name "Femail" (invalid-name)
+C:625, 2: Invalid variable name "Userbill" (invalid-name)
+C:632, 2: Invalid variable name "Userlist" (invalid-name)
+C:641, 4: Invalid variable name "Userdict" (invalid-name)
+C:656, 0: Missing function docstring (missing-docstring)
+W:657, 2: Using global for 'bill_id' but no assignment is done (global-variable-not-assigned)
+C:657, 2: Invalid constant name "bill_id" (invalid-name)
+C:687, 2: Invalid variable name "Userbill" (invalid-name)
+R:656, 0: Too many return statements (8/6) (too-many-return-statements)
+C:710, 0: Missing function docstring (missing-docstring)
+C:720, 4: Invalid variable name "firstName" (invalid-name)
+C:721, 4: Invalid variable name "lastName" (invalid-name)
+C:734, 0: Missing function docstring (missing-docstring)
+C:740, 0: Missing function docstring (missing-docstring)
+C:746, 2: Invalid variable name "firstName" (invalid-name)
+C:747, 2: Invalid variable name "lastName" (invalid-name)
+C:782, 0: Missing function docstring (missing-docstring)
+W:  2, 0: Unused UserMixin imported from flask_login (unused-import)
+W:  2, 0: Unused login_required imported from flask_login (unused-import)
+W:  8, 0: Unused import sys (unused-import)
+C:  4, 0: standard import "from random import randint" comes before "from flask import Flask, render_template, request, redirect, session, url_for" (wrong-import-order)
+C:  8, 0: standard import "import sys" comes before "from flask import Flask, render_template, request, redirect, session, url_for" (wrong-import-order)
+C:  9, 0: standard import "import re" comes before "from flask import Flask, render_template, request, redirect, session, url_for" (wrong-import-order)
+
+
+Report
+======
+392 statements analysed.
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |1      |NC         |NC         |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |0      |NC         |NC         |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+|method   |0      |NC         |NC         |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+|function |23     |NC         |NC         |0.00        |8.70     |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
+External dependencies
+---------------------
+::
+
+    flask (app)
+
+
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |429    |54.44 |NC       |NC         |
++----------+-------+------+---------+-----------+
+|docstring |0      |0.00  |NC       |NC         |
++----------+-------+------+---------+-----------+
+|comment   |158    |20.05 |NC       |NC         |
++----------+-------+------+---------+-----------+
+|empty     |201    |25.51 |NC       |NC         |
++----------+-------+------+---------+-----------+
+
+
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |NC       |NC         |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |NC       |NC         |
++-------------------------+------+---------+-----------+
+
+
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |132    |NC       |NC         |
++-----------+-------+---------+-----------+
+|refactor   |1      |NC       |NC         |
++-----------+-------+---------+-----------+
+|warning    |380    |NC       |NC         |
++-----------+-------+---------+-----------+
+|error      |3      |NC       |NC         |
++-----------+-------+---------+-----------+
+
+
+
+Messages
+--------
+
++------------------------------+------------+
+|message id                    |occurrences |
++==============================+============+
+|bad-indentation               |364         |
++------------------------------+------------+
+|invalid-name                  |39          |
++------------------------------+------------+
+|trailing-whitespace           |25          |
++------------------------------+------------+
+|missing-docstring             |24          |
++------------------------------+------------+
+|bad-whitespace                |20          |
++------------------------------+------------+
+|line-too-long                 |11          |
++------------------------------+------------+
+|superfluous-parens            |8           |
++------------------------------+------------+
+|global-variable-not-assigned  |5           |
++------------------------------+------------+
+|mixed-indentation             |4           |
++------------------------------+------------+
+|wrong-import-order            |3           |
++------------------------------+------------+
+|unused-import                 |3           |
++------------------------------+------------+
+|import-error                  |3           |
++------------------------------+------------+
+|unused-variable               |2           |
++------------------------------+------------+
+|too-many-return-statements    |1           |
++------------------------------+------------+
+|singleton-comparison          |1           |
++------------------------------+------------+
+|missing-final-newline         |1           |
++------------------------------+------------+
+|global-statement              |1           |
++------------------------------+------------+
+|anomalous-backslash-in-string |1           |
++------------------------------+------------+
+
+
+
+Global evaluation
+-----------------
+Your code has been rated at -3.47/10
+

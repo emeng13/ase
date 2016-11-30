@@ -217,7 +217,6 @@ def login():
 			return render_template('index.html', response=message)
 
 
-
 @app.route('/signUp', methods=['GET', 'POST'])
 def signup():
 	"""Sign user in"""
@@ -337,7 +336,6 @@ def bill():
 	return render_template('bill.html', Userbill=Userbill, response= request.args.get('response'))
 
 
-
 # CREATE BILL
 @app.route('/create_bill', methods=['GET', 'POST'])
 def create_bill():
@@ -367,8 +365,6 @@ def create_bill():
 	conn.commit()
 
 	return redirect(url_for('bill', response="Bill created!"))
-
-
 
 # DISPLAY BILL
 @app.route('/display_bill', methods=['GET', 'POST'])
@@ -784,21 +780,31 @@ def edit_setting():
 	#   message = "Invalid email!"
 	#   return render_template('edit-settings.html', response=message)
 
-	if validate_name(firstName):
+	if (firstName != ""):
 		cursor = conn.cursor()
 		cursor.execute("UPDATE Users SET firstName=%s WHERE Email=%s", (firstName, username))
 		print("done")
+		conn.commit()
 
-	if validate_name(lastName):
+	if (lastName != ""):
 		cursor1 = conn.cursor()
 		cursor1.execute("UPDATE Users SET lastName=%s WHERE Email=%s", (lastName, username))
+		conn.commit()
 
-	if validate_email(email):
-		cursor2 = conn.cursor()
-		cursor2.execute("UPDATE Users SET Email=%s WHERE Email=%s", (email, username))
-		return redirect(url_for('logout'))
+	if (email != ""):
+		# check if email already exists in database
+		cursor3 = conn.cursor()
+		cursor3.execute("SELECT * FROM Users WHERE Email=%s", email)
+		if (cursor3.rowcount == 0):
+			cursor2 = conn.cursor()
+			cursor2.execute("UPDATE Users SET Email=%s WHERE Email=%s", (email, username))
+			conn.commit()
+			return redirect(url_for('logout'))
+		else:
+			message = "Email already exists in application!"
+			return render_template('edit-settings.html', response = message)
 
-	return render_template('edit-settings.html')
+	return render_template('edit-settings.html', response="Successfully made changes")
 
 # LOG OUT USER
 @app.route('/logout', methods=['GET', 'POST'])
