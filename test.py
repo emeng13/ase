@@ -161,6 +161,9 @@ class MyTest(unittest.TestCase):
 
 	def test_add_friend_not_exist(self): 
 		"""Add user to bill -- user doesn't exist"""
+		with self.app.session_transaction() as sess:
+			sess['username']='test@test'
+
 		rv = self.app.post('/add_friend', data= {'Friend_email': 'random@email.com', 'Billid': '182'}, follow_redirects=True)
 		assert 'NO ACCOUNT WITH THIS EMAIL EXISTS' in rv.data
 		print "test_add_friend_not_exist passes!"
@@ -169,12 +172,19 @@ class MyTest(unittest.TestCase):
 	def test_add_friend_successful(self): 
 		"""Successful adding friend to bill"""
 		global test_user2
+
+		with self.app.session_transaction() as sess:
+			sess['username']='test@test'
+
 		rv = self.app.post('/add_friend', data={'Friend_email': test_user2, 'Billid': '182'}, follow_redirects=True)
 		assert test_user2 in rv.data
 		print "test_add_friend_successful passes!"
 
 	def test_add_friend_same_email(self): 
 		"""Add user to bill twice"""
+		with self.app.session_transaction() as sess:
+			sess['username']='test@test'
+			
 		rv = self.app.post('/add_friend', data={'Friend_email': "test@test", 'Billid': '182'}, follow_redirects=True)
 		assert "THIS EMAIL WAS ALREADY IN THE BILL." in rv.data
 		print "test_add_friend_same_email passes!"

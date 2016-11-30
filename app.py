@@ -15,775 +15,812 @@ app.secret_key = "sdfhweoirhlsdfsdijfoisjdfoijsef"
 
 # server connection
 conn = pymssql.connect(server='eats.database.windows.net', \
-  user='th2520@eats',\
-  password='123*&$eats',\
-  database='AERIS')\
+    user='th2520@eats',\
+    password='123*&$eats',\
+    database='AERIS')\
 
 
 # global variables for current logged in bill session
 bill_id = -1
 
 def validate_name(name):
-  if not re.match("^[A-Za-z0-9]*$", name):
-    return False
-  return True
+    """Check name not invalid"""
+    if not re.match("^[A-Za-z0-9]*$", name):
+        return False
+    return True
 
 def validate_email(email):
-  if not re.match("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", email):
-    return False
-  return True
+    """Check email not invalid"""
+    if not re.match("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", email):
+         False
+    return True
 
 def validate_price(price):
-  if not re.match("^([0-9])*(.([0-9]){1,2})?$", price):
-    return False
-  return True
+    """Check price not invalid"""
+    if not re.match("^([0-9])*(.([0-9]){1,2})?$", price):
+        return False
+    return True
 
 def is_positive(price):
-  price = float(price)
-  if(price <= 0):
-    return False
-  return True
+    """Check value positive"""
+    price = float(price)
+    if(price <= 0):
+        return False
+    return True
 
 @app.route("/")
 def main():
 
-  # cursor = conn.cursor()
 
-  # # cursor.execute("""
-  # # IF OBJECT_ID('Users', 'U') IS NOT NULL
-  # #   DROP TABLE Users
+    # cursor = conn.cursor()
 
-  # #   CREATE TABLE Users (
-  # #     FirstName VARCHAR(255) NOT NULL,
-  # #     LastName VARCHAR(255) NOT NULL,
-  # #     Email varchar(255) NOT NULL PRIMARY KEY,
-  # #     Password varchar(255) NOT NULL
-  # #   )
-  # #   """)
-  # # conn.commit()
+    # # cursor.execute("""
+    # # IF OBJECT_ID('Users', 'U') IS NOT NULL
+    # #   DROP TABLE Users
 
-  # # cursor.execute("SELECT * FROM Users")
-  # # data = cursor.fetchall()
-  # # print data
+    # #   CREATE TABLE Users (
+    # #     FirstName VARCHAR(255) NOT NULL,
+    # #     LastName VARCHAR(255) NOT NULL,
+    # #     Email varchar(255) NOT NULL PRIMARY KEY,
+    # #     Password varchar(255) NOT NULL
+    # #   )
+    # #   """)
+    # # conn.commit()
 
-  # cursor.execute("""
-  # IF OBJECT_ID('Items', 'U') IS NOT NULL
-  #   DROP TABLE Items
+    # # cursor.execute("SELECT * FROM Users")
+    # # data = cursor.fetchall()
+    # # print data
 
-  #   CREATE TABLE Items(
-  #   Email varchar(255) NOT NULL, 
-  #   ItemName varchar(255) NOT NULL,
-  #   Quantity INT NOT NULL,
-  #   Price DECIMAL(10,2) NOT NULL,     
-  #   BillId INT NOT NULL,
-  #   PRIMARY KEY (Email, ItemName, BillId),
-  #   FOREIGN KEY (Email) REFERENCES Users(Email) ON UPDATE CASCADE ON DELETE CASCADE
+    # cursor.execute("""
+    # IF OBJECT_ID('Items', 'U') IS NOT NULL
+    #   DROP TABLE Items
 
-  # )
-  # """)
-  
-  # conn.commit()
-  # cursor.execute("SELECT * FROM Items")
-  # data = cursor.fetchall()
-  # print data #testing
+    #   CREATE TABLE Items(
+    #   Email varchar(255) NOT NULL, 
+    #   ItemName varchar(255) NOT NULL,
+    #   Quantity INT NOT NULL,
+    #   Price DECIMAL(10,2) NOT NULL,     
+    #   BillId INT NOT NULL,
+    #   PRIMARY KEY (Email, ItemName, BillId),
+    #   FOREIGN KEY (Email) REFERENCES Users(Email) ON UPDATE CASCADE ON DELETE CASCADE
 
-  # cursor.execute("""
-  # IF OBJECT_ID('Bill_Users', 'U') IS NOT NULL
-  #   DROP TABLE Bill_Users
+    # )
+    # """)
+    
+    # conn.commit()
+    # cursor.execute("SELECT * FROM Items")
+    # data = cursor.fetchall()
+    # print data #testing
 
-  #   CREATE TABLE Bill_Users (
-  #     billID INT NOT NULL,
-  #     Email varchar(255) NOT NULL,
-  #     amtOwed varchar(255) NOT NULL,
-  #     PRIMARY KEY (billID, Email),
-  #     FOREIGN KEY (Email) REFERENCES Users(Email) ON UPDATE CASCADE ON DELETE CASCADE
-  #   )
-  #   """)
-  
-  # conn.commit()
-  # cursor.execute("SELECT * FROM Bill_Users")
-  # data = cursor.fetchall()
-  # print data #testing
+    # cursor.execute("""
+    # IF OBJECT_ID('Bill_Users', 'U') IS NOT NULL
+    #   DROP TABLE Bill_Users
 
-  # cursor.close()
+    #   CREATE TABLE Bill_Users (
+    #     billID INT NOT NULL,
+    #     Email varchar(255) NOT NULL,
+    #     amtOwed varchar(255) NOT NULL,
+    #     PRIMARY KEY (billID, Email),
+    #     FOREIGN KEY (Email) REFERENCES Users(Email) ON UPDATE CASCADE ON DELETE CASCADE
+    #   )
+    #   """)
+    
+    # conn.commit()
+    # cursor.execute("SELECT * FROM Bill_Users")
+    # data = cursor.fetchall()
+    # print data #testing
+
+    # cursor.close()
+
+        
+
+    if 'username' in session:
+        username = session['username']
+        print ("Logged in as " + username)
+        return redirect (url_for('bill'))
 
     
 
-  if 'username' in session:
-    username = session['username']
-    print ("Logged in as " + username)
-    return redirect (url_for('bill'))
+    # #create Item table
+    # # cursor.execute("""
+    # # IF OBJECT_ID('Items', 'U') IS NOT NULL
+    # #   DROP TABLE Items
+    # # CREATE TABLE Items(
+    # #   Email varchar(255) NOT NULL, 
+    # #   ItemName varchar(255) NOT NULL,
+    # #   Quantity INT NOT NULL,
+    # #   Price DECIMAL(10,2) NOT NULL,     
+    # #   BillId INT NOT NULL,
+    # #   CONSTRAINT pk_itms PRIMARY KEY (Email, ItemName, BillId)
+    # # )
+    # # """)
 
-  
+    # conn.commit()
 
-  # #create Item table
-  # # cursor.execute("""
-  # # IF OBJECT_ID('Items', 'U') IS NOT NULL
-  # #   DROP TABLE Items
-  # # CREATE TABLE Items(
-  # #   Email varchar(255) NOT NULL, 
-  # #   ItemName varchar(255) NOT NULL,
-  # #   Quantity INT NOT NULL,
-  # #   Price DECIMAL(10,2) NOT NULL,     
-  # #   BillId INT NOT NULL,
-  # #   CONSTRAINT pk_itms PRIMARY KEY (Email, ItemName, BillId)
-  # # )
-  # # """)
+    # cursor.execute("SELECT * FROM Items")
+    # data = cursor.fetchall()
+    # print data
 
-  # conn.commit()
-
-  # cursor.execute("SELECT * FROM Items")
-  # data = cursor.fetchall()
-  # print data
-
-  # # conn.commit()
-  # cursor.close()
+    # # conn.commit()
+    # cursor.close()
 
 
-  # # cursor = conn.cursor()
-  # # cursor.execute("""
-  # #   CREATE TABLE Test_Bill_Users (
-  # #     billID INT NOT NULL,
-  # #     Email varchar(255) NOT NULL,
-  # #     PRIMARY KEY (billID, Email)
-  # #   )
-  # #   """)
-  # # conn.commit()
-  
-  # cursor.execute("SELECT * FROM Test_Bill_Users")
-  # data = cursor.fetchall()
-  # print data
+    # # cursor = conn.cursor()
+    # # cursor.execute("""
+    # #   CREATE TABLE Test_Bill_Users (
+    # #     billID INT NOT NULL,
+    # #     Email varchar(255) NOT NULL,
+    # #     PRIMARY KEY (billID, Email)
+    # #   )
+    # #   """)
+    # # conn.commit()
+    
+    # cursor.execute("SELECT * FROM Test_Bill_Users")
+    # data = cursor.fetchall()
+    # print data
 
 
-  return render_template('index.html')
+    return render_template('index.html')
  
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-  if 'username' in session:
-    username = session['username']
-    return redirect (url_for('bill'))
+    """Log user in"""
+    if 'username' in session:
+        username = session['username']
+        return redirect(url_for('bill'))
 
-  if request.method == 'POST':
-    email = request.form['email']
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+
+    # take email and password from form
+    email = request.form['email'].strip()
     password = request.form['password']
 
-  # take email and password from form
-  email = request.form['email'].strip()
-  password = request.form['password']
+    is_valid = validate_email(email)
 
-  is_valid = validate_email(email)
+    # check fields
+    if not email or not password:
+        message = "Please enter all login fields."
+        return render_template('index.html', response=message)
 
-  # check fields
-  if not email or not password:
-    message = "Please enter all login fields."
-    return render_template('index.html', response=message)
+    # validate email
+    if not validate_email(email):
+        message = "Invalid email!"
+        return render_template('index.html', response=message)
 
-  # validate email
-  if not validate_email(email):
-    message = "Invalid email!"
-    return render_template('index.html', response=message)
+    cursor = conn.cursor()
+    cursor.execute("SELECT Password FROM Users WHERE Email=%s", email)
 
-  cursor = conn.cursor()
-  cursor.execute("SELECT Password FROM Users WHERE Email=%s", email)
-
-  # email doesn't exist in Users table
-  if cursor.rowcount == 0: 
-    message= "Sign up first!"
-    cursor.close()
-    return render_template('index.html', response=message)
-  else:
-    data = cursor.fetchall()
-    cursor.close()
-    session['username'] = email
-    username = session['username']
+    # email doesn't exist in Users table
+    if cursor.rowcount == 0: 
+        message= "Sign up first!"
+        cursor.close()
+        return render_template('index.html', response=message)
+    else:
+        data = cursor.fetchall()
+        cursor.close()
+        session['username'] = email
+        username = session['username']
 
     # login success
-    if sha256_crypt.verify(password, data[0][0]): 
-      ##### need to show username!
-        # cursor.execute("SELECT FirstName FROM Users WHERE Email=%s", email)
-        # userName = cursor.fetchall()
-      #####
-      return redirect('bill')
+        if sha256_crypt.verify(password, data[0][0]):
+    ##### need to show username!
+    # cursor.execute("SELECT FirstName FROM Users WHERE Email=%s", email)
+    # userName = cursor.fetchall()
+    #####
+            return redirect('bill')
 
     # login failed
-    else: 
-      message = "Incorrect password!"
-      return render_template('index.html', response=message)
+        else:
+            message = "Incorrect password!"
+            return render_template('index.html', response=message)
 
 
 
 @app.route('/signUp', methods=['GET', 'POST'])
 def signup():
-  firstName = request.form['firstName'].strip()
-  lastName = request.form['lastName'].strip()
-  email = request.form['email'].strip()
-  password = sha256_crypt.encrypt(request.form['password'])
+    """Sign user in"""
+    firstName = request.form['firstName'].strip()
+    lastName = request.form['lastName'].strip()
+    email = request.form['email'].strip()
+    password = sha256_crypt.encrypt(request.form['password'])
 
-  # check fields
-  if not firstName or not lastName or not email or not password:
-    message = "Please enter all signup fields."
-    return render_template('index.html', response=message)
+    # check fields
+    if not firstName or not lastName or not email or not password:
+        message = "Please enter all signup fields."
+        return render_template('index.html', response=message)
 
-  # validate email
-  if not validate_email(email):
-    message = "Invalid email!"
-    return render_template('index.html', response=message)
+    # validate email
+    if not validate_email(email):
+        message = "Invalid email!"
+        return render_template('index.html', response=message)
 
-  # check if email exists in Users table
-  cursor = conn.cursor()
-  cursor.execute("SELECT * FROM Users WHERE Email=%s", email)
+    # check if email exists in Users table
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Users WHERE Email=%s", email)
 
-  # email doesn't exist in Users table
-  if cursor.rowcount == 0: 
-    cursor.execute("INSERT INTO Users VALUES (%s, %s, %s, %s)", (firstName,lastName, email, password))
-    conn.commit()
-    cursor.close()
-    message = "Your account is registered successfully!"
-    return render_template('index.html', response=message)
+    # email doesn't exist in Users table
+    if cursor.rowcount == 0:
+        cursor.execute("INSERT INTO Users VALUES(%s, %s, %s, %s)", (firstName,lastName, email, password))
+        conn.commit()
+        cursor.close()
+        message = "Your account is registered successfully!"
+        return render_template('index.html', response=message)
 
-  # email already exists in Users table
-  else: 
-    message = "You registered with the same email before."
-    cursor.close()
-    return render_template('index.html', response=message)
+    # email already exists in Users table
+    else:
+        message = "You registered with the same email before."
+        cursor.close()
+        return render_template('index.html', response=message)
 
 # Forgot Password PAGE
 @app.route('/reset')
 def reset():
-  return render_template('reset.html')
+    """Reset password"""
+    return render_template('reset.html')
 
 # check reset email 
 @app.route('/checkEmail', methods=['POST'])
 def checkEmail():
-  email = request.form['email'].strip()
-  # validate email
-  if not validate_email(email):
-    message = "Invalid email!"
-    return render_template('index.html', response=message)
+    """Check correct email"""
+    email = request.form['email'].strip()
+    # validate email
+    if not validate_email(email):
+        message = "Invalid email!"
+        return render_template('index.html', response=message)
 
-  cursor = conn.cursor()
-  cursor.execute("SELECT Password FROM Users WHERE Email=%s", email)
+    cursor = conn.cursor()
+    cursor.execute("SELECT Password FROM Users WHERE Email=%s", email)
 
-  if cursor.rowcount == 0: 
-    message= "There is no account with this email address."
-    cursor.close()
-    return render_template('reset.html', response=message)
-  else:
-    cursor.close()
-    return render_template('checkEmail.html', response = email)
+    if cursor.rowcount == 0:
+        message= "There is no account with this email address."
+        cursor.close()
+        return render_template('reset.html', response=message)
+    else:
+        cursor.close()
+        return render_template('checkEmail.html', response = email)
 
 # change password
 @app.route('/changePassword', methods=['POST'])
 def changePassword():
-  email = request.form['email'].strip()
-  password = sha256_crypt.encrypt(request.form['password'])
+    """User changes password"""
+    email = request.form['email'].strip()
+    password = sha256_crypt.encrypt(request.form['password'])
 
-  cursor = conn.cursor()
-  cursor.execute("UPDATE Users SET Password=%s WHERE Email=%s", (password, email))
-  cursor.close()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE Users SET Password=%s WHERE Email=%s", (password, email))
+    cursor.close()
 
-  return render_template('index.html', response="Password was successfully reset!")
+    return render_template('index.html', response="Password was successfully reset!")
+
 # BILL PAGE
 @app.route('/bill', methods=['GET', 'POST'])
 def bill():
-  # checks if table is already created, if it is, table is dropped and new table created
-  # cursor = conn.cursor()
-  # cursor.execute("""
-  #   IF OBJECT_ID('Bill_Users', 'U') IS NOT NULL
-  #     DROP TABLE Bill_Users
-  #   CREATE TABLE Bill_Users (
-  #     billID INT NOT NULL,
-  #     Email varchar(255) NOT NULL,
-  #     amtOwed varchar(255) NOT NULL
-  #     PRIMARY KEY (billID, Email)
-  #   )
-  #   """)
-  # cursor.close()
+    """Display all bills"""
 
-  # message = request.args.get('response', type=str)
-  # bill = request.args.get('id')
+    # checks if table is already created, if it is, table is dropped and new table created
+    # cursor = conn.cursor()
+    # cursor.execute("""
+    #   IF OBJECT_ID('Bill_Users', 'U') IS NOT NULL
+    #     DROP TABLE Bill_Users
+    #   CREATE TABLE Bill_Users (
+    #     billID INT NOT NULL,
+    #     Email varchar(255) NOT NULL,
+    #     amtOwed varchar(255) NOT NULL
+    #     PRIMARY KEY (billID, Email)
+    #   )
+    #   """)
+    # cursor.close()
 
-  # if bill != None:
-  #   response = "Bill " + bill + " created!"
+    # message = request.args.get('response', type=str)
+    # bill = request.args.get('id')
+
+    # if bill != None:
+    #   response = "Bill " + bill + " created!"
 
 
-  if 'username' in session:
-    username = session['username']
-  else:
-    return redirect(url_for('main'))
+    if 'username' in session:
+        username = session['username']
+    else:
+        return redirect(url_for('main'))
 
-  # find all associated bills in Bill_Users table
-  cursor2 = conn.cursor()
-  cursor2.execute('SELECT billID, amtOwed, Email FROM Bill_Users WHERE Email=%s', username)
-  data = cursor2.fetchall()
+    # find all associated bills in Bill_Users table
+    cursor2 = conn.cursor()
+    cursor2.execute('SELECT billID, amtOwed, Email FROM Bill_Users WHERE Email=%s', username)
+    data = cursor2.fetchall()
 
-  Userbill = [dict(BillID=row[0], amtOwed=row[1], Email=row[2]) for row in data]
+    Userbill = [dict(BillID=row[0], amtOwed=row[1], Email=row[2]) for row in data]
 
-  conn.commit()
+    conn.commit()
 
-  return render_template('bill.html', Userbill=Userbill, response= request.args.get('response'))
+    return render_template('bill.html', Userbill=Userbill, response= request.args.get('response'))
 
 
 
 # CREATE BILL
 @app.route('/create_bill', methods=['GET', 'POST'])
 def create_bill():
+    """Create new bill"""
 
-  if 'username' in session:
-    username = session['username']
-  else:
-    return redirect(url_for('main'))
 
-  # generate new bill id
-  isUnique = False
-  while(isUnique == False):
-    randomNum = (randint(0,1000))
-    cursor1 = conn.cursor()
-    result = cursor1.execute("SELECT billID FROM Bill_Users WHERE billID=%d", randomNum)
-    if (randomNum != result):
-      isUnique = True
-      cursor1.close()
+    if 'username' in session:
+        username = session['username']
+    else:
+        return redirect(url_for('main'))
 
-  message = "Bill " + str(randomNum) + " is created!"
-  # add bill to Bill_Users table
-  cursor2 = conn.cursor()
-  cursor2.execute("INSERT INTO Bill_Users VALUES (%d, %s, %s)", (randomNum, username, '--'))
-  cursor2.close()
-  
-  conn.commit()
-  
-  return redirect(url_for('bill', response=message))
+    # generate new bill id
+    isUnique = False
+    while(isUnique == False):
+        randomNum = (randint(0,1000))
+        cursor1 = conn.cursor()
+        result = cursor1.execute("SELECT billID FROM Bill_Users WHERE billID=%d", randomNum)
+        if (randomNum != result):
+            isUnique = True
+            cursor1.close()
+
+    message = "Bill " + str(randomNum) + " is created!"
+    # add bill to Bill_Users table
+    cursor2 = conn.cursor()
+    cursor2.execute("INSERT INTO Bill_Users VALUES (%d, %s, %s)", (randomNum, username, '--'))
+    cursor2.close()
+    
+    conn.commit()
+    
+    return redirect(url_for('bill', response=message))
+
 
 
 
 # DISPLAY BILL
 @app.route('/display_bill', methods=['GET', 'POST'])
 def display_bill():
-  # set global variable for current bill session
-  global bill_id
-  bill_id = request.form['billId']
+    """Display single bill"""
 
-  if 'username' in session:
-    username = session['username']
-  else:
-    return redirect(url_for('main'))
+    if 'username' in session:
+        username = session['username']
+    else:
+        return redirect(url_for('main'))
 
-
-  # retrieve all items in Items table associated with email and bill
-  cursor = conn.cursor()
-  cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
-  data = cursor.fetchall()
+    # set global variable for current bill session
+    global bill_id
+    bill_id = request.form['billId']
 
 
-  Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
+    # retrieve all items in Items table associated with email and bill
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
+    data = cursor.fetchall()
 
-  # retrieve all users in Bill_Users table associated with bill
-  cursor1 = conn.cursor()
-  cursor1.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
-  data = cursor1.fetchall()
 
-  cursor2 = conn.cursor()
+    Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
-  Userlist = []
+    # retrieve all users in Bill_Users table associated with bill
+    cursor1 = conn.cursor()
+    cursor1.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
+    data = cursor1.fetchall()
 
-  # retrieve names of users in Users table associated with email
-  for row in data:
-    cursor2.execute("SELECT * FROM Users WHERE Email=%s", row[1])
-    data1 = cursor2.fetchall()
-    Userdict = {}
+    cursor2 = conn.cursor()
 
-    if data1: # prevent list out of range error
-      Userdict["Name"] = data1[0][0]
-    Userdict["Email"] = row[1]
-    Userlist.append(Userdict)
+    Userlist = []
 
-  conn.commit()
+    # retrieve names of users in Users table associated with email
+    for row in data:
+        cursor2.execute("SELECT * FROM Users WHERE Email=%s", row[1])
+        data1 = cursor2.fetchall()
+        Userdict = {}
 
-  # bill shows list of items
-  return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id, email = username)
+        if data1: # prevent list out of range error
+            Userdict["Name"] = data1[0][0]
+        Userdict["Email"] = row[1]
+        Userlist.append(Userdict)
+
+    # bill shows list of items
+    return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id, email = username)
+    conn.commit()
+
 
 
 
 # ADD ITEM
 @app.route('/add_item', methods=['GET', 'POST'])
 def add_item():
-  global bill_id
+    """Add item to bill"""
+    global bill_id
 
-  item_name = request.form['item'].strip()
-  quantity = request.form['quantity'].strip()
-  price = request.form['price'].strip()
+    item_name = request.form['item'].strip()
+    quantity = request.form['quantity'].strip()
+    price = request.form['price'].strip()
 
-  if 'username' in session:
-    username = session['username']
-  else:
-    return redirect(url_for('main'))
+    if 'username' in session:
+        username = session['username']
+    else:
+        return redirect(url_for('main'))
 
-  # check fields
-  if not item_name or not quantity or not price:
-    return render_template("400.html", message="PLEASE FILL IN ALL VALUES")
-  if not validate_name(item_name) or not quantity.isnumeric() or not validate_price(price):
-    return render_template("400.html", message="INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)")
-  if (quantity == 0) or not is_positive(price):
-    return render_template("400.html", message="INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)")
+    # check fields
+    if not item_name or not quantity or not price:
+        return render_template("400.html", message="PLEASE FILL IN ALL VALUES")
+    if not validate_name(item_name) or not quantity.isnumeric() or not validate_price(price):
+        return render_template("400.html", message="INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)")
+    if (quantity == 0) or not is_positive(price):
+        return render_template("400.html", message="INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)")
 
-  cursor = conn.cursor()
-  cursor.execute("INSERT INTO Items VALUES (%s, %s, %d, %d, %d)", (username, item_name, quantity, price, bill_id))
-  conn.commit()
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO Items VALUES(%s, %s, %d, %d, %d)", (username, item_name, quantity, price, bill_id))
+    conn.commit()
 
-  # retrieve all items in Items table associated with email and bill
-  cursor = conn.cursor()
-  cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
-  data = cursor.fetchall()
+    # retrieve all items in Items table associated with email and bill
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
+    data = cursor.fetchall()
 
-  Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
+    Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
-  # retrieve all users in Bill_Users table associated with bill
-  cursor1 = conn.cursor()
-  cursor1.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
-  data = cursor1.fetchall()
+    # retrieve all users in Bill_Users table associated with bill
+    cursor1 = conn.cursor()
+    cursor1.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
+    data = cursor1.fetchall()
 
-  Userlist = []
+    Userlist = []
 
-  cursor2 = conn.cursor()
+    cursor2 = conn.cursor()
 
-  # retrieve names of users in Users table associated with email
-  for row in data:
-    cursor2.execute("SELECT * FROM Users WHERE Email=%s", row[1])
-    data1 = cursor2.fetchall()
+    # retrieve names of users in Users table associated with email
+    for row in data:
+        cursor2.execute("SELECT * FROM Users WHERE Email=%s", row[1])
+        data1 = cursor2.fetchall()
 
 
-    Userdict = {}
-    if data1: # prevent list out of range error
-      Userdict["Name"] = data1[0][0]
-    Userdict["Email"] = row[1]
-    Userlist.append(Userdict)
+        Userdict = {}
+        if data1: # prevent list out of range error
+            Userdict["Name"] = data1[0][0]
+        Userdict["Email"] = row[1]
+        Userlist.append(Userdict)
 
-  conn.commit()
+    conn.commit()
 
-  # bill shows list of items
-  return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id, email= username)
+    # bill shows list of items
+    return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id, email= username)
+
 
 
 
 @app.route('/display_edit', methods=['GET', 'POST'])
 def display_edit():
-  item_name = request.form['ItemName'].strip()
-  quantity = request.form['Quantity'].strip()
-  price = request.form['Price'].strip()
+    """Edit page"""
+    item_name = request.form['ItemName'].strip()
+    quantity = request.form['Quantity'].strip()
+    price = request.form['Price'].strip()
 
-  # shows item being edited, populated with current values
-  return render_template('display_edit.html', ItemName=item_name, Quantity=quantity, Price=price)
+    # shows item being edited, populated with current values
+    return render_template('display_edit.html', ItemName=item_name, Quantity=quantity, Price=price)
 
 
 
 @app.route('/edit_item', methods=['GET', 'POST'])
 def edit_item():
-  global bill_id
+    """Edit item in bill"""
 
-  item_name = request.form['ItemName'].strip()
-  quantity = request.form['quantity'].strip()
-  price = request.form['price'].strip()
+    global bill_id
 
-  if 'username' in session:
-    username = session['username']
-  else:
-    return redirect(url_for('main'))
+    item_name = request.form['ItemName'].strip()
+    quantity = request.form['quantity'].strip()
+    price = request.form['price'].strip()
 
-  # check fields
-  if not quantity or not price:
-    return render_template("400.html", message="PLEASE FILL IN ALL VALUES")
-  if not quantity.isnumeric() or not validate_price(price):
-    return render_template("400.html", message="INVALID INPUT VALUES (Price and Quantity have to be positive values)")
-  if (quantity == 0) or not is_positive(price):
-    return render_template("400.html", message="INVALID INPUT VALUES (Price and Quantity have to be positive values)")
+    if 'username' in session:
+        username = session['username']
+    else:
+        return redirect(url_for('main'))
 
-  cursor = conn.cursor()
-  cursor.execute("UPDATE Items SET Quantity=%d, Price=%d WHERE ItemName=%s AND billId=%d AND email=%s", (quantity, price, item_name, bill_id, username))
-  conn.commit()
+    # check fields
+    if not quantity or not price:
+        return render_template("400.html", message="PLEASE FILL IN ALL VALUES")
+    if not quantity.isnumeric() or not validate_price(price):
+        return render_template("400.html", message="INVALID INPUT VALUES (Price and Quantity have to be positive values)")
+    if (quantity == 0) or not is_positive(price):
+        return render_template("400.html", message="INVALID INPUT VALUES (Price and Quantity have to be positive values)")
 
-  # retrieve all items in Items table associated with email and bill
-  cursor = conn.cursor()
-  cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
-  data = cursor.fetchall()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE Items SET Quantity=%d, Price=%d WHERE ItemName=%s AND billId=%d AND email=%s", (quantity, \
+        price, item_name, bill_id, username))
+    conn.commit()
 
-  Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
+    # retrieve all items in Items table associated with email and bill
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
+    data = cursor.fetchall()
 
-  # retrieve all users in Bill_Users table associated with bill
-  cursor1 = conn.cursor()
-  cursor1.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
-  data = cursor1.fetchall()
+    Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
-  Userlist = []
+    # retrieve all users in Bill_Users table associated with bill
+    cursor1 = conn.cursor()
+    cursor1.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
+    data = cursor1.fetchall()
 
-  cursor2 = conn.cursor()
+    Userlist = []
 
-  # retrieve names of users in Users table associated with email
-  for row in data:
-    cursor2.execute("SELECT * FROM Users WHERE Email=%s", row[1])
-    data1 = cursor2.fetchall()
+    cursor2 = conn.cursor()
+
+    # retrieve names of users in Users table associated with email
+    for row in data:
+        cursor2.execute("SELECT * FROM Users WHERE Email=%s", row[1])
+        data1 = cursor2.fetchall()
 
 
-    Userdict = {}
-    if data1: # prevent list out of range error
-      Userdict["Name"] = data1[0][0]
-    Userdict["Email"] = row[1]
-    Userlist.append(Userdict)
+        Userdict = {}
+        if data1: # prevent list out of range error
+            Userdict["Name"] = data1[0][0]
+        Userdict["Email"] = row[1]
+        Userlist.append(Userdict)
 
-  conn.commit()
+    conn.commit()
 
-  # bill shows list of items
-  return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id, email=username)
+    # bill shows list of items
+    return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id, email=username)
+    
 
 # REMOVE ITEM
 @app.route('/remove_item', methods=['GET', 'POST'])
 def remove_item():
-  global bill_id
+    """Remove item from bill"""
+    global bill_id
 
-  item_name = request.form['ItemName']
-
-
-  if 'username' in session:
-    username = session['username']
-  else:
-    return redirect(url_for('main'))
+    item_name = request.form['ItemName']
 
 
-  cursor = conn.cursor()
-  cursor.execute("DELETE FROM Items WHERE Email=%s AND ItemName=%s AND billID=%d", (username, item_name, bill_id))
-  conn.commit()
-
-  # retrieve all items in Items table associated with email and bill
-  cursor = conn.cursor()
-  cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
-  data = cursor.fetchall()
+    if 'username' in session:
+        username = session['username']
+    else:
+        return redirect(url_for('main'))
 
 
-  Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM Items WHERE Email=%s AND ItemName=%s AND billID=%d", (username, item_name, bill_id))
+    conn.commit()
 
-  # retrieve all users in Bill_Users table associated with bill
-  cursor1 = conn.cursor()
-  cursor1.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
-  data = cursor1.fetchall()
+    # retrieve all items in Items table associated with email and bill
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
+    data = cursor.fetchall()
 
-  Userlist = []
 
-  cursor2 = conn.cursor()
-  
-  # retrieve names of users in Users table associated with email
-  for row in data:
-    cursor2.execute("SELECT * FROM Users WHERE Email=%s", row[1])
-    data1 = cursor2.fetchall()
-    Userdict = {}
-    if data1: # prevent list out of bound error
-      Userdict["Name"] = data1[0][0]
-    Userdict["Email"] = row[1]
-    Userlist.append(Userdict)
+    Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
-  conn.commit()
+    # retrieve all users in Bill_Users table associated with bill
+    cursor1 = conn.cursor()
+    cursor1.execute("SELECT * FROM Bill_Users WHERE billID=%d", (bill_id))
+    data = cursor1.fetchall()
 
-  # bill shows list of items
-  return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id, email=username)
+    Userlist = []
 
+    cursor2 = conn.cursor()
+    
+    # retrieve names of users in Users table associated with email
+    for row in data:
+        cursor2.execute("SELECT * FROM Users WHERE Email=%s", row[1])
+        data1 = cursor2.fetchall()
+        Userdict = {}
+        if data1: # prevent list out of bound error
+            Userdict["Name"] = data1[0][0]
+        Userdict["Email"] = row[1]
+        Userlist.append(Userdict)
+
+    conn.commit()
+
+    # bill shows list of items
+    return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id, email=username)
+    
 
 
 # ADD FRIEND
 @app.route('/add_friend', methods=['GET', 'POST'])
 def add_friend():
-  global bill_id
+    """Add friend to bill"""
+    global bill_id
 
-  Femail = request.form['Friend_email'].strip()
-  billid = request.form['Billid'].strip()
+    if 'username' in session:
+        username = session['username']
+    else:
+        return redirect(url_for('main'))
 
-  # check fields
-  if not Femail or not billid:
-    return render_template("400.html", message="PLEASE ENTER EMAIL")
-  if not validate_email(Femail) or not billid.isnumeric():
-    return render_template("400.html", message="PLEASE INPUT EMAIL IN CORRECT FORMAT")
+    Femail = request.form['Friend_email'].strip()
+    billid = request.form['Billid'].strip()
 
-
-  # get user from Users table
-  cursor = conn.cursor()
-  cursor.execute("SELECT * FROM Users WHERE Email=%s", (Femail))
-  data = cursor.fetchall()
-  conn.commit()
-
-  if not data: #if friend's email address is not found
-    return render_template("400.html", message="NO ACCOUNT WITH THIS EMAIL EXISTS")
+    # check fields
+    if not Femail or not billid:
+        return render_template("400.html", message="PLEASE ENTER EMAIL")
+    if not validate_email(Femail) or not billid.isnumeric():
+        return render_template("400.html", message="PLEASE INPUT EMAIL IN CORRECT FORMAT")
 
 
-  # check if friend's email is already in Bill_Users table
-  cursor = conn.cursor()
-  cursor.execute("SELECT * FROM Bill_Users WHERE Email=%s AND billID = %d", (Femail, billid))
-  data = cursor.fetchall()
+    # get user from Users table
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Users WHERE Email=%s", (Femail))
+    data = cursor.fetchall()
+    conn.commit()
 
-  if data: # if friend has already been added to the bill
-    return render_template("400.html", message="THIS EMAIL WAS ALREADY IN THE BILL.")
-  
-
-  
-  # add friend's email into Bill_Users table
-  cursor = conn.cursor()
-  cursor.execute("INSERT INTO Bill_Users VALUES (%d, %s, %s)", (billid, Femail, '--'))
-  conn.commit()
+    if not data: #if friend's email address is not found
+        return render_template("400.html", message="NO ACCOUNT WITH THIS EMAIL EXISTS")
 
 
-  # retrieve all items in Items table associated with email and bill
-  cursor = conn.cursor()
-  cursor.execute("SELECT * FROM Items WHERE billID=%d", (billid)) #bill_id
-  data = cursor.fetchall()
+    # check if friend's email is already in Bill_Users table
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Bill_Users WHERE Email=%s AND billID = %d", (Femail, billid))
+    data = cursor.fetchall()
 
-  Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
+    if data: # if friend has already been added to the bill
+        return render_template("400.html", message="THIS EMAIL WAS ALREADY IN THE BILL.")
 
-  # retrieve all users in Bill_Users table associated with bill
-  cursor1 = conn.cursor()
-  cursor1.execute("SELECT * FROM Bill_Users WHERE billID=%d", (billid)) #bill_id
-  data = cursor1.fetchall()
 
-  Userlist = []
+    
+    # add friend's email into Bill_Users table
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO Bill_Users VALUES(%d, %s, %s)", (billid, Femail, '--'))
+    conn.commit()
 
-  cursor2 = conn.cursor()
 
-  # retrieve names of users in Users table associated with email
-  for row in data:
-    cursor2.execute("SELECT * FROM Users WHERE Email=%s", row[1])
-    data1 = cursor2.fetchall()
+    # retrieve all items in Items table associated with email and bill
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Items WHERE billID=%d", (billid)) #bill_id
+    data = cursor.fetchall()
 
-    Userdict = {}
-    if data1: # prevent list out of range error
-      Userdict["Name"] = data1[0][0]
-    Userdict["Email"] = row[1]
-    Userlist.append(Userdict)
+    Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
 
-  conn.commit()
+    # retrieve all users in Bill_Users table associated with bill
+    cursor1 = conn.cursor()
+    cursor1.execute("SELECT * FROM Bill_Users WHERE billID=%d", (billid)) #bill_id
+    data = cursor1.fetchall()
 
-  # bill shows list of items
-  return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=billid) #bill_id
+    Userlist = []
+
+    cursor2 = conn.cursor()
+
+    # retrieve names of users in Users table associated with email
+    for row in data:
+        cursor2.execute("SELECT * FROM Users WHERE Email=%s", row[1])
+        data1 = cursor2.fetchall()
+
+        Userdict = {}
+        if data1: # prevent list out of range error
+                Userdict["Name"] = data1[0][0]
+        Userdict["Email"] = row[1]
+        Userlist.append(Userdict)
+
+    conn.commit()
+
+    # bill shows list of items
+    return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=billid, email=username) #bill_id
 
 
 
 # SPLIT COST
 @app.route('/split_cost', methods=['GET', 'POST'])
 def split_cost():
-  global bill_id
+    """Split cost for user"""
+    global bill_id
 
-  tip = request.form['Tip'].strip()
-  post_tax = request.form['Total'].strip()
+    tip = request.form['Tip'].strip()
+    post_tax = request.form['Total'].strip()
 
-  if not tip or not post_tax:
-    return render_template("400.html", message = "PLEASE FILL IN ALL VALUES")
-  if not validate_price(tip):
-    return render_template("400.html", message = "NUMERICAL INPUTS ONLY")
-  if not validate_price(post_tax):
-    return render_template("400.html", message = "NUMERICAL INPUTS ONLY")
-  if not is_positive(tip):
-    return render_template("400.html", message = "TIP AND POST TAX COST HAVE TO BE POSITIVE VALUES")
-  if not is_positive(post_tax):
-    return render_template("400.html", message = "TIP AND POST TAX COST HAVE TO BE POSITIVE VALUES")  
- 
-
-  if 'username' in session:
-    username = session['username']
-  else:
-    return redirect(url_for('main')) 
-
-  tip = float(tip)
-  post_tax = float(post_tax)
-
-  # retrieve all items associated with email and bill
-  cursor = conn.cursor()
-  cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
-  data = cursor.fetchall()
-
-  Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
-
-  pre_tax = 0.0
-  user_total = 0.0
-  for item in Userbill:
-	  if item['Email'] == username:
-	  	user_total += (float(item['Price']) * int(item['Quantity']))
-	  pre_tax += (float(item['Price']) * int(item['Quantity']))
+    if not tip or not post_tax:
+        return render_template("400.html", message="PLEASE FILL IN ALL VALUES")
+    if not validate_price(tip):
+        return render_template("400.html", message="NUMERICAL INPUTS ONLY")
+    if not validate_price(post_tax):
+        return render_template("400.html", message="NUMERICAL INPUTS ONLY")
+    if not is_positive(tip):
+        return render_template("400.html", message="TIP AND POST TAX COST HAVE TO BE POSITIVE VALUES")
+    if not is_positive(post_tax):
+        return render_template("400.html", message="TIP AND POST TAX COST HAVE TO BE POSITIVE VALUES")
 
 
-  if ((user_total > post_tax) or (user_total > pre_tax)):
-    return render_template("400.html", message = "USER BILL GREATER THAN TOTAL BILL")
+    if 'username' in session:
+        username = session['username']
+    else:
+        return redirect(url_for('main'))
 
-  user_total = ((user_total / pre_tax) * post_tax) * (1 + tip)
-  user_total = ("%.2f" % user_total)
+    tip = float(tip)
+    post_tax = float(post_tax)
 
-  cursor1 = conn.cursor()
-  cursor1.execute("UPDATE Bill_Users SET amtOwed=%s WHERE billId=%d AND email=%s", (str(user_total), bill_id, username))
+    # retrieve all items associated with email and bill
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Items WHERE billID=%d", (bill_id))
+    data = cursor.fetchall()
 
-  return render_template('split_cost.html', Cost=user_total)
+    Userbill = [dict(Email=row[0], ItemName=row[1], Quantity=row[2], Price=row[3]) for row in data]
+
+    pre_tax = 0.0
+    user_total = 0.0
+    for item in Userbill:
+        if item['Email'] == username:
+            user_total += (float(item['Price']) * int(item['Quantity']))
+        pre_tax += (float(item['Price']) * int(item['Quantity']))
+
+
+    if ((user_total > post_tax) or (user_total > pre_tax)):
+        return render_template("400.html", message="USER BILL GREATER THAN TOTAL BILL")
+
+    user_total = ((user_total / pre_tax) * post_tax) * (1 + tip)
+    user_total = ("%.2f" % user_total)
+
+    cursor1 = conn.cursor()
+    cursor1.execute("UPDATE Bill_Users SET amtOwed=%s WHERE billId=%d AND email=%s", (str(user_total), bill_id, username))
+
+    return render_template('split_cost.html', Cost=user_total)
 
 #SETTINGS
 @app.route('/settings', methods=['GET', 'POST'])
 def setting():
-  if 'username' in session:
-    username = session['username']
-  else:
-    return redirect(url_for('main'))
+    """Settings for user"""
+    if 'username' in session:
+        username = session['username']
+    else:
+        return redirect(url_for('main'))
 
-  cursor = conn.cursor()
-  cursor.execute("SELECT FirstName, LastName FROM Users WHERE Email=%s", username)
-  data = cursor.fetchall()
-  for result in data:
-    firstName = str(result[0])
-    lastName = str(result[1])
+    cursor = conn.cursor()
+    cursor.execute("SELECT FirstName, LastName FROM Users WHERE Email=%s", username)
+    data = cursor.fetchall()
+    for result in data:
+        firstName = str(result[0])
+        lastName = str(result[1])
 
-  cursor1 = conn.cursor()
-  cursor1.execute("SELECT Password FROM Users WHERE Email=%s", username)
-  data = cursor1.fetchall()
-  for result in data:
-    password = (str(result[0]))
+    cursor1 = conn.cursor()
+    cursor1.execute("SELECT Password FROM Users WHERE Email=%s", username)
+    data = cursor1.fetchall()
+    for result in data:
+        password = (str(result[0]))
 
-  conn.commit()
+    conn.commit()
 
-  return render_template('settings.html', firstName = firstName, lastName = lastName, username = username, password = password)
+    return render_template('settings.html', firstName=firstName, lastName=lastName, username=username, password=password)
 
 @app.route('/edit_user_setting', methods=['GET', 'POST'])
 def edit_user_setting():
-  return render_template('edit-settings.html')
+    """Edit user setting"""
+    return render_template('edit-settings.html')
 
 
 #MODIFY USER INFORMATION
 @app.route('/edit_setting', methods=['GET', 'POST'])
 def edit_setting():
-  if 'username' in session:
-    username = session['username']
-  else:
-    return redirect(url_for('main'))
+    """Modify user information"""
 
-  firstName = request.form['firstName'].strip()
-  lastName = request.form['lastName'].strip()
-  email = request.form['email'].strip()
+    if 'username' in session:
+        username = session['username']
+    else:
+        return redirect(url_for('main'))
 
-  # if not validate_email(email):
-  #   message = "Invalid email!"
-  #   return render_template('edit-settings.html', response=message)
+    firstName = request.form['firstName'].strip()
+    lastName = request.form['lastName'].strip()
+    email = request.form['email'].strip()
 
-  if validate_name(firstName):
-    cursor = conn.cursor()
-    cursor.execute("UPDATE Users SET firstName=%s WHERE Email=%s", (firstName, username))
-    print("done")
+    # if not validate_email(email):
+    #   message = "Invalid email!"
+    #   return render_template('edit-settings.html', response=message)
 
-  if validate_name(lastName):
-    cursor1 = conn.cursor()
-    cursor1.execute("UPDATE Users SET lastName=%s WHERE Email=%s", (lastName, username))
+    if validate_name(firstName):
+        cursor = conn.cursor()
+        cursor.execute("UPDATE Users SET firstName=%s WHERE Email=%s", (firstName, username))
+        print("done")
 
-  if validate_email(email):
-    cursor2 = conn.cursor()
-    cursor2.execute("UPDATE Users SET Email=%s WHERE Email=%s", (email, username))
-    return redirect(url_for('logout'))
+    if validate_name(lastName):
+        cursor1 = conn.cursor()
+        cursor1.execute("UPDATE Users SET lastName=%s WHERE Email=%s", (lastName, username))
 
-  return render_template('edit-settings.html')
+    if validate_email(email):
+        cursor2 = conn.cursor()
+        cursor2.execute("UPDATE Users SET Email=%s WHERE Email=%s", (email, username))
+        return redirect(url_for('logout'))
+
+    return render_template('edit-settings.html')
 
 # LOG OUT USER
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
-  session.pop('username', None)
-  return redirect(url_for('main'))
+    """User logout"""
+    session.pop('username', None)
+    return redirect(url_for('main'))
 
 if __name__ == "__main__":
-	app.run(debug=True, threaded=True)
+    app.run(debug=True, threaded=True)
