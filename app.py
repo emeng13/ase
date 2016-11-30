@@ -434,11 +434,9 @@ def add_item():
 	if not item_name or not quantity or not price:
 		return render_template("400.html", message="PLEASE FILL IN ALL VALUES")
 	if not validate_name(item_name) or not quantity.isnumeric() or not validate_price(price):
-		return render_template("400.html", message="INVALID INPUT VALUES (Price and Quantity \
-			have to be positive values, Item Name can only include alphanumeric characters)")
+		return render_template("400.html", message="INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)")
 	if (quantity == 0) or not is_positive(price):
-		return render_template("400.html", message="INVALID INPUT VALUES (Price and Quantity \
-			have to be positive values, Item Name can only include alphanumeric characters)")
+		return render_template("400.html", message="INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)")
 
 	cursor = conn.cursor()
 	cursor.execute("INSERT INTO Items VALUES(%s, %s, %d, %d, %d)", (username, item_name, quantity, price, bill_id))
