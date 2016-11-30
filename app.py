@@ -31,8 +31,8 @@ def validate_name(name):
 
 def validate_email(email):
     """Check email not invalid"""
-    if not re.match("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", email):
-         False
+    if not re.match("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", email):  
+        return False
     return True
 
 def validate_price(price):
@@ -44,7 +44,7 @@ def validate_price(price):
 def is_positive(price):
     """Check value positive"""
     price = float(price)
-    if(price <= 0):
+    if price <= 0:
         return False
     return True
 
@@ -112,14 +112,10 @@ def main():
 
     # cursor.close()
 
-        
-
     if 'username' in session:
         username = session['username']
-        print ("Logged in as " + username)
-        return redirect (url_for('bill'))
-
-    
+        print "Logged in as " + username
+        return redirect(url_for('bill'))
 
     # #create Item table
     # # cursor.execute("""
@@ -159,7 +155,6 @@ def main():
     # data = cursor.fetchall()
     # print data
 
-
     return render_template('index.html')
  
 
@@ -195,7 +190,7 @@ def login():
 
     # email doesn't exist in Users table
     if cursor.rowcount == 0: 
-        message= "Sign up first!"
+        message = "Sign up first!"
         cursor.close()
         return render_template('index.html', response=message)
     else:
@@ -243,7 +238,7 @@ def signup():
 
     # email doesn't exist in Users table
     if cursor.rowcount == 0:
-        cursor.execute("INSERT INTO Users VALUES(%s, %s, %s, %s)", (firstName,lastName, email, password))
+        cursor.execute("INSERT INTO Users VALUES(%s, %s, %s, %s)", (firstName, lastName, email, password))
         conn.commit()
         cursor.close()
         message = "Your account is registered successfully!"
@@ -275,12 +270,12 @@ def checkEmail():
     cursor.execute("SELECT Password FROM Users WHERE Email=%s", email)
 
     if cursor.rowcount == 0:
-        message= "There is no account with this email address."
+        message = "There is no account with this email address."
         cursor.close()
         return render_template('reset.html', response=message)
     else:
         cursor.close()
-        return render_template('checkEmail.html', response = email)
+        return render_template('checkEmail.html', response=email)
 
 # change password
 @app.route('/changePassword', methods=['POST'])
@@ -335,7 +330,7 @@ def bill():
 
     conn.commit()
 
-    return render_template('bill.html', Userbill=Userbill, response= request.args.get('response'))
+    return render_template('bill.html', Userbill=Userbill, response=request.args.get('response'))
 
 
 
@@ -352,11 +347,11 @@ def create_bill():
 
     # generate new bill id
     isUnique = False
-    while(isUnique == False):
-        randomNum = (randint(0,1000))
+    while isUnique == False:
+        randomNum = (randint(0, 1000))
         cursor1 = conn.cursor()
         result = cursor1.execute("SELECT billID FROM Bill_Users WHERE billID=%d", randomNum)
-        if (randomNum != result):
+        if randomNum != result:
             isUnique = True
             cursor1.close()
 
@@ -417,7 +412,7 @@ def display_bill():
         Userlist.append(Userdict)
 
     # bill shows list of items
-    return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id, email = username)
+    return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id, email=username)
     conn.commit()
 
 
@@ -481,7 +476,7 @@ def add_item():
     conn.commit()
 
     # bill shows list of items
-    return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id, email= username)
+    return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id, email=username)
 
 
 
@@ -680,10 +675,9 @@ def add_friend():
     for row in data:
         cursor2.execute("SELECT * FROM Users WHERE Email=%s", row[1])
         data1 = cursor2.fetchall()
-
         Userdict = {}
         if data1: # prevent list out of range error
-                Userdict["Name"] = data1[0][0]
+            Userdict["Name"] = data1[0][0]
         Userdict["Email"] = row[1]
         Userlist.append(Userdict)
 
@@ -738,7 +732,7 @@ def split_cost():
         pre_tax += (float(item['Price']) * int(item['Quantity']))
 
 
-    if ((user_total > post_tax) or (user_total > pre_tax)):
+    if (user_total > post_tax) or (user_total > pre_tax):
         return render_template("400.html", message="USER BILL GREATER THAN TOTAL BILL")
 
     user_total = ((user_total / pre_tax) * post_tax) * (1 + tip)
@@ -802,7 +796,7 @@ def edit_setting():
     if validate_name(firstName):
         cursor = conn.cursor()
         cursor.execute("UPDATE Users SET firstName=%s WHERE Email=%s", (firstName, username))
-        print("done")
+        print "done"
 
     if validate_name(lastName):
         cursor1 = conn.cursor()
