@@ -62,9 +62,9 @@ def main():
   # #   """)
   # # conn.commit()
 
-  # cursor.execute("SELECT * FROM Users")
-  # data = cursor.fetchall()
-  # print data
+  # # cursor.execute("SELECT * FROM Users")
+  # # data = cursor.fetchall()
+  # # print data
 
   # cursor.execute("""
   # IF OBJECT_ID('Items', 'U') IS NOT NULL
@@ -83,6 +83,9 @@ def main():
   # """)
   
   # conn.commit()
+  # cursor.execute("SELECT * FROM Items")
+  # data = cursor.fetchall()
+  # print data #testing
 
   # cursor.execute("""
   # IF OBJECT_ID('Bill_Users', 'U') IS NOT NULL
@@ -98,6 +101,10 @@ def main():
   #   """)
   
   # conn.commit()
+  # cursor.execute("SELECT * FROM Bill_Users")
+  # data = cursor.fetchall()
+  # print data #testing
+  
   # cursor.close()
 
     

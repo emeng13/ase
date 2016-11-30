@@ -19,6 +19,8 @@ conn = pymssql.connect(server='eats.database.windows.net', \
 class MyTest(unittest.TestCase):
 	def setUp(self):
 		 """Set up"""
+
+
 		 global test_user1
 		 global test_user2
 		 self.app = app.test_client(self)
@@ -30,10 +32,10 @@ class MyTest(unittest.TestCase):
 		 conn = self.conn
 		 cursor = conn.cursor()
 
-  		 cursor.execute("SELECT * FROM Users WHERE Email=%s", test_user2)
-  		 if cursor.rowcount == 0:
-		 	cursor.execute("INSERT INTO Users VALUES (%s, %s, %s, %s)", ("test","test", test_user2, "test"))
-		 	self.conn.commit()
+		 cursor.execute("SELECT * FROM Users WHERE Email=%s", test_user2)
+		 if cursor.rowcount == 0:
+		 		cursor.execute("INSERT INTO Users VALUES (%s, %s, %s, %s)", ("test","test", test_user2, "test"))
+		 self.conn.commit()
 
 		 cursor.execute("SELECT * FROM Users WHERE Email=%s", test_user1)
 		 if cursor.rowcount != 0:
@@ -44,24 +46,18 @@ class MyTest(unittest.TestCase):
 
 	def tearDown(self):
 		 """Tear down"""
+		 
+
 		 global test_user2
 		 conn = self.conn
-		 cursor = conn.cursor()	 
-		 # cursor.execute("DELETE FROM Bill_Users WHERE Email=%s AND billID=%d", (test_user2, 326))
-		 cursor.execute("DELETE FROM Users WHERE Email=%s", (test_user2))
+		 cursor = conn.cursor()	
+		 
+		 cursor.execute("DELETE FROM Bill_Users WHERE Email=%s AND billID=%d", (test_user2, 182))
+
 		 self.conn.commit()
 		 self.conn.close()
 
-	@patch('app.bill_id', 326)
-	def test_split_cost(self): 
-		"""Successful split cost"""
-		with self.app.session_transaction() as sess:
-			sess['username']='test@test'
-		rv = self.app.post('/split_cost', data={'Tip':'0.15', 'Total': '20.00'}, follow_redirects=True)
-		assert '23.0' in rv.data
-		print "test_split_cost passes!"
-
-
+	
 	def test_login_user_not_exist(self):
 		"""Login where user doesn't exist"""
 		rv = self.app.post('/login', data={'email': "not_test@test", 'password': 'test'}, follow_redirects=True)
@@ -111,24 +107,24 @@ class MyTest(unittest.TestCase):
 			sess['username']='test@test'
 		
 		rv = self.app.get('/bill', data={}, follow_redirects=True)
-		assert '326' in rv.data
+		assert '182' in rv.data
 		print "test_display_bill passes!"
 
 	def test_display_bill_items(self): 
 		"""Check items displayed are correct"""
-		rv = self.app.post('/display_bill', data={'billId': '326'}, follow_redirects=True)
+		rv = self.app.post('/display_bill', data={'billId': '182'}, follow_redirects=True)
 		assert 'test' in rv.data
 		assert 'def' not in rv.data
 		print "test_display_bill_items passes!"
 
 	def test_display_bill_people(self): 
 		"""Check people associated with bill are correct"""
-		rv = self.app.post('/display_bill', data={'billId': '326'}, follow_redirects=True)
+		rv = self.app.post('/display_bill', data={'billId': '182'}, follow_redirects=True)
 		assert 'test@test' in rv.data
 		assert 'hello' not in rv.data
 		print "test_display_bill_people passes!"
 
-	@patch('app.bill_id', 326)
+	@patch('app.bill_id', 182)
 	def test_add_item_successful(self): 
 		"""Check item added successfully"""
 		with self.app.session_transaction() as sess:
@@ -146,7 +142,7 @@ class MyTest(unittest.TestCase):
 		assert 'chicken' not in rv.data
 		print "test_remove_item passes!"
 
-	@patch('app.bill_id', 326)
+	@patch('app.bill_id', 182)
 	def test_add_item_invalid_price_quantity(self):
 		"""Add item with invalid input values"""
 		with self.app.session_transaction() as sess:
@@ -159,24 +155,35 @@ class MyTest(unittest.TestCase):
 
 	def test_add_friend_not_exist(self): 
 		"""Add user to bill -- user doesn't exist"""
-		rv = self.app.post('/add_friend', data= {'Friend_email': 'random@email.com', 'Billid': '326'}, follow_redirects=True)
+		rv = self.app.post('/add_friend', data= {'Friend_email': 'random@email.com', 'Billid': '182'}, follow_redirects=True)
 		assert 'NO ACCOUNT WITH THIS EMAIL EXISTS' in rv.data
 		print "test_add_friend_not_exist passes!"
 
-	@patch('app.bill_id', 326)
+	@patch('app.bill_id', 182)
 	def test_add_friend_successful(self): 
 		"""Successful adding friend to bill"""
 		global test_user2
-		rv = self.app.post('/add_friend', data={'Friend_email': test_user2, 'Billid': '326'}, follow_redirects=True)
+		rv = self.app.post('/add_friend', data={'Friend_email': test_user2, 'Billid': '182'}, follow_redirects=True)
 		assert test_user2 in rv.data
 		print "test_add_friend_successful passes!"
 
 	def test_add_friend_same_email(self): 
 		"""Add user to bill twice"""
-		rv = self.app.post('/add_friend', data={'Friend_email': "test@test", 'Billid': '326'}, follow_redirects=True)
+		rv = self.app.post('/add_friend', data={'Friend_email': "test@test", 'Billid': '182'}, follow_redirects=True)
 		assert "THIS EMAIL WAS ALREADY IN THE BILL." in rv.data
 		print "test_add_friend_same_email passes!"
 
+	@patch('app.bill_id', 182)
+	def test_split_cost(self): 
+		"""Successful split cost"""
+		with self.app.session_transaction() as sess:
+			sess['username']='test@test'
+			
+		rv = self.app.post('/split_cost', data={'Tip':'0.15', 'Total': '20'}, follow_redirects=True)
+		assert '13.80' in rv.data
+		print "test_split_cost passes!"
+
+	@patch('app.bill_id', 182)
 	def test_split_cost_invalid_totalprice(self):
 		"""Split cost with invalid total cost input"""
 		with self.app.session_transaction() as sess:
@@ -185,6 +192,7 @@ class MyTest(unittest.TestCase):
 		assert "TIP AND POST TAX COST HAVE TO BE POSITIVE VALUES" in rv.data
 		print "test_split_cost_invalid_totalprice passes!"
 
+	@patch('app.bill_id', 182)
 	def test_split_cost_invalid_tip(self):
 		"""Split cost with invalid tip input"""
 		with self.app.session_transaction() as sess:
@@ -193,7 +201,9 @@ class MyTest(unittest.TestCase):
 		assert "NUMERICAL INPUTS ONLY" in rv.data
 		print "test_split_cost_invalid_tip passes!"
 
-	@patch('app.bill_id', 326)
+
+
+	@patch('app.bill_id', 182)
 	def test_add_item_invalid_item(self):
 		"""Add item with invalid name"""
 		with self.app.session_transaction() as sess:
@@ -204,7 +214,8 @@ class MyTest(unittest.TestCase):
 		assert '???' not in rv.data
 		print "test_add_item_invalid_item passes!"
 
-	@patch('app.bill_id', 326)
+
+	@patch('app.bill_id', 182)
 	def test_edit_item_invalid_price_quantity(self):
 		"""Edit item with invalid input values"""
 		with self.app.session_transaction() as sess:
@@ -216,7 +227,7 @@ class MyTest(unittest.TestCase):
 		self.app.post('/remove_item', data={'ItemName': 'aaa'}, follow_redirects=True)
 		print "test_edit_item_invalid_price_quantity passes!"
 
-	@patch('app.bill_id', 326)
+	@patch('app.bill_id', 182)
 	def test_edit_item_successful(self):
 		"""Edit item with invalid input values"""
 		with self.app.session_transaction() as sess:
