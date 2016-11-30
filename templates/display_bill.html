@@ -62,20 +62,22 @@
 					                  <td>{{ n.ItemName }}</td>
 					                  <td>{{ n.Price }}</td>
 					                  <td>{{ n.Quantity }}</td>
-					                  <td>
-					                  	<form action="/display_edit" method="post">
-					                  	<input type="hidden" name="ItemName" value={{n.ItemName}}>
-					                  	<input type="hidden" name="Quantity" value={{n.Quantity}}>
-					                  	<input type="hidden" name="Price" value={{n.Price}}>
-					                  	<input type="submit" name="button" value="Edit">
-					                  	</form>
-					                  </td>
-					                  <td>
-						        		<form action="/remove_item" method="post">
-						        		<input type="hidden" name="ItemName" value={{n.ItemName}}>
-						        		<input type="submit" name="button" value="Delete">
-						        		</form>
-						        	  </td>
+					                  {% if n.Email == email %}
+						                  <td>
+						                  	<form action="/display_edit" method="post">
+						                  	<input type="hidden" name="ItemName" value={{n.ItemName}}>
+						                  	<input type="hidden" name="Quantity" value={{n.Quantity}}>
+						                  	<input type="hidden" name="Price" value={{n.Price}}>
+						                  	<input type="submit" name="button" value="Edit">
+						                  	</form>
+						                  </td>
+						                  <td>
+										        		<form action="/remove_item" method="post">
+										        		<input type="hidden" name="ItemName" value={{n.ItemName}}>
+										        		<input type="submit" name="button" value="Delete">
+										        		</form>
+							        	  		</td>
+							        	  	{% endif %}
 					               </tr>
 					            {% endfor %}
 					        </tbody>

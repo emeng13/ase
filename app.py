@@ -104,7 +104,7 @@ def main():
   # cursor.execute("SELECT * FROM Bill_Users")
   # data = cursor.fetchall()
   # print data #testing
-  
+
   # cursor.close()
 
     
@@ -346,7 +346,7 @@ def create_bill():
       isUnique = True
       cursor1.close()
 
-
+  message = "Bill " + str(randomNum) + " is created!"
   # add bill to Bill_Users table
   cursor2 = conn.cursor()
   cursor2.execute("INSERT INTO Bill_Users VALUES (%d, %s, %s)", (randomNum, username, '--'))
@@ -354,7 +354,7 @@ def create_bill():
   
   conn.commit()
   
-  return redirect(url_for('bill', response="Bill created!"))
+  return redirect(url_for('bill', response=message))
 
 
 
@@ -364,6 +364,11 @@ def display_bill():
   # set global variable for current bill session
   global bill_id
   bill_id = request.form['billId']
+
+  if 'username' in session:
+    username = session['username']
+  else:
+    return redirect(url_for('main'))
 
 
   # retrieve all items in Items table associated with email and bill
@@ -397,7 +402,7 @@ def display_bill():
   conn.commit()
 
   # bill shows list of items
-  return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id)
+  return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id, email = username)
 
 
 
@@ -458,7 +463,7 @@ def add_item():
   conn.commit()
 
   # bill shows list of items
-  return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id)
+  return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id, email= username)
 
 
 
@@ -529,7 +534,7 @@ def edit_item():
   conn.commit()
 
   # bill shows list of items
-  return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id)
+  return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id, email=username)
 
 # REMOVE ITEM
 @app.route('/remove_item', methods=['GET', 'POST'])
@@ -579,7 +584,7 @@ def remove_item():
   conn.commit()
 
   # bill shows list of items
-  return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id)
+  return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id, email=username)
 
 
 
