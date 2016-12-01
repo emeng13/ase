@@ -114,7 +114,7 @@ def main():
 
     if 'username' in session:
         username = session['username']
-        print "Logged in as " + username
+        print ("Logged in as " + username)
         return redirect(url_for('bill'))
 
     # #create Item table
@@ -774,8 +774,6 @@ def edit_user_setting():
 #MODIFY USER INFORMATION
 @app.route('/edit_setting', methods=['GET', 'POST'])
 def edit_setting():
-    """Modify user information"""
-
     if 'username' in session:
         username = session['username']
     else:
@@ -785,53 +783,36 @@ def edit_setting():
     lastName = request.form['lastName'].strip()
     email = request.form['email'].strip()
 
-    # if not validate_email(email):
-    #   message = "Invalid email!"
-    #   return render_template('edit-settings.html', response=message)
-
-<<<<<<< HEAD
-	if (firstName != ""):
+    if (firstName != ""):
 		cursor = conn.cursor()
 		cursor.execute("UPDATE Users SET firstName=%s WHERE Email=%s", (firstName, username))
 		print("done")
 		conn.commit()
-
-	if (lastName != ""):
-		cursor1 = conn.cursor()
-		cursor1.execute("UPDATE Users SET lastName=%s WHERE Email=%s", (lastName, username))
-		conn.commit()
-
-	if (email != ""):
-		# check if email already exists in database
-		cursor3 = conn.cursor()
-		cursor3.execute("SELECT * FROM Users WHERE Email=%s", email)
-		if (cursor3.rowcount == 0):
-			cursor2 = conn.cursor()
-			cursor2.execute("UPDATE Users SET Email=%s WHERE Email=%s", (email, username))
-			conn.commit()
-			return redirect(url_for('logout'))
-		else:
-			message = "Email already exists in application!"
-			return render_template('edit-settings.html', response = message)
-
-	return render_template('edit-settings.html', response="Successfully made changes")
-=======
-    if validate_name(firstName):
-        cursor = conn.cursor()
-        cursor.execute("UPDATE Users SET firstName=%s WHERE Email=%s", (firstName, username))
-        print "done"
-
-    if validate_name(lastName):
+        
+    if (lastName != ""):
         cursor1 = conn.cursor()
         cursor1.execute("UPDATE Users SET lastName=%s WHERE Email=%s", (lastName, username))
+        conn.commit()
 
-    if validate_email(email):
-        cursor2 = conn.cursor()
-        cursor2.execute("UPDATE Users SET Email=%s WHERE Email=%s", (email, username))
-        return redirect(url_for('logout'))
+    if (email != ""):
+		# check if email already exists in database
+        cursor3 = conn.cursor()
+        cursor3.execute("SELECT * FROM Users WHERE Email=%s", email)
 
-    return render_template('edit-settings.html')
->>>>>>> ceb08e6fe0b5b062028beb29b4653741827ac09c
+        if not validate_email(email):
+            message = "Invalid email!"
+            return render_template('edit-settings.html', response=message)
+
+        if (cursor3.rowcount == 0):
+            cursor2 = conn.cursor()
+            cursor2.execute("UPDATE Users SET Email=%s WHERE Email=%s", (email, username))
+            conn.commit()
+            return redirect(url_for('logout'))
+        else:
+            message = "Email already exists in application!"
+            return render_template('edit-settings.html', response = message)
+
+    return render_template('edit-settings.html', response="Successfully made changes")
 
 # LOG OUT USER
 @app.route('/logout', methods=['GET', 'POST'])
