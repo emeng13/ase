@@ -802,10 +802,10 @@ def edit_setting():
             message = "Invalid email!"
             return render_template('edit-settings.html', response=message)
 
-        if (cursor3.rowcount == 0):
+        if cursor3.rowcount == 0:
             cursor2 = conn.cursor()
             cursor2.execute("UPDATE Users SET Email=%s WHERE Email=%s", (email, username))
-            conn.commit()e
+            conn.commit()
             return redirect(url_for('logout'))
         else:
             message = "Email already exists in application!"
