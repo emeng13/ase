@@ -114,7 +114,7 @@ def main():
 
     if 'username' in session:
         username = session['username']
-        print ("Logged in as " + username)
+        print "Logged in as " + username
         return redirect(url_for('bill'))
 
     # #create Item table
@@ -783,19 +783,18 @@ def edit_setting():
     lastName = request.form['lastName'].strip()
     email = request.form['email'].strip()
 
-    if (firstName != ""):
-		cursor = conn.cursor()
-		cursor.execute("UPDATE Users SET firstName=%s WHERE Email=%s", (firstName, username))
-		print("done")
-		conn.commit()
+    if firstName != "":
+        cursor = conn.cursor()
+        cursor.execute("UPDATE Users SET firstName=%s WHERE Email=%s", (firstName, username))
+        conn.commit()
         
-    if (lastName != ""):
+    if lastName != "":
         cursor1 = conn.cursor()
         cursor1.execute("UPDATE Users SET lastName=%s WHERE Email=%s", (lastName, username))
         conn.commit()
 
-    if (email != ""):
-		# check if email already exists in database
+    if email != "":
+        # check if email already exists in database
         cursor3 = conn.cursor()
         cursor3.execute("SELECT * FROM Users WHERE Email=%s", email)
 
@@ -806,11 +805,11 @@ def edit_setting():
         if (cursor3.rowcount == 0):
             cursor2 = conn.cursor()
             cursor2.execute("UPDATE Users SET Email=%s WHERE Email=%s", (email, username))
-            conn.commit()
+            conn.commit()e
             return redirect(url_for('logout'))
         else:
             message = "Email already exists in application!"
-            return render_template('edit-settings.html', response = message)
+            return render_template('edit-settings.html', response=message)
 
     return render_template('edit-settings.html', response="Successfully made changes")
 
