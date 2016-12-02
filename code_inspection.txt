@@ -1,0 +1,35 @@
+Adding/Removing Items
+Reader: Emily Meng, Recorder: Shiyu Qiu
+Relevant functions: add_item(), remove_item()
+Issues:
+- User can’t delete item from bill that he/she does not own
+- Different error messages given for same issues
+- User should not be able to add duplicate items (causes database error)
+- Should not use global variable to determine which user is editing bill
+- User can’t add items with spaces in between (ex: french fries, chicken wings, etc)
+
+
+Issues fixed:
+- Should not use global variable to determine which user is editing bill
+- Different error messages given for same issues
+- User can’t edit/delete item from bill that he/she does not own (by eliminating edit/delete buttons for items the users don’t own)
+- User should not be able to add duplicate items (by allowing users edit item’s quantity to prevent them from adding duplicate items multiple times)
+
+
+
+
+
+
+
+
+Display Bill
+Reader: Anna Wen, Recorder: Tin Nilar Hlaing
+Relevant functions: display_bill(), create_bill()
+Issues: 
+- Does not display new bill ID when new bill is created
+- Don’t display “None” when no new bill is created
+
+
+Issues fixed:
+- Does not display new bill ID when new bill is created
+- Don’t display “None” when no new bill is created
