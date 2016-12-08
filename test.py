@@ -333,6 +333,15 @@ class MyTest(unittest.TestCase):
 		assert "Password" in rv.data
 		print "test_settings passes!"
 
+	def test_logout(self):
+		"""Changing email"""
+		with self.app.session_transaction() as sess:
+			sess['username']='test@test2'
+
+		rv = self.app.post('/logout', data={}, follow_redirects=True)
+		assert "Forgot Password" in rv.data
+		print "test_logout passes!"
+
 
 
 if __name__ == '__main__':
