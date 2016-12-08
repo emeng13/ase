@@ -288,6 +288,15 @@ class MyTest(unittest.TestCase):
 		assert "Successfully made changes" in rv.data
 		print "test_change_name passes!"
 
+	def test_setting_invalid_email(self):
+		"""Successful change of name"""
+		with self.app.session_transaction() as sess:
+			sess['username']='test@test2'
+
+		rv = self.app.post('/edit_setting', data={'firstName': 'Annie', 'lastName': 'Wen', 'email': "asdasd"}, follow_redirects=True)
+		assert "Invalid email!" in rv.data
+		print "test_setting_invalid_email passes!"
+
 	def test_change_to_existing_email(self):
 		"""Changing to already existing email"""
 		with self.app.session_transaction() as sess:
@@ -305,6 +314,24 @@ class MyTest(unittest.TestCase):
 		rv = self.app.post('/edit_setting', data={'firstName': 'Annie', 'lastName': 'Wen', 'email': 'test@test1'}, follow_redirects=True)
 		assert "Create an account" in rv.data
 		print "test_change_email passes!"
+
+	def test_edit_user_setting(self):
+		"""Changing email"""
+		with self.app.session_transaction() as sess:
+			sess['username']='test@test2'
+
+		rv = self.app.post('/edit_user_setting', data={'firstName': 'Annie', 'lastName': 'Wen', 'email': 'test@test1'}, follow_redirects=True)
+		assert "Edit" in rv.data
+		print "test_edit_user_setting passes!"
+
+	def test_settings(self):
+		"""Changing email"""
+		with self.app.session_transaction() as sess:
+			sess['username']='test@test2'
+
+		rv = self.app.post('/settings', data={}, follow_redirects=True)
+		assert "Password" in rv.data
+		print "test_settings passes!"
 
 
 

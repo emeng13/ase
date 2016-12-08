@@ -408,8 +408,9 @@ def display_bill():
         Userlist.append(Userdict)
 
     # bill shows list of items
-    return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id, email=username)
     conn.commit()
+
+    return render_template('display_bill.html', Userbill=Userbill, Userlist=Userlist, Billid=bill_id, email=username)
 
 
 
