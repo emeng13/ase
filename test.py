@@ -342,6 +342,15 @@ class MyTest(unittest.TestCase):
 		assert "Forgot Password" in rv.data
 		print "test_logout passes!"
 
+	def test_display_edit(self):
+		"""Changing email"""
+		with self.app.session_transaction() as sess:
+			sess['username']='test@test2'
+
+		rv = self.app.post('/display_edit', data={"ItemName": 'Squash', "Quantity": "1", "Price": "1"}, follow_redirects=True)
+		assert "Editing" in rv.data
+		print "test_display_edit passes!"
+
 
 
 if __name__ == '__main__':
