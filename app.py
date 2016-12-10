@@ -729,8 +729,7 @@ def split_cost():
             user_total += (float(item['Price']) * int(item['Quantity']))
         pre_tax += (float(item['Price']) * int(item['Quantity']))
 
-
-    if (user_total > post_tax) or (user_total > pre_tax):
+    if (pre_tax > post_tax) or (user_total > post_tax) or (user_total > pre_tax):
         return render_template("400.html", message="USER BILL GREATER THAN TOTAL BILL")
 
     user_total = ((user_total / pre_tax) * post_tax) * (1 + tip)
