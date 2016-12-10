@@ -25,7 +25,7 @@ bill_id = -1
 
 def validate_name(name):
     """Check name not invalid"""
-    if not re.match("^[A-Za-z0-9]*$", name):
+    if not re.match("^[A-Za-z0-9\s]*$", name):
         return False
     return True
 
@@ -421,7 +421,8 @@ def add_item():
     """Add item to bill"""
     global bill_id
 
-    item_name = request.form['item'].strip()
+    item_name = request.form['item'].lstrip()
+    item_name = item_name.rstrip()
     quantity = request.form['quantity'].strip()
     price = request.form['price'].strip()
 
