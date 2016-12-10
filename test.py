@@ -194,8 +194,8 @@ class MyTest(unittest.TestCase):
 		with self.app.session_transaction() as sess:
 			sess['username']='test@test'
 			
-		rv = self.app.post('/split_cost', data={'Tip':'0.10', 'Total': '12'}, follow_redirects=True)
-		assert '8.07' in rv.data
+		rv = self.app.post('/split_cost', data={'Tip':'0.10', 'Total': '18'}, follow_redirects=True)
+		assert '12.10' in rv.data
 		print "test_split_cost passes!"
 
 	@patch('app.bill_id', 182)
