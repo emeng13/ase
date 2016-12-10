@@ -421,7 +421,7 @@ def add_item():
     """Add item to bill"""
     global bill_id
 
-    item_name = request.form['item']
+    item_name = request.form['item'].strip()
     quantity = request.form['quantity'].strip()
     price = request.form['price'].strip()
 
@@ -481,7 +481,7 @@ def add_item():
 @app.route('/display_edit', methods=['GET', 'POST'])
 def display_edit():
     """Edit page"""
-    item_name = request.form['item']
+    item_name = request.form['ItemName'].strip()
     quantity = request.form['Quantity'].strip()
     price = request.form['Price'].strip()
 
@@ -496,7 +496,7 @@ def edit_item():
 
     global bill_id
 
-    item_name = request.form['item']
+    item_name = request.form['ItemName'].strip()
     quantity = request.form['quantity'].strip()
     price = request.form['price'].strip()
 
@@ -727,6 +727,7 @@ def split_cost():
         if item['Email'] == username:
             user_total += (float(item['Price']) * int(item['Quantity']))
         pre_tax += (float(item['Price']) * int(item['Quantity']))
+
 
     if (pre_tax > post_tax) or (user_total > post_tax) or (user_total > pre_tax):
         return render_template("400.html", message="USER BILL GREATER THAN TOTAL BILL")
