@@ -25,7 +25,7 @@ bill_id = -1
 
 def validate_name(name):
     """Check name not invalid"""
-    if not re.match("^[A-Za-z0-9\\s]*$", name):
+    if not re.match("^[A-Za-z0-9\s]*$", name):
         return False
     return True
 
