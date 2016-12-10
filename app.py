@@ -482,7 +482,8 @@ def add_item():
 @app.route('/display_edit', methods=['GET', 'POST'])
 def display_edit():
     """Edit page"""
-    item_name = request.form['ItemName'].strip()
+    item_name = request.form['item'].lstrip()
+    item_name = item_name.rstrip()
     quantity = request.form['Quantity'].strip()
     price = request.form['Price'].strip()
 
@@ -497,7 +498,8 @@ def edit_item():
 
     global bill_id
 
-    item_name = request.form['ItemName'].strip()
+    item_name = request.form['item'].lstrip()
+    item_name = item_name.rstrip()
     quantity = request.form['quantity'].strip()
     price = request.form['price'].strip()
 
