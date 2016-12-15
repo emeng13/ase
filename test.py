@@ -227,6 +227,7 @@ class MyTest(unittest.TestCase):
 		rv = self.app.post('/add_item', data={'item': '???', 'quantity': '1', 'price': '1.00'}, follow_redirects=True)
 		assert 'INVALID INPUT VALUES (Price and Quantity have to be positive values, Item Name can only include alphanumeric characters)' in rv.data
 		assert '???' not in rv.data
+		print "second iteration test"
 		print "test_add_item_invalid_item passes!"
 
 
@@ -240,6 +241,7 @@ class MyTest(unittest.TestCase):
 		rv = self.app.post('/edit_item', data={'ItemName': 'aaa', 'quantity': '-1', 'price': '0.00'}, follow_redirects=True)
 		assert 'INVALID INPUT VALUES (Price and Quantity have to be positive values)' in rv.data
 		self.app.post('/remove_item', data={'ItemName': 'aaa'}, follow_redirects=True)
+		print "second iteration test"
 		print "test_edit_item_invalid_price_quantity passes!"
 
 	@patch('app.bill_id', 182)
@@ -252,6 +254,7 @@ class MyTest(unittest.TestCase):
 		rv = self.app.post('/edit_item', data={'ItemName': 'bbb', 'quantity': '100', 'price': '7.00'}, follow_redirects=True)
 		assert '100' in rv.data
 		self.app.post('/remove_item', data={'ItemName': 'bbb'}, follow_redirects=True)
+		print "second iteration test"
 		print "test_edit_item_successful passes!"
 
 	def test_forgot_password_unregisteredEmail(self):
@@ -259,12 +262,14 @@ class MyTest(unittest.TestCase):
 		rv = self.app.post('/checkEmail', data={'email': 'random@email.com'}, follow_redirects=True)
 		assert 'There is no account with this email address.' in rv.data
 		assert 'random@email.com' not in rv.data
+		print "second iteration test"
 		print "test_forgot_password_unregisteredEmail passes!"
 
 	def test_forgot_password_registeredEmail(self):
 		"""Do Forgot Password? with registered email"""
 		rv = self.app.post('/checkEmail', data={'email': 'test@test'}, follow_redirects=True)
 		assert "test@test" in rv.data
+		print "second iteration test"
 		print "test_forgot_password_registeredEmail passes!"
 
 	def test_change_password(self):
@@ -277,6 +282,7 @@ class MyTest(unittest.TestCase):
 		rv = self.app.post('/login', data={'email': test_user2, 'password': 'not_test'}, follow_redirects=True)
 		assert 'Bill' in rv.data
 		
+		print "second iteration test"
 		print "test_change_password passes!"
 
 	def test_change_name(self):
@@ -286,6 +292,7 @@ class MyTest(unittest.TestCase):
 
 		rv = self.app.post('/edit_setting', data={'firstName': 'Annie', 'lastName': 'Wen', 'email': ""}, follow_redirects=True)
 		assert "Successfully made changes" in rv.data
+		print "second iteration test"
 		print "test_change_name passes!"
 
 	def test_setting_invalid_email(self):
@@ -295,6 +302,7 @@ class MyTest(unittest.TestCase):
 
 		rv = self.app.post('/edit_setting', data={'firstName': 'Annie', 'lastName': 'Wen', 'email': "asdasd"}, follow_redirects=True)
 		assert "Invalid email!" in rv.data
+		print "second iteration test"
 		print "test_setting_invalid_email passes!"
 
 	def test_change_to_existing_email(self):
@@ -304,6 +312,7 @@ class MyTest(unittest.TestCase):
 
 		rv = self.app.post('/edit_setting', data={'firstName': 'Annie', 'lastName': 'Wen', 'email': 'test@test2'}, follow_redirects=True)
 		assert "Email already exists in application!" in rv.data
+		print "second iteration test"
 		print "test_change_to_existing_email passes!"
 
 	def test_change_email(self):
@@ -313,6 +322,7 @@ class MyTest(unittest.TestCase):
 
 		rv = self.app.post('/edit_setting', data={'firstName': 'Annie', 'lastName': 'Wen', 'email': 'test@test1'}, follow_redirects=True)
 		assert "Create an account" in rv.data
+		print "second iteration test"
 		print "test_change_email passes!"
 
 	def test_edit_user_setting(self):
@@ -322,6 +332,7 @@ class MyTest(unittest.TestCase):
 
 		rv = self.app.post('/edit_user_setting', data={'firstName': 'Annie', 'lastName': 'Wen', 'email': 'test@test1'}, follow_redirects=True)
 		assert "Edit" in rv.data
+		print "second iteration test"
 		print "test_edit_user_setting passes!"
 
 	def test_settings(self):
@@ -331,6 +342,7 @@ class MyTest(unittest.TestCase):
 
 		rv = self.app.post('/settings', data={}, follow_redirects=True)
 		assert "Password" in rv.data
+		print "second iteration test"
 		print "test_settings passes!"
 
 	def test_logout(self):
@@ -340,6 +352,7 @@ class MyTest(unittest.TestCase):
 
 		rv = self.app.post('/logout', data={}, follow_redirects=True)
 		assert "Forgot Password" in rv.data
+		print "second iteration test"
 		print "test_logout passes!"
 
 	def test_display_edit(self):
@@ -349,6 +362,7 @@ class MyTest(unittest.TestCase):
 
 		rv = self.app.post('/display_edit', data={"ItemName": 'Squash', "Quantity": "1", "Price": "1"}, follow_redirects=True)
 		assert "Editing" in rv.data
+		print "second iteration test"
 		print "test_display_edit passes!"
 
 
