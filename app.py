@@ -732,13 +732,18 @@ def split_cost():
     if (pre_tax > post_tax) or (user_total > post_tax) or (user_total > pre_tax):
         return render_template("400.html", message="USER BILL GREATER THAN TOTAL BILL")
 
+    initial_user_total = user_total 
+    tip_amount = (initial_user_total * tip)
     user_total = ((user_total / pre_tax) * post_tax) * (1 + tip)
+    tax_amount = (user_total- (tip_amount + initial_user_total))
     user_total = ("%.2f" % user_total)
-
+    tip_amount = ("%.2f" % tip_amount)
+    tax_amount = ("%.2f" % tax_amount)
+    
     cursor1 = conn.cursor()
     cursor1.execute("UPDATE Bill_Users SET amtOwed=%s WHERE billId=%d AND email=%s", (str(user_total), bill_id, username))
 
-    return render_template('split_cost.html', Cost=user_total)
+    return render_template('split_cost.html', initial=initial_user_total, tip=tip_amount, tax=tax_amount, Cost=user_total)
 
 #SETTINGS
 @app.route('/settings', methods=['GET', 'POST'])
